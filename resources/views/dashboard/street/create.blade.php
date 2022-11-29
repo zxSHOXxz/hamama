@@ -1,9 +1,10 @@
 @extends('dashboard.master')
 
-@section('title',' المدينة')
+@section('title','المدينة')
 
-@section('main-title','تعديل مدينة')
-@section('sub-title','تعديل مدينة')
+
+
+
 
 @section('styles')
 
@@ -20,7 +21,7 @@
                 <!-- general form elements -->
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">تعديل مدينة</h3>
+                        <h3 class="card-title">انشاء شارع</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
@@ -29,23 +30,26 @@
                        <div class="card-body">
 
                             <div class="row">
-                                <div class="form-group col-md-12">
-                                    <label for="name">تعديل اسم المدينة </label>
+                                <div class="form-group col-md-6">
+                                    <label for="name">اسم الشارع </label>
                                     <input type="text" name="name" class="form-control"
-                                        id="name" value="{{$cities->name}}"
-                                        placeholder="أدخل اسم المدينة  ">
+                                        id="name" placeholder="أدخل اسم الشارع  ">
                                 </div>
-
+                                <div class="form-group col-md-6">
+                                    <label for="name">وصف الشارع </label>
+                                    <textarea type="text" name="details" class="form-control"
+                                        id="details" placeholder="أدخل وصف الشارع  "></textarea>
+                                </div>
                             </div>
 
 
 
                             <!-- /.card-body -->
                             <div class="card-footer">
-                                <button type="button" onclick="performUpdate({{$cities->id}})"
-                                    class="btn btn-lg btn-success">تعديل</button>
+                                <button type="button" onclick="performStore()"
+                                    class="btn btn-lg btn-success">حفظ</button>
 
-                                    <a href="{{route('cities.index')}}" type="submit"
+                                    <a href="{{route('street.index')}}" type="submit"
                                     class="btn btn-lg btn-secondary">إلغاء</a>
                             </div>
                     </form>
@@ -66,11 +70,11 @@
 
 @section('scripts')
     <script>
-
-        function performUpdate(id){
+        function performStore(){
             let formData = new FormData();
             formData.append('name',document.getElementById('name').value);
-            storeRoute('/cms/admin/cities_update/'+id , formData);
+            formData.append('details',document.getElementById('details').value);
+            store('/cms/admin/streets' ,formData );
 
         }
         </script>

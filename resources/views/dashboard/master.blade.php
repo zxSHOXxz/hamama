@@ -224,7 +224,7 @@
             </ul>
           </li>
             <!-- نهاية القائمة  -->
-            
+
             <!-- القائمة  -->
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
@@ -274,14 +274,57 @@
                 </a>
               </li>
             </ul>
-          
           </li>
             <!-- نهاية القائمة  -->
 
           <li class="nav-header">محتوى النظام</li>
-
-          <li class="nav-header">الاعدادات</li>
-
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon far fa-envelope"></i>
+              <p>
+                المدن
+              <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('cities.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>عرض المدن</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('cities.create')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>إضافة مدينة</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                  <i class="nav-icon far fa-envelope"></i>
+                  <p>
+                      الشوارع
+                      <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{route('streets.index')}}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>عرض الشوارع</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('streets.create')}}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>إضافة شارع</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-header">الاعدادات</li>
 
 
         </ul>
