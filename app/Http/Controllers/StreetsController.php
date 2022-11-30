@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\city;
 use App\Models\Street;
 use Illuminate\Http\Request;
 
@@ -12,10 +13,19 @@ class StreetsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function indexStreets($id)
+    {
+        $streets = Street::where('city_id', $id)->orderBy('created_at', 'desc')->paginate(5);
+        return response()->view('dashboard.street.index', compact('streets', 'id'));
+    }
+    public function createStreets($id)
+    {
+        return response()->view('dashboard.street.create', compact('id'));
+    }
     public function index()
     {
         //
-        $streets = Street::orderBy('id', 'desc')->paginate(5);
+        $streets = Street::with('city')->orderBy('id', 'desc')->paginate(5);
         return view('dashboard.street.index', compact('streets'));
     }
 
@@ -27,7 +37,8 @@ class StreetsController extends Controller
     public function create()
     {
         //
-        return view('dashboard.street.create');
+        $cities = city::all();
+        return view('dashboard.street.create', compact('cities'));
     }
 
     /**
@@ -46,20 +57,20 @@ class StreetsController extends Controller
                 'name.min' => 'لا يقبل أقل من 3 حروف',
                 'name.max' => 'لا يقبل أكثر من 20 حروف',
             ]);
-            if (! $validator->fails()) {
-                $street = new Street();
-                $street->name = $request->get('name');
-                $street->details = $request->get('details');
-                $isSaved =  $street->save();
-                if($isSaved){
-                    return response()->json(['icon' => 'success' , 'title' => "تمت الإضافة بنجاح"] , 200);
-                }else{
-                    return response()->json(['icon' => 'error' , 'title' => "لم تتم عملية الاضافة"] , 400);
-                }
+        if (!$validator->fails()) {
+            $street = new Street();
+            $street->name = $request->get('name');
+            $street->details = $request->get('details');
+            $street->city_id = $request->get('city_id');
+            $isSaved = $street->save();
+            if ($isSaved) {
+                return response()->json(['icon' => 'success', 'title' => "تمت الإضافة بنجاح"], 200);
+            } else {
+                return response()->json(['icon' => 'error', 'title' => "لم تتم عملية الاضافة"], 400);
             }
-            else {
-                return response()->json(['icon' => 'error' , 'title' => $validator->getMessageBag()->first()] , 400);
-            }
+        } else {
+            return response()->json(['icon' => 'error', 'title' => $validator->getMessageBag()->first()], 400);
+        }
     }
 
     /**
@@ -83,8 +94,9 @@ class StreetsController extends Controller
     {
         //
 
-        $streets = Street::findOrFail($id);
-        return response()->view('dashboard.street.edit' , compact('streets'));
+        $streets = Street::with('city')->findOrFail($id);
+        $cities = city::all();
+        return response()->view('dashboard.street.edit', compact('streets', 'cities'));
     }
 
     /**
@@ -96,30 +108,28 @@ class StreetsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = validator($request->all() , [
+        $validator = validator($request->all(), [
             'name' => 'required',
         ]);
 
-        if(! $validator->fails()){
+        if (!$validator->fails()) {
             $street = Street::findOrFail($id);
             $street->name = $request->get('name');
-            // $street->details = $request->get('details');
+            $street->details = $request->get('details');
+            $street->city_id = $request->get('city_id');
             $isUpdate = $street->save();
 
-            return ['redirect' =>route('streets.index')];
+            return ['redirect' => route('streets.index')];
 
-            if($isUpdate){
-                return response()->json(['icon' => 'success' , 'title' => "تمت عملية التعديل بنجاح"] , 200);
+            if ($isUpdate) {
+                return response()->json(['icon' => 'success', 'title' => "تمت عملية التعديل بنجاح"], 200);
+            } else {
+                return response()->json(['icon' => 'error', 'title' => "فشلت عملية التعديل "], 400);
+
             }
-            else{
-                return response()->json(['icon' => 'error' , 'title' => "فشلت عملية التعديل "] , 400);
-
-            }
+        } else {
+            return response()->json(['icon' => 'error', 'title' => $validator->getMessageBag()->first()], 400);
         }
-        else{
-            return response()->json(['icon' => 'error' , 'title' => $validator->getMessageBag()->first()] , 400);
-        }
-
     }
 
     /**
@@ -128,8 +138,9 @@ class StreetsController extends Controller
      * @param  \App\Models\Street  $street
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Street $street)
+    public function destroy($id)
     {
-        //
+        $street = Street::destroy($id);
+        return response()->json(['icon' => 'success', 'title' => 'Deleted is Successfully'], $street ? 200 : 400);
     }
 }

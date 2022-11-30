@@ -12,10 +12,11 @@ class CityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         //
-        $cities = City::orderBy('id' , 'desc')->paginate(5);
+        $cities = City::withCount('streets')->orderBy('id', 'desc')->paginate(5);
         return view('dashboard.city.index', compact('cities'));
     }
 
@@ -39,28 +40,26 @@ class CityController extends Controller
     public function store(Request $request)
     {
         //
-        $validator = validator($request->all() , [
+        $validator = validator($request->all(), [
             'name' => 'required|string|min:3|max:20',
-        ] , [
-            'name.required' => 'الإسم مطلوب' ,
-            'name.min' => 'لا يقبل أقل من 3 حروف' ,
-            'name.max' => 'لا يقبل أكثر من 20 حروف'
+        ], [
+            'name.required' => 'الإسم مطلوب',
+            'name.min' => 'لا يقبل أقل من 3 حروف',
+            'name.max' => 'لا يقبل أكثر من 20 حروف',
         ]);
 
-        if(! $validator->fails()){
+        if (!$validator->fails()) {
             $cities = new City();
             $cities->name = $request->get('name');
             $isSaved = $cities->save();
 
-            if($isSaved){
-                return response()->json(['icon' => 'success' , 'title' => "تمت الإضافة بنجاح"] , 200);
+            if ($isSaved) {
+                return response()->json(['icon' => 'success', 'title' => "تمت الإضافة بنجاح"], 200);
+            } else {
+                return response()->json(['icon' => 'error', 'title' => "فشلت عملية التخزين"], 400);
             }
-            else{
-                return response()->json(['icon' => 'error' , 'title' => "فشلت عملية التخزين"], 400);
-            }
-        }
-        else {
-            return response()->json(['icon' => 'error' , 'title' => $validator->getMessageBag()->first()] , 400);
+        } else {
+            return response()->json(['icon' => 'error', 'title' => $validator->getMessageBag()->first()], 400);
         }
     }
 
@@ -84,7 +83,7 @@ class CityController extends Controller
     public function edit($id)
     {
         $cities = City::findOrFail($id);
-        return response()->view('dashboard.city.edit' , compact('cities'));
+        return response()->view('dashboard.city.edit', compact('cities'));
     }
 
     /**
@@ -96,28 +95,26 @@ class CityController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = validator($request->all() , [
+        $validator = validator($request->all(), [
             'name' => 'required',
         ]);
 
-        if(! $validator->fails()){
+        if (!$validator->fails()) {
 
             $cities = City::findOrFail($id);
             $cities->name = $request->get('name');
             $isUpdate = $cities->save();
 
-            return ['redirect' =>route('cities.index')];
+            return ['redirect' => route('cities.index')];
 
-            if($isUpdate){
-                return response()->json(['icon' => 'success' , 'title' => "تمت عملية التعديل بنجاح"] , 200);
-            }
-            else{
-                return response()->json(['icon' => 'error' , 'title' => "فشلت عملية التعديل "] , 400);
+            if ($isUpdate) {
+                return response()->json(['icon' => 'success', 'title' => "تمت عملية التعديل بنجاح"], 200);
+            } else {
+                return response()->json(['icon' => 'error', 'title' => "فشلت عملية التعديل "], 400);
 
             }
-        }
-        else{
-            return response()->json(['icon' => 'error' , 'title' => $validator->getMessageBag()->first()] , 400);
+        } else {
+            return response()->json(['icon' => 'error', 'title' => $validator->getMessageBag()->first()], 400);
         }
 
     }
@@ -128,8 +125,10 @@ class CityController extends Controller
      * @param  \App\Models\city  $city
      * @return \Illuminate\Http\Response
      */
-    public function destroy(city $city)
+    public function destroy($id)
     {
-        //
+        $cities = City::destroy($id);
+        return response()->json(['icon' => 'success', 'title' => 'Deleted is Successfully'], $cities ? 200 : 400);
+
     }
 }
