@@ -108,28 +108,31 @@ class StreetsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = validator($request->all(), [
-            'name' => 'required',
-        ]);
-
-        if (!$validator->fails()) {
-            $street = Street::findOrFail($id);
-            $street->name = $request->get('name');
-            $street->details = $request->get('details');
-            $street->city_id = $request->get('city_id');
-            $isUpdate = $street->save();
-
-            return ['redirect' => route('streets.index')];
-
-            if ($isUpdate) {
-                return response()->json(['icon' => 'success', 'title' => "تمت عملية التعديل بنجاح"], 200);
-            } else {
-                return response()->json(['icon' => 'error', 'title' => "فشلت عملية التعديل "], 400);
-
-            }
-        } else {
-            return response()->json(['icon' => 'error', 'title' => $validator->getMessageBag()->first()], 400);
+        if ($id) {
+            echo($id);
+            // return ['redirect' => route('streets.index')];
         }
+
+        // $validator = validator($request->all(), [
+        //     'name' => 'required',
+        // ]);
+        // if (!$validator->fails()) {
+        //     $street = Street::findOrFail($id);
+        //     $street->name = $request->get('name');
+        //     $street->details = $request->get('details');
+        //     $street->city_id = $request->get('city_id');
+        //     $isUpdate = $street->save();
+        //     return ['redirect' => route('streets.index')];
+
+        //     if ($isUpdate) {
+        //         return response()->json(['icon' => 'success', 'title' => "تمت عملية التعديل بنجاح"], 200);
+        //     } else {
+        //         return response()->json(['icon' => 'error', 'title' => "فشلت عملية التعديل "], 400);
+
+        //     }
+        // } else {
+        //     return response()->json(['icon' => 'error', 'title' => $validator->getMessageBag()->first()], 400);
+        // }
     }
 
     /**
