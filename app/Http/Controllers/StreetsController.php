@@ -20,13 +20,14 @@ class StreetsController extends Controller
     }
     public function createStreets($id)
     {
-        return response()->view('dashboard.street.create', compact('id'));
+        $cities = city::all();
+        return response()->view('dashboard.street.createInCity', compact('id','cities'));
     }
     public function index()
     {
         //
         $streets = Street::with('city')->orderBy('id', 'desc')->paginate(5);
-        return view('dashboard.street.index', compact('streets'));
+        return view('dashboard.street.indexAll', compact('streets'));
     }
 
     /**
@@ -108,31 +109,24 @@ class StreetsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if ($id) {
-            echo($id);
-            // return ['redirect' => route('streets.index')];
+        $validator = validator($request->all(), [
+            'name' => 'required',
+        ]);
+        if (!$validator->fails()) {
+            $street = Street::with('city')->findOrFail($id);
+            $street->name = $request->get('name');
+            $street->details = $request->get('details');
+            $street->city_id = $request->get('city_id');
+            $isUpdate = $street->save();
+            return ['redirect' => route('streets.index')];
+            if ($isUpdate) {
+                return response()->json(['icon' => 'success', 'title' => "تمت عملية التعديل بنجاح"], 200);
+            } else {
+                return response()->json(['icon' => 'error', 'title' => "فشلت عملية التعديل "], 400);
+            }
+        } else {
+            return response()->json(['icon' => 'error', 'title' => $validator->getMessageBag()->first()], 400);
         }
-
-        // $validator = validator($request->all(), [
-        //     'name' => 'required',
-        // ]);
-        // if (!$validator->fails()) {
-        //     $street = Street::findOrFail($id);
-        //     $street->name = $request->get('name');
-        //     $street->details = $request->get('details');
-        //     $street->city_id = $request->get('city_id');
-        //     $isUpdate = $street->save();
-        //     return ['redirect' => route('streets.index')];
-
-        //     if ($isUpdate) {
-        //         return response()->json(['icon' => 'success', 'title' => "تمت عملية التعديل بنجاح"], 200);
-        //     } else {
-        //         return response()->json(['icon' => 'error', 'title' => "فشلت عملية التعديل "], 400);
-
-        //     }
-        // } else {
-        //     return response()->json(['icon' => 'error', 'title' => $validator->getMessageBag()->first()], 400);
-        // }
     }
 
     /**

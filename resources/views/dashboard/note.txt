@@ -171,6 +171,5 @@ relation tables
   <td><a href="{{route('indexArticle',['id'=>$category->id])}}"
                         class="btn btn-info">({{$category->articles_count}})
                         article/s</a> </td>
-
-
-6- button  create in top of index blade
+                        
+6- button create in top of index blade

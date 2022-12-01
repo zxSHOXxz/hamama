@@ -1,8 +1,8 @@
 @extends('dashboard.master')
-@section('title', 'محافظة')
+@section('title', 'الشارع')
 
-@section('main-title', 'عرض مدينة')
-@section('sub-title', 'عرض مدينة')
+@section('main-title', 'عرض الشارع')
+@section('sub-title', 'عرض الشارع')
 
 @section('styles')
     <style>
@@ -18,9 +18,11 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">محافظة</h3>
-                            <a href="{{ route('cities.create') }}" type="submit" class="btn btn-lg btn-success">إضافة محافظة
-                                جديدة</a>
+                            <h3 class="card-title">المدينة</h3>
+                            <a href="{{ route('streets.create') }}" type="submit" class="btn btn-lg btn-success">إضافة شارع
+                                جديد</a>
+                            {{-- <a href="{{ route('createStreet' , $id) }}" type="submit" class="btn btn-lg btn-success">إضافة شارع
+                                جديد</a> --}}
                             <div class="card-tools">
 
                             </div>
@@ -32,30 +34,25 @@
                             <table class="table table-hover table-bordered table-striped text-nowrap text-center">
                                 <thead>
                                     <tr class="bg-info">
-                                        <th>رقم محافظة</th>
-                                        <th>اسم محافظة </th>
-                                        <th> الشوارع </th>
+                                        <th>رقم الشارع</th>
+                                        <th>اسم الشارع </th>
+                                        <th>اسم المدينة</th>
                                         <th>الاعدادات</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($cities as $city)
+                                    @foreach ($streets as $street)
                                         <tr>
-                                            <td>{{ $city->id }}</td>
-                                            <td>{{ $city->name }}</td>
-                                            <td><a href="{{ route('indexStreet', ['id' => $city->id]) }}"
-                                                    class="btn btn-info">({{ $city->streets_count }})
-                                                    شوارع</a> </td>
-
+                                            <td>{{ $street->id }}</td>
+                                            <td>{{ $street->name }}</td>
+                                            <td>{{ $street->city->name }}</td>
                                             <td>
-                                                
                                                 <div class="btn group">
-                                                    <a href="{{ route('cities.edit', $city->id) }}" class="btn btn-primary"
-                                                        title="Edit">
+                                                    <a href="{{ route('streets.edit', $street->id) }}"
+                                                        class="btn btn-primary" title="Edit">
                                                         تعديل
                                                     </a>
-
-                                                    <a href="#" onclick="performDestroy({{$city->id}},this)"
+                                                    <a href="#" onclick="performDestroy({{$street->id}} , this)"
                                                         class="btn btn-danger" title="Delete">
                                                         حذف
                                                     </a>
@@ -71,7 +68,9 @@
 
                             </div>
                             <!-- /.card-body -->
-                            {{ $cities->links() }}
+                            @if ($streets)
+                                {{ $streets->links() }}
+                            @endif
                         </div>
                         <!-- /.card -->
                     </div>
@@ -86,7 +85,7 @@
 
     <script>
         function performDestroy(id, referance) {
-            let url = '/cms/admin/cities/' + id;
+            let url = '/cms/admin/streets/' + id;
             confirmDestroy(url, referance);
         }
     </script>

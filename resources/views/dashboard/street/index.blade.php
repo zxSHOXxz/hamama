@@ -18,8 +18,10 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            {{-- <h3 class="card-title">المدينة</h3> --}}
-                            <a href="{{ route('streets.create') }}" type="submit" class="btn btn-lg btn-success">إضافة شارع
+                            <h3 class="card-title">المدينة</h3>
+                            {{-- <a href="{{ route('streets.create') }}" type="submit" class="btn btn-lg btn-success">إضافة شارع
+                                جديد</a> --}}
+                            <a href="{{ route('createStreet' , $id) }}" type="submit" class="btn btn-lg btn-success">إضافة شارع
                                 جديد</a>
                             <div class="card-tools">
 
@@ -50,8 +52,7 @@
                                                         class="btn btn-primary" title="Edit">
                                                         تعديل
                                                     </a>
-
-                                                    <a href="#" onclick="performDestroy({{ $street->id }} , this)"
+                                                    <a href="#" onclick="performDestroy({{$street->id}} , this)"
                                                         class="btn btn-danger" title="Delete">
                                                         حذف
                                                     </a>

@@ -42,7 +42,7 @@
                                         <label for="city_id"> المدينة </label>
                                         <select class="form-control" name="city_id" style="width: 100%;" id="city_id"
                                             aria-label=".form-select-sm example">
-                                            <option selected> {{ $streets->city->name }} </option>
+                                            <option selected value="{{ $streets->city->id }}"> {{ $streets->city->name }} </option>
                                             @foreach ($cities as $city)
                                                 @if ($city->id == $streets->city->id)
                                                     @continue
@@ -87,7 +87,7 @@
             formData.append('name', document.getElementById('name').value);
             formData.append('details', document.getElementById('details').value);
             formData.append('city_id', document.getElementById('city_id').value);
-            storeRoute('/cms/admin/streets_update/{id}' + id, formData);
+            storeRoute('/cms/admin/streets_update/' + id, formData);
         }
     </script>
 @endsection
