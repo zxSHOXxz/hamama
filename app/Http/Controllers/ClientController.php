@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\client;
+use App\Models\city;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ClientController extends Controller
 {
@@ -15,6 +18,8 @@ class ClientController extends Controller
     public function index()
     {
         //
+        $clients = client::orderBy('id', 'desc')->paginate(5);
+        return response()->view('dashboard.clients.index', compact('clients'));
     }
 
     /**
@@ -25,6 +30,8 @@ class ClientController extends Controller
     public function create()
     {
         //
+        $cities = city::all();
+        return response()->view('dashboard.clients.create', compact('cities'));
     }
 
     /**
@@ -36,6 +43,49 @@ class ClientController extends Controller
     public function store(Request $request)
     {
         //
+        $validator = validator($request->all(), [
+            // 'first_name' => 'required',
+            // 'last_name' => 'required',
+            // 'mobile' => 'required',
+            'email' => 'required|email',
+            // 'image'=>"required|image|max:2048|mimes:png,jpg,jpeg,pdf",
+        ]);
+        if (!$validator->fails()) {
+            $clients = new client();
+            $clients->email = $request->get('email');
+            $clients->password = Hash::make($request->get('password'));
+            $isSaved = $clients->save();
+            if ($isSaved) {
+                $users = new User();
+
+                if (request()->hasFile('image')) {
+
+                    $image = $request->file('image');
+
+                    $imageName = time() . 'image.' . $image->getClientOriginalExtension();
+
+                    $image->move('storage/images/admin', $imageName);
+
+                    $users->image = $imageName;
+                }
+
+                $users->name = $request->get('first_name') . " " . $request->get('last_name');
+                $users->mobile = $request->get('mobile');
+                $users->gender = $request->get('gender');
+                $users->address = $request->get('address');
+
+                $users->actor()->associate($clients);
+                $isSaved = $users->save();
+
+                return response()->json(['icon' => 'success', 'title' => 'تمت الإضافة بنجاح'], 200);
+
+            } else {
+                return response()->json(['icon' => 'error', 'title' => 'فشلت عملية الاضافة '], 400);
+            }
+
+        } else {
+            return response()->json(['icon' => 'error', 'title' => $validator->getMessageBag()->first()], 400);
+        }
     }
 
     /**
@@ -55,9 +105,11 @@ class ClientController extends Controller
      * @param  \App\Models\client  $client
      * @return \Illuminate\Http\Response
      */
-    public function edit(client $client)
+    public function edit($id)
     {
         //
+        $clients = client::findOrFail($id);
+        return response()->view('dashboard.clients.edit', compact('clients'));
     }
 
     /**
@@ -67,9 +119,40 @@ class ClientController extends Controller
      * @param  \App\Models\client  $client
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, client $client)
+    public function update(Request $request, $id)
     {
         //
+        $validator = validator($request->all(), [
+            // 'first_name' => 'required',
+            // 'last_name' => 'required',
+            // 'mobile' => 'required',
+            'email' => 'required|email',
+            // 'image'=>"required|image|max:2048|mimes:png,jpg,jpeg,pdf",
+        ]);
+        if (!$validator->fails()) {
+            $clients = client::findOrFail($id);
+            $clients->email = $request->get('email');
+            $isSaved = $clients->save();
+            if ($isSaved) {
+                $users = $clients->user;
+                $users->name = $request->get('name');
+                $users->mobile = $request->get('mobile');
+                $users->gender = $request->get('gender');
+                $users->address = $request->get('address');
+                $users->actor()->associate($clients);
+                $isUpdated = $users->save();
+                if ($isUpdated) {
+                    return ['redirect' => route('clients.index')];
+                }
+                return response()->json(['icon' => 'success', 'title' => 'تمت الإضافة بنجاح'], 200);
+
+            } else {
+                return response()->json(['icon' => 'error', 'title' => 'فشلت عملية الاضافة '], 400);
+            }
+
+        } else {
+            return response()->json(['icon' => 'error', 'title' => $validator->getMessageBag()->first()], 400);
+        }
     }
 
     /**
@@ -78,8 +161,13 @@ class ClientController extends Controller
      * @param  \App\Models\client  $client
      * @return \Illuminate\Http\Response
      */
-    public function destroy(client $client)
+    public function destroy($id)
     {
         //
+        $clients = client::findOrFail($id);
+        $users = $clients->user;
+        $deleteUser = User::destroy($users->id);
+        $deleteclient = client::destroy($id);
+        return response()->json(['icon' => 'success', 'title' => 'Deleted is Successfully'], $clients ? 200 : 400);
     }
 }

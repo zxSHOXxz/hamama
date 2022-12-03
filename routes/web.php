@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CaptainController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\StreetsController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,4 +37,7 @@ Route::prefix('cms/admin')->group(function () {
 
     Route::resource('captains', CaptainController::class);
     Route::post('captains_update/{id}', [CaptainController::class, 'update'])->name('captains_update');
+
+    Route::resource('clients', ClientController::class);
+    Route::post('clients_update/{id}', [ClientController::class, 'update'])->name('clients_update');
 });

@@ -1,6 +1,6 @@
 @extends('dashboard.master')
 
-@section('title', 'الكابتن')
+@section('title', 'الزبون')
 
 
 
@@ -21,7 +21,7 @@
                     <!-- general form elements -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">انشاء الكابتن</h3>
+                            <h3 class="card-title">انشاء الزبون</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
@@ -32,13 +32,13 @@
                                     <div class="form-group col-md-6">
                                         <label for="first_name">الاسم الأول </label>
                                         <input type="text" name="first_name" class="form-control" id="first_name"
-                                            placeholder=" أدخل اسم الكابتن الأول ">
+                                            placeholder=" أدخل اسم الزبون الأول ">
                                     </div>
 
                                     <div class="form-group col-md-6">
                                         <label for="last_name">الاسم الأخير </label>
                                         <input type="text" name="last_name" class="form-control" id="last_name"
-                                            placeholder="أدخل اسم الكابتن الأخير ">
+                                            placeholder="أدخل اسم الزبون الأخير ">
                                     </div>
                                 </div>
 
@@ -47,7 +47,7 @@
                                     <div class="form-group col-md-6">
                                         <label for="email"> الايميل </label>
                                         <input type="email" name="email" class="form-control" id="email"
-                                            placeholder="أدخل ايميل الكابتن  ">
+                                            placeholder="أدخل ايميل الزبون  ">
                                     </div>
 
                                     <div class="form-group col-md-6">
@@ -63,7 +63,7 @@
                                     <div class="form-group col-md-6">
                                         <label for="mobile"> رقم الجوال </label>
                                         <input type="text" name="mobile" class="form-control" id="mobile"
-                                            placeholder="أدخل ايميل الكابتن  ">
+                                            placeholder="أدخل ايميل الزبون  ">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="gender"> الجنس</label>
@@ -85,7 +85,7 @@
                                     <div class="form-group col-md-6">
                                         <label for="adress"> العنوان </label>
                                         <input type="text" name="address" class="form-control" id="address"
-                                            placeholder="أدخل عنوان الكابتن  ">
+                                            placeholder="أدخل عنوان الزبون  ">
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
@@ -125,7 +125,7 @@
             formData.append('gender', document.getElementById('gender').value);
             formData.append('address', document.getElementById('address').value);
             formData.append('image', document.getElementById('image').files[0]);
-            store('/cms/admin/captains', formData);
+            store('/cms/admin/clients', formData);
         }
     </script>
 @endsection

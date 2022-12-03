@@ -270,13 +270,13 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ route('clients.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>عرض المستخدمين</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ route('clients.create') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>إضافة مستخدم</p>
                                     </a>
