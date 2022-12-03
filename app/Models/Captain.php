@@ -3,12 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class Admin extends Authenticatable
+class Captain extends Model
 {
     use HasFactory;
-
     public function city()
     {
         return $this->belongsTo(City::class, 'city_id', 'id');

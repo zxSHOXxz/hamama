@@ -1,6 +1,6 @@
 @extends('dashboard.master')
 
-@section('title', 'المشرف')
+@section('title', 'الكابتن')
 
 
 
@@ -21,7 +21,7 @@
                     <!-- general form elements -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">انشاء المشرف</h3>
+                            <h3 class="card-title">انشاء الكابتن</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
@@ -125,7 +125,7 @@
             formData.append('gender', document.getElementById('gender').value);
             formData.append('address', document.getElementById('address').value);
             formData.append('image', document.getElementById('image').files[0]);
-            store('/cms/admin/admins', formData);
+            store('/cms/admin/captains', formData);
         }
     </script>
 @endsection

@@ -1,8 +1,8 @@
 @extends('dashboard.master')
-@section('title', 'المشرف')
+@section('title', 'الكابتن')
 
-@section('main-title', 'عرض المشرف')
-@section('sub-title', 'عرض المشرف')
+@section('main-title', 'عرض الكابتن')
+@section('sub-title', 'عرض الكابتن')
 
 @section('styles')
     <style>
@@ -19,7 +19,7 @@
                     <div class="card">
                         <div class="card-header">
                             {{-- <h3 class="card-title">المشرف</h3> --}}
-                            <a href="{{ route('admins.create') }}" type="submit" class="btn btn-lg btn-success">إضافة مشرف
+                            <a href="{{ route('captains.create') }}" type="submit" class="btn btn-lg btn-success">إضافة كابتن
                                 جديد</a>
                             <div class="card-tools">
 
@@ -32,7 +32,7 @@
                             <table class="table table-hover table-bordered table-striped text-nowrap text-center">
                                 <thead>
                                     <tr class="bg-info">
-                                        <th>رقم المشرف</th>
+                                        <th>رقم الكابتن</th>
                                         <th> الصورة </th>
                                         <th>الأسم </th>
                                         <th>الايميل </th>
@@ -42,26 +42,26 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($admins as $admin)
+                                    @foreach ($captains as $captain)
                                         <tr>
-                                            <td>{{ $admin->id }}</td>
+                                            <td>{{ $captain->id }}</td>
                                             <td>
                                                 <img class="img-circle img-bordered-sm"
-                                                    src="{{ asset('storage/images/admin/' . $admin->user->image) }}"
+                                                    src="{{ asset('storage/images/admin/' . $captain->user->image) }}"
                                                     width="50" height="50" alt="User Image">
                                             </td>
-                                            <td>{{ $admin->user ? $admin->user->name : '' }}</td>
-                                            <td>{{ $admin->email }}</td>
-                                            <td>{{ $admin->user ? $admin->user->mobile : '' }}</td>
-                                            <td>{{ $admin->user->gender == 'male' ? 'ذكر' : 'انثى' }}</td>
+                                            <td>{{ $captain->user ? $captain->user->name : '' }}</td>
+                                            <td>{{ $captain->email }}</td>
+                                            <td>{{ $captain->user ? $captain->user->mobile : '' }}</td>
+                                            <td>{{ $captain->user->gender == 'male' ? 'ذكر' : 'انثى' }}</td>
                                             <td>
                                                 <div class="btn group">
-                                                    <a href="{{ route('admins.edit', $admin->id) }}" class="btn btn-primary"
-                                                        title="Edit">
+                                                    <a href="{{ route('captains.edit', $captain->id) }}"
+                                                        class="btn btn-primary" title="Edit">
                                                         تعديل
                                                     </a>
 
-                                                    <a href="#" onclick="performDestroy({{ $admin->id }} , this)"
+                                                    <a href="#" onclick="performDestroy({{ $captain->id }} , this)"
                                                         class="btn btn-danger" title="Delete">
                                                         حذف
                                                     </a>
@@ -77,7 +77,7 @@
 
                             </div>
                             <!-- /.card-body -->
-                            {{ $admins->links() }}
+                            {{ $captains->links() }}
                         </div>
                         <!-- /.card -->
                     </div>
@@ -92,7 +92,7 @@
 
     <script>
         function performDestroy(id, referance) {
-            let url = '/cms/admin/admins/' + id;
+            let url = '/cms/admin/captains/' + id;
             confirmDestroy(url, referance);
         }
     </script>

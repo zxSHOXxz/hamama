@@ -1,4 +1,7 @@
 <?php
+
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CaptainController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\StreetsController;
 use Illuminate\Support\Facades\Route;
@@ -30,4 +33,7 @@ Route::prefix('cms/admin')->group(function () {
 
     Route::resource('admins', AdminController::class);
     Route::post('admins_update/{id}', [AdminController::class, 'update'])->name('admins_update');
+
+    Route::resource('captains', CaptainController::class);
+    Route::post('captains_update/{id}', [CaptainController::class, 'update'])->name('captains_update');
 });

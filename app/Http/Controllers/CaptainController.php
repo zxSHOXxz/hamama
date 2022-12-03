@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Admin;
-use App\Models\City;
+use App\Models\Captain;
+use App\Models\city;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class AdminController extends Controller
+class CaptainController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +18,8 @@ class AdminController extends Controller
     public function index()
     {
         //
-        $admins = Admin::orderBy('id', 'desc')->paginate(5);
-        return response()->view('dashboard.admin.index', compact('admins'));
+        $captains = Captain::orderBy('id', 'desc')->paginate(5);
+        return response()->view('dashboard.captain.index', compact('captains'));
     }
 
     /**
@@ -30,8 +30,8 @@ class AdminController extends Controller
     public function create()
     {
         //
-        $cities = City::all();
-        return response()->view('dashboard.admin.create', compact('cities'));
+        $cities = city::all();
+        return response()->view('dashboard.captain.create', compact('cities'));
     }
 
     /**
@@ -42,6 +42,7 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
+        //
         $validator = validator($request->all(), [
             // 'first_name' => 'required',
             // 'last_name' => 'required',
@@ -50,10 +51,10 @@ class AdminController extends Controller
             // 'image'=>"required|image|max:2048|mimes:png,jpg,jpeg,pdf",
         ]);
         if (!$validator->fails()) {
-            $admins = new Admin();
-            $admins->email = $request->get('email');
-            $admins->password = Hash::make($request->get('password'));
-            $isSaved = $admins->save();
+            $captains = new Captain();
+            $captains->email = $request->get('email');
+            $captains->password = Hash::make($request->get('password'));
+            $isSaved = $captains->save();
             if ($isSaved) {
                 $users = new User();
 
@@ -73,7 +74,7 @@ class AdminController extends Controller
                 $users->gender = $request->get('gender');
                 $users->address = $request->get('address');
 
-                $users->actor()->associate($admins);
+                $users->actor()->associate($captains);
                 $isSaved = $users->save();
 
                 return response()->json(['icon' => 'success', 'title' => 'تمت الإضافة بنجاح'], 200);
@@ -90,10 +91,10 @@ class AdminController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\admin  $admin
+     * @param  \App\Models\Captain  $Captain
      * @return \Illuminate\Http\Response
      */
-    public function show(admin $admin)
+    public function show($id)
     {
         //
     }
@@ -101,25 +102,26 @@ class AdminController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\admin  $admin
+     * @param  \App\Models\Captain  $Captain
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         //
-        $admins = Admin::findOrFail($id);
-        return response()->view('dashboard.admin.edit', compact('admins'));
+        $captains = Captain::findOrFail($id);
+        return response()->view('dashboard.captain.edit', compact('captains'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\admin  $admin
+     * @param  \App\Models\Captain  $Captain
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
+        //
         $validator = validator($request->all(), [
             // 'first_name' => 'required',
             // 'last_name' => 'required',
@@ -128,19 +130,19 @@ class AdminController extends Controller
             // 'image'=>"required|image|max:2048|mimes:png,jpg,jpeg,pdf",
         ]);
         if (!$validator->fails()) {
-            $admins = Admin::findOrFail($id);
-            $admins->email = $request->get('email');
-            $isSaved = $admins->save();
+            $captains = Captain::findOrFail($id);
+            $captains->email = $request->get('email');
+            $isSaved = $captains->save();
             if ($isSaved) {
-                $users = $admins->user;
+                $users = $captains->user;
                 $users->name = $request->get('name');
                 $users->mobile = $request->get('mobile');
                 $users->gender = $request->get('gender');
                 $users->address = $request->get('address');
-                $users->actor()->associate($admins);
+                $users->actor()->associate($captains);
                 $isUpdated = $users->save();
                 if ($isUpdated) {
-                    return ['redirect' => route('admins.index')];
+                    return ['redirect' => route('captains.index')];
                 }
                 return response()->json(['icon' => 'success', 'title' => 'تمت الإضافة بنجاح'], 200);
 
@@ -156,15 +158,16 @@ class AdminController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\admin  $admin
+     * @param  \App\Models\Captain  $Captain
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    { //
-        $admins = Admin::findOrFail($id);
-        $users = $admins->user;
+    {
+        //
+        $captains = Captain::findOrFail($id);
+        $users = $captains->user;
         $deleteUser = User::destroy($users->id);
-        $deleteAdmin = Admin::destroy($id);
-        return response()->json(['icon' => 'success', 'title' => 'Deleted is Successfully'], $admins ? 200 : 400);
+        $deleteCaptain = Captain::destroy($id);
+        return response()->json(['icon' => 'success', 'title' => 'Deleted is Successfully'], $captains ? 200 : 400);
     }
 }
