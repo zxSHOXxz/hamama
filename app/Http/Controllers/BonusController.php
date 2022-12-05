@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\bonus;
+use App\Models\city;
 use Illuminate\Http\Request;
 
 class BonusController extends Controller
@@ -15,6 +16,8 @@ class BonusController extends Controller
     public function index()
     {
         //
+        $bonuses = bonus::with('city')->orderBy('id', 'desc')->paginate(5);
+        return view('dashboard.bonus.indexAll', compact('bonuses'));
     }
 
     /**
@@ -25,6 +28,9 @@ class BonusController extends Controller
     public function create()
     {
         //
+        $cities = city::all();
+        return view('dashboard.bonus.create', compact('cities'));
+
     }
 
     /**
@@ -36,6 +42,25 @@ class BonusController extends Controller
     public function store(Request $request)
     {
         //
+        $validator = validator($request->all(),
+            [
+                'price' => 'required|string',
+            ], [
+                'price.required' => 'القيمة مطلوبة',
+            ]);
+        if (!$validator->fails()) {
+            $bonus = new bonus();
+            $bonus->price = $request->get('price');
+            $bonus->city_id = $request->get('city_id');
+            $isSaved = $bonus->save();
+            if ($isSaved) {
+                return response()->json(['icon' => 'success', 'title' => "تمت الإضافة بنجاح"], 200);
+            } else {
+                return response()->json(['icon' => 'error', 'title' => "لم تتم عملية الاضافة"], 400);
+            }
+        } else {
+            return response()->json(['icon' => 'error', 'title' => $validator->getMessageBag()->first()], 400);
+        }
     }
 
     /**
@@ -55,9 +80,12 @@ class BonusController extends Controller
      * @param  \App\Models\bonus  $bonus
      * @return \Illuminate\Http\Response
      */
-    public function edit(bonus $bonus)
+    public function edit($id)
     {
         //
+        $bonuses = bonus::findOrFail($id);
+        $cities = city::all();
+        return view('dashboard.bonus.edit', compact('cities', 'bonuses'));
     }
 
     /**

@@ -332,6 +332,52 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon far fa-envelope"></i>
+                                <p>
+                                    المحافظة الفرعية
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('sub_cities.index') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p> عرض المحافظة الفرعية </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('sub_cities.create') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p> إضافة محافظة فرعية </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon far fa-envelope"></i>
+                                <p>
+                                    قائمة البونص
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('bonuses.index') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p> عرض قائمة البونص </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('bonuses.create') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p> إضافة بونص جديد </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                         <li class="nav-header">الاعدادات</li>
 
 

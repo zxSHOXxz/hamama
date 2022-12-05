@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BonusController;
 use App\Http\Controllers\CaptainController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\StreetsController;
+use App\Http\Controllers\SubCityController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +30,19 @@ Route::prefix('cms/admin')->group(function () {
 
     Route::get('/index/streets/{id}', [StreetsController::class, 'indexStreets'])->name('indexStreet');
     Route::get('/create/streets/{id}', [StreetsController::class, 'createStreets'])->name('createStreet');
+
+    Route::resource('bonuses', BonusController::class);
+    Route::post('bonuses_update/{id}', [BonusController::class, 'update'])->name('bonuses_update');
+
+
+    Route::resource('sub_cities', SubCityController::class);
+    Route::post('sub_cities_update/{id}', [SubCityController::class, 'update'])->name('sub_cities_update');
+
+    // Route::resources('sub_cities', SubCityController::class);
+    // Route::post('sub_cities_update/{id}', [SubCityController::class, 'update'])->name('sub_cities_update');
+
+    // Route::get('/index/sub_cities/{id}', [StreetsController::class, 'indexSub_cities'])->name('indexSub_cities');
+    // Route::get('/create/sub_cities/{id}', [StreetsController::class, 'createSub_cities'])->name('createSub_cities');
 
     Route::resource('cities', CityController::class);
     Route::post('cities_update/{id}', [CityController::class, 'update'])->name('cities_update');

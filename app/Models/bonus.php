@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class bonus extends Model
 {
     use HasFactory;
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
 }

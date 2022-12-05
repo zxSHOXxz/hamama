@@ -93,7 +93,7 @@
                                     <button type="button" onclick="performStore()"
                                         class="btn btn-lg btn-success">حفظ</button>
 
-                                    <a href="{{ route('admins.index') }}" type="submit"
+                                    <a href="{{ route('clients.index') }}" type="submit"
                                         class="btn btn-lg btn-secondary">إلغاء</a>
                                 </div>
                             </div>
