@@ -8,10 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class city extends Model
 {
     use HasFactory;
-    public function users(){
+    public function users()
+    {
         return $this->hasMany(User::class);
     }
-    public function streets(){
+    public function streets()
+    {
         return $this->hasMany(Street::class);
     }
+    public function bonuses()
+    {
+        return $this->hasOne(bonus::class);
+    }
+
 }

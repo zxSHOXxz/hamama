@@ -1,8 +1,8 @@
 @extends('dashboard.master')
-@section('title', 'البونص')
+@section('title', 'الشارع')
 
-@section('main-title', 'عرض البونص')
-@section('sub-title', 'عرض البونص')
+@section('main-title', 'عرض الشارع')
+@section('sub-title', 'عرض الشارع')
 
 @section('styles')
     <style>
@@ -18,11 +18,11 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">البونص</h3>
-                            <a href="{{ route('bonuses.create') }}" type="submit" class="btn btn-lg btn-success">إضافة بونص
-                                جديد</a>
-                            {{-- <a href="{{ route('createbonus' , $id) }}" type="submit" class="btn btn-lg btn-success">إضافة بونص
+                            <h3 class="card-title">المدينة</h3>
+                            {{-- <a href="{{ route('streets.create') }}" type="submit" class="btn btn-lg btn-success">إضافة شارع
                                 جديد</a> --}}
+                            <a href="{{ route('createStreet' , $id) }}" type="submit" class="btn btn-lg btn-success">إضافة شارع
+                                جديد</a>
                             <div class="card-tools">
 
                             </div>
@@ -34,25 +34,25 @@
                             <table class="table table-hover table-bordered table-striped text-nowrap text-center">
                                 <thead>
                                     <tr class="bg-info">
-                                        <th>رقم البونص</th>
-                                        <th>قيمة البونص </th>
+                                        <th>رقم الشارع</th>
+                                        <th>اسم الشارع </th>
                                         <th>اسم المدينة</th>
                                         <th>الاعدادات</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($bonuses as $bonus)
+                                    @foreach ($streets as $street)
                                         <tr>
-                                            <td>{{ $bonus->id }}</td>
-                                            <td>{{ $bonus->price }}</td>
-                                            <td>{{ $bonus->city->name }}</td>
+                                            <td>{{ $street->id }}</td>
+                                            <td>{{ $street->name }}</td>
+                                            <td>{{ $street->city->name }}</td>
                                             <td>
                                                 <div class="btn group">
-                                                    <a href="{{ route('bonuses.edit', $bonus->id) }}"
+                                                    <a href="{{ route('streets.edit', $street->id) }}"
                                                         class="btn btn-primary" title="Edit">
                                                         تعديل
                                                     </a>
-                                                    <a href="#" onclick="performDestroy({{ $bonus->id }} , this)"
+                                                    <a href="#" onclick="performDestroy({{$street->id}} , this)"
                                                         class="btn btn-danger" title="Delete">
                                                         حذف
                                                     </a>
@@ -68,8 +68,8 @@
 
                             </div>
                             <!-- /.card-body -->
-                            @if ($bonuses)
-                                {{ $bonuses->links() }}
+                            @if ($streets)
+                                {{ $streets->links() }}
                             @endif
                         </div>
                         <!-- /.card -->
@@ -85,7 +85,7 @@
 
     <script>
         function performDestroy(id, referance) {
-            let url = '/cms/admin/bonuses/' + id;
+            let url = '/cms/admin/streets/' + id;
             confirmDestroy(url, referance);
         }
     </script>

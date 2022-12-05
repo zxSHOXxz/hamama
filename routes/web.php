@@ -5,6 +5,7 @@ use App\Http\Controllers\BonusController;
 use App\Http\Controllers\CaptainController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\StreetsController;
 use App\Http\Controllers\SubCityController;
 use Illuminate\Support\Facades\Route;
@@ -34,9 +35,11 @@ Route::prefix('cms/admin')->group(function () {
     Route::resource('bonuses', BonusController::class);
     Route::post('bonuses_update/{id}', [BonusController::class, 'update'])->name('bonuses_update');
 
-
     Route::resource('sub_cities', SubCityController::class);
     Route::post('sub_cities_update/{id}', [SubCityController::class, 'update'])->name('sub_cities_update');
+
+    Route::resource('orders', OrdersController::class);
+    Route::post('orders_update/{id}', [OrdersController::class, 'update'])->name('orders_update');
 
     // Route::resources('sub_cities', SubCityController::class);
     // Route::post('sub_cities_update/{id}', [SubCityController::class, 'update'])->name('sub_cities_update');

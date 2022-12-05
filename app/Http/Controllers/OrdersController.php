@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Captain;
+use App\Models\city;
+use App\Models\client;
 use App\Models\orders;
+use App\Models\Street;
 use Illuminate\Http\Request;
 
 class OrdersController extends Controller
@@ -15,6 +19,8 @@ class OrdersController extends Controller
     public function index()
     {
         //
+        $orders = orders::with('city')->orderBy('id', 'asc')->paginate(5);
+        return view('dashboard.orders.indexAll', compact('orders'));
     }
 
     /**
@@ -25,6 +31,11 @@ class OrdersController extends Controller
     public function create()
     {
         //
+        $captains = Captain::all();
+        $clients = client::all();
+        $streets = Street::all();
+        $cities = city::all();
+        return view('dashboard.orders.create', compact('captains', 'clients', 'streets', 'cities'));
     }
 
     /**
@@ -36,6 +47,33 @@ class OrdersController extends Controller
     public function store(Request $request)
     {
         //
+        $validator = validator($request->all(), [
+        ], [
+
+        ]);
+
+        if (!$validator->fails()) {
+            $orders = new orders();
+            $orders->customer = $request->get('customer');
+            $orders->details = $request->get('details');
+            $orders->status = $request->get('status');
+            $orders->price = $request->get('price');
+            $orders->statusDetails = $request->get('statusDetails');
+            $orders->captain_id = $request->get('captain_id');
+            $orders->client_id = $request->get('client_id');
+            $orders->street_id = $request->get('street_id');
+            $orders->city_id = $request->get('city_id');
+            $isSaved = $orders->save();
+
+            if ($isSaved) {
+                return response()->json(['icon' => 'success', 'title' => "تمت الإضافة بنجاح"], 200);
+            } else {
+                return response()->json(['icon' => 'error', 'title' => "فشلت عملية التخزين"], 400);
+            }
+        } else {
+            return response()->json(['icon' => 'error', 'title' => $validator->getMessageBag()->first()], 400);
+        }
+
     }
 
     /**

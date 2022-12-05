@@ -16,7 +16,7 @@ class CityController extends Controller
     public function index()
     {
         //
-        $cities = City::withCount('streets')->orderBy('id', 'desc')->paginate(5);
+        $cities = City::withCount('streets')->orderBy('id', 'asc')->paginate(5);
         return view('dashboard.city.index', compact('cities'));
     }
 
@@ -104,7 +104,6 @@ class CityController extends Controller
             $cities = City::findOrFail($id);
             $cities->name = $request->get('name');
             $isUpdate = $cities->save();
-
             return ['redirect' => route('cities.index')];
 
             if ($isUpdate) {

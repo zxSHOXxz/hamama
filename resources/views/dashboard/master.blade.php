@@ -378,6 +378,29 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon far fa-envelope"></i>
+                                <p>
+                                    قائمة الطلبات
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('orders.index') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p> عرض قائمة الطلبات </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('orders.create') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p> إضافة طلب جديد </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                         <li class="nav-header">الاعدادات</li>
 
 

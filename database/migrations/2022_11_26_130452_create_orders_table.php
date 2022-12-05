@@ -15,13 +15,13 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('forName');
+            $table->string('customer')->nullable();
             $table->integer('price');
-            $table->string('details');
-            $table->enum('status',['قيد التسليم','تم التسليم بنجاح','فشلت عملية التسليم']);
-            $table->string('statusDetails');
-            $table->foreignId('captin_id');
-            $table->foreign('captin_id')->on('captins')->references('id')->cascadeOnDelete();
+            $table->string('details')->nullable();
+            $table->enum('status', ['waiting', 'done', 'fail']);
+            $table->string('statusDetails')->nullable();
+            $table->foreignId('captain_id');
+            $table->foreign('captain_id')->on('captains')->references('id')->cascadeOnDelete();
             $table->foreignId('client_id');
             $table->foreign('client_id')->on('clients')->references('id')->cascadeOnDelete();
             $table->foreignId('street_id');

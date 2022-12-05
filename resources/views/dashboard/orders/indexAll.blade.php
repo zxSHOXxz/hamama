@@ -1,8 +1,8 @@
 @extends('dashboard.master')
-@section('title', 'البونص')
+@section('title', 'الطلب')
 
-@section('main-title', 'عرض البونص')
-@section('sub-title', 'عرض البونص')
+@section('main-title', 'عرض الطلب')
+@section('sub-title', 'عرض الطلب')
 
 @section('styles')
     <style>
@@ -18,10 +18,10 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">البونص</h3>
-                            <a href="{{ route('bonuses.create') }}" type="submit" class="btn btn-lg btn-success">إضافة بونص
+                            <h3 class="card-title">الطلب</h3>
+                            <a href="{{ route('orders.create') }}" type="submit" class="btn btn-lg btn-success">إضافة طلب
                                 جديد</a>
-                            {{-- <a href="{{ route('createbonus' , $id) }}" type="submit" class="btn btn-lg btn-success">إضافة بونص
+                            {{-- <a href="{{ route('createbonus' , $id) }}" type="submit" class="btn btn-lg btn-success">إضافة طلب
                                 جديد</a> --}}
                             <div class="card-tools">
 
@@ -34,25 +34,33 @@
                             <table class="table table-hover table-bordered table-striped text-nowrap text-center">
                                 <thead>
                                     <tr class="bg-info">
-                                        <th>رقم البونص</th>
-                                        <th>قيمة البونص </th>
+                                        <th>رقم الطلب</th>
+                                        <th>سعر الطلب </th>
                                         <th>اسم المدينة</th>
+                                        <th>اسم المدينة</th>
+                                        <th>اسم الزبون</th>
+                                        <th>اسم الكابتن</th>
+                                        <th>اسم الشارع</th>
                                         <th>الاعدادات</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($bonuses as $bonus)
+                                    @foreach ($orders as $order)
                                         <tr>
-                                            <td>{{ $bonus->id }}</td>
-                                            <td>{{ $bonus->price }}</td>
-                                            <td>{{ $bonus->city->name }}</td>
+                                            <td>{{ $order->id }}</td>
+                                            <td>{{ $order->price }}</td>
+                                            <td>{{ $order->city->name }}</td>
+                                            <td>{{ $order->city->bonuses->price }}</td>
+                                            <td>{{ $order->customer }}</td>
+                                            <td>{{ $order->captain->user->name }}</td>
+                                            <td>{{ $order->street->name }}</td>
                                             <td>
                                                 <div class="btn group">
-                                                    <a href="{{ route('bonuses.edit', $bonus->id) }}"
-                                                        class="btn btn-primary" title="Edit">
+                                                    <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-primary"
+                                                        title="Edit">
                                                         تعديل
                                                     </a>
-                                                    <a href="#" onclick="performDestroy({{ $bonus->id }} , this)"
+                                                    <a href="#" onclick="performDestroy({{ $order->id }} , this)"
                                                         class="btn btn-danger" title="Delete">
                                                         حذف
                                                     </a>
@@ -68,8 +76,8 @@
 
                             </div>
                             <!-- /.card-body -->
-                            @if ($bonuses)
-                                {{ $bonuses->links() }}
+                            @if ($orders)
+                                {{ $orders->links() }}
                             @endif
                         </div>
                         <!-- /.card -->
@@ -85,7 +93,7 @@
 
     <script>
         function performDestroy(id, referance) {
-            let url = '/cms/admin/bonuses/' + id;
+            let url = '/cms/admin/orders/' + id;
             confirmDestroy(url, referance);
         }
     </script>

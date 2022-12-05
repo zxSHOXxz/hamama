@@ -95,9 +95,29 @@ class BonusController extends Controller
      * @param  \App\Models\bonus  $bonus
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, bonus $bonus)
+    public function update(Request $request, $id)
     {
         //
+        $validator = validator($request->all(),
+            [
+                'price' => 'required|string',
+            ], [
+                'price.required' => 'القيمة مطلوبة',
+            ]);
+        if (!$validator->fails()) {
+            $bonus = bonus::with('city')->findOrFail($id);
+            $bonus->price = $request->get('price');
+            $bonus->city_id = $request->get('city_id');
+            $isSaved = $bonus->save();
+            return ['redirect' => route('bonuses.index')];
+            if ($isSaved) {
+                return response()->json(['icon' => 'success', 'title' => "تمت الإضافة بنجاح"], 200);
+            } else {
+                return response()->json(['icon' => 'error', 'title' => "لم تتم عملية الاضافة"], 400);
+            }
+        } else {
+            return response()->json(['icon' => 'error', 'title' => $validator->getMessageBag()->first()], 400);
+        }
     }
 
     /**
@@ -106,8 +126,9 @@ class BonusController extends Controller
      * @param  \App\Models\bonus  $bonus
      * @return \Illuminate\Http\Response
      */
-    public function destroy(bonus $bonus)
+    public function destroy($id)
     {
         //
+        $bonus = bonus::destroy($id);
     }
 }
