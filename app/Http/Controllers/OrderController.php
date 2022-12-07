@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Captain;
 use App\Models\city;
 use App\Models\client;
-use App\Models\orders;
+use App\Models\Order;
 use App\Models\Street;
 use Illuminate\Http\Request;
 
-class OrdersController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,8 +19,21 @@ class OrdersController extends Controller
     public function index()
     {
         //
-        $orders = orders::with('city')->orderBy('id', 'asc')->paginate(5);
+        $orders = Order::with(['captain', 'client', 'street'])->where('status', 'waiting')->orderBy('id', 'asc')->paginate(5);
         return view('dashboard.orders.indexAll', compact('orders'));
+    }
+    public function indexOrders($id)
+    {
+        $orders = Order::where('client_id', $id)->with(['captain', 'client', 'street'])->orderBy('created_at', 'asc')->paginate(5);
+        return response()->view('dashboard.orders.index', compact('orders', 'id'));
+    }
+    public function createOrder()
+    {
+        $captains = Captain::all();
+        $clients = client::all();
+        $streets = Street::all();
+        $cities = city::all();
+        return view('dashboard.orders.createInClient', compact('captains', 'clients', 'streets', 'cities'));
     }
 
     /**
@@ -53,7 +66,7 @@ class OrdersController extends Controller
         ]);
 
         if (!$validator->fails()) {
-            $orders = new orders();
+            $orders = new Order();
             $orders->customer = $request->get('customer');
             $orders->details = $request->get('details');
             $orders->status = $request->get('status');
@@ -82,7 +95,7 @@ class OrdersController extends Controller
      * @param  \App\Models\orders  $orders
      * @return \Illuminate\Http\Response
      */
-    public function show(orders $orders)
+    public function show($id)
     {
         //
     }
@@ -93,7 +106,7 @@ class OrdersController extends Controller
      * @param  \App\Models\orders  $orders
      * @return \Illuminate\Http\Response
      */
-    public function edit(orders $orders)
+    public function edit($id)
     {
         //
     }
@@ -105,7 +118,7 @@ class OrdersController extends Controller
      * @param  \App\Models\orders  $orders
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, orders $orders)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -116,7 +129,7 @@ class OrdersController extends Controller
      * @param  \App\Models\orders  $orders
      * @return \Illuminate\Http\Response
      */
-    public function destroy(orders $orders)
+    public function destroy($id)
     {
         //
     }

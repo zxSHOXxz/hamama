@@ -16,6 +16,10 @@ class city extends Model
     {
         return $this->hasMany(Street::class);
     }
+    public function orders()
+    {
+        return $this->hasMany(Street::class);
+    }
     public function bonuses()
     {
         return $this->hasOne(bonus::class);

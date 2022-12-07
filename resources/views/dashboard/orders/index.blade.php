@@ -1,8 +1,8 @@
 @extends('dashboard.master')
-@section('title', 'الشارع')
+@section('title', 'طلبات العميل')
 
-@section('main-title', 'عرض الشارع')
-@section('sub-title', 'عرض الشارع')
+@section('main-title', 'عرض طلبات العميل')
+@section('sub-title', 'عرض طلبات العميل')
 
 @section('styles')
     <style>
@@ -18,10 +18,8 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">المدينة</h3>
-                            {{-- <a href="{{ route('streets.create') }}" type="submit" class="btn btn-lg btn-success">إضافة شارع
-                                جديد</a> --}}
-                            <a href="{{ route('createStreet' , $id) }}" type="submit" class="btn btn-lg btn-success">إضافة شارع
+                            <h3 class="card-title">الطلبات</h3>
+                            <a href="{{ route('createOrder', $id) }}" type="submit" class="btn btn-lg btn-success">إضافة طلب
                                 جديد</a>
                             <div class="card-tools">
 
@@ -34,25 +32,52 @@
                             <table class="table table-hover table-bordered table-striped text-nowrap text-center">
                                 <thead>
                                     <tr class="bg-info">
-                                        <th>رقم الشارع</th>
-                                        <th>اسم الشارع </th>
+                                        <th>رقم الطلب</th>
+                                        <th>سعر الطلب </th>
+                                        <th> السعر شامل التوصيل </th>
                                         <th>اسم المدينة</th>
+                                        <th> اسم الزبون صاحب الطلب </th>
+                                        <th> الحالة </th>
+                                        <th> اسم الكابتن </th>
+                                        <th>اسم الشارع</th>
+                                        <th> عرض الطلب </th>
                                         <th>الاعدادات</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($streets as $street)
+                                    @foreach ($orders as $order)
                                         <tr>
-                                            <td>{{ $street->id }}</td>
-                                            <td>{{ $street->name }}</td>
-                                            <td>{{ $street->city->name }}</td>
+                                            <td>{{ $order->id }}</td>
+                                            <td>{{ $order->price }}</td>
+                                            @php
+                                                $total = $order->city->bonuses->price + $order->price;
+                                            @endphp
+                                            <td>{{ $order->city->bonuses->price . '+' . $order->price . '=' . $total }}</td>
+                                            <td>{{ $order->city->name }}</td>
+                                            <td>{{ $order->customer }}</td>
+                                            <td>
+                                                @if ($order->status == 'waiting')
+                                                    جار الارسال
+                                                @elseif ($order->status == 'done')
+                                                    تمت عملية الارسال
+                                                @else
+                                                    فشلت عملية الارسال
+                                                @endif
+                                            </td>
+                                            <td>{{ $order->captain->user->name }}</td>
+                                            <td>{{ $order->street->name }}</td>
+                                            <td> <a href="{{ route('orders.show', $order->id) }}" class="btn btn-primary"
+                                                    title="عرض">
+                                                    عرض
+                                                </a>
+                                            </td>
                                             <td>
                                                 <div class="btn group">
-                                                    <a href="{{ route('streets.edit', $street->id) }}"
-                                                        class="btn btn-primary" title="Edit">
+                                                    <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-primary"
+                                                        title="Edit">
                                                         تعديل
                                                     </a>
-                                                    <a href="#" onclick="performDestroy({{$street->id}} , this)"
+                                                    <a href="#" onclick="performDestroy({{ $order->id }} , this)"
                                                         class="btn btn-danger" title="Delete">
                                                         حذف
                                                     </a>
@@ -68,8 +93,8 @@
 
                             </div>
                             <!-- /.card-body -->
-                            @if ($streets)
-                                {{ $streets->links() }}
+                            @if ($orders)
+                                {{ $orders->links() }}
                             @endif
                         </div>
                         <!-- /.card -->
@@ -85,7 +110,7 @@
 
     <script>
         function performDestroy(id, referance) {
-            let url = '/cms/admin/streets/' + id;
+            let url = '/cms/admin/orders/' + id;
             confirmDestroy(url, referance);
         }
     </script>

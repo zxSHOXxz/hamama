@@ -113,7 +113,7 @@
                                         <select class="form-control" name="captain_id" style="width: 100%;" id="captain_id"
                                             aria-label=".form-select-sm example">
                                             @foreach ($captains as $captain)
-                                                <option value="{{ $captain->user->id }}">{{ $captain->user->name }}</option>
+                                                <option value="{{ $captain->id }}">{{ $captain->user->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -125,7 +125,7 @@
                                     <button type="button" onclick="performStore()"
                                         class="btn btn-lg btn-success">حفظ</button>
 
-                                    <a href="{{ route('streets.index') }}" type="submit"
+                                    <a href="{{ route('orders.index') }}" type="submit"
                                         class="btn btn-lg btn-secondary">إلغاء</a>
                                 </div>
                         </form>

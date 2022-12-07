@@ -34,13 +34,15 @@
                             <table class="table table-hover table-bordered table-striped text-nowrap text-center">
                                 <thead>
                                     <tr class="bg-info">
-                                        <th>رقم الطلب</th>
-                                        <th>سعر الطلب </th>
-                                        <th>اسم المدينة</th>
-                                        <th>اسم المدينة</th>
-                                        <th>اسم الزبون</th>
-                                        <th>اسم الكابتن</th>
-                                        <th>اسم الشارع</th>
+                                        <th> رقم الطلب </th>
+                                        <th> اسم العميل </th>
+                                        <th> سعر الطلب </th>
+                                        <th> السعر شامل التوصيل </th>
+                                        <th> اسم المدينة </th>
+                                        <th> اسم الزبون</th>
+                                        <th> الحالة </th>
+                                        <th> اسم الكابتن </th>
+                                        <th> اسم الشارع </th>
                                         <th>الاعدادات</th>
                                     </tr>
                                 </thead>
@@ -48,10 +50,23 @@
                                     @foreach ($orders as $order)
                                         <tr>
                                             <td>{{ $order->id }}</td>
+                                            <td>{{ $order->client->user->name }}</td>
                                             <td>{{ $order->price }}</td>
+                                            @php
+                                                $total = $order->city->bonuses->price + $order->price;
+                                            @endphp
+                                            <td>{{ $order->city->bonuses->price . '+' . $order->price . '=' . $total }}</td>
                                             <td>{{ $order->city->name }}</td>
-                                            <td>{{ $order->city->bonuses->price }}</td>
                                             <td>{{ $order->customer }}</td>
+                                            <td>
+                                                @if ($order->status == 'waiting')
+                                                    جار الارسال
+                                                @elseif ($order->status == 'done')
+                                                    تمت عملية الارسال
+                                                @else
+                                                    فشلت عملية الارسال
+                                                @endif
+                                            </td>
                                             <td>{{ $order->captain->user->name }}</td>
                                             <td>{{ $order->street->name }}</td>
                                             <td>

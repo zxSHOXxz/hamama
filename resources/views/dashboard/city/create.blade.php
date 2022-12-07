@@ -35,7 +35,6 @@
                                         <input type="text" name="name" class="form-control" id="name"
                                             placeholder="أدخل اسم المدينة  ">
                                     </div>
-
                                 </div>
 
 
@@ -70,6 +69,7 @@
         function performStore() {
             let formData = new FormData();
             formData.append('name', document.getElementById('name').value);
+            // formData.append('bonus_id', document.getElementById('bonus_id').value);
             store('/cms/admin/cities', formData);
 
         }

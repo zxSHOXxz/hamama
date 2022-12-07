@@ -36,6 +36,7 @@
                                         <th> الصورة </th>
                                         <th>الأسم </th>
                                         <th>الايميل </th>
+                                        <th> الطلبات </th>
                                         <th> رقم الجوال</th>
                                         <th> الجنس </th>
                                         <th>الاعدادات</th>
@@ -52,6 +53,12 @@
                                             </td>
                                             <td>{{ $client->user ? $client->user->name : '' }}</td>
                                             <td>{{ $client->email }}</td>
+
+                                            <td><a href="{{ route('indexOrders', ['id' => $client->id]) }}"
+                                                    class="btn btn-info">({{ $client->orders_count }})
+                                                    طلبات</a> </td>
+                                            </td>
+
                                             <td>{{ $client->user ? $client->user->mobile : '' }}</td>
                                             <td>{{ $client->user->gender == 'male' ? 'ذكر' : 'انثى' }}</td>
                                             <td>

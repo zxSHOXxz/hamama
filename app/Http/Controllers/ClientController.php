@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\client;
 use App\Models\city;
+use App\Models\Client;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -18,7 +18,7 @@ class ClientController extends Controller
     public function index()
     {
         //
-        $clients = client::orderBy('id', 'desc')->paginate(5);
+        $clients = Client::withCount('orders')->orderBy('id', 'desc')->paginate(5);
         return response()->view('dashboard.clients.index', compact('clients'));
     }
 
@@ -51,7 +51,7 @@ class ClientController extends Controller
             // 'image'=>"required|image|max:2048|mimes:png,jpg,jpeg,pdf",
         ]);
         if (!$validator->fails()) {
-            $clients = new client();
+            $clients = new Client();
             $clients->email = $request->get('email');
             $clients->password = Hash::make($request->get('password'));
             $isSaved = $clients->save();
@@ -108,7 +108,7 @@ class ClientController extends Controller
     public function edit($id)
     {
         //
-        $clients = client::findOrFail($id);
+        $clients = Client::findOrFail($id);
         return response()->view('dashboard.clients.edit', compact('clients'));
     }
 
@@ -130,7 +130,7 @@ class ClientController extends Controller
             // 'image'=>"required|image|max:2048|mimes:png,jpg,jpeg,pdf",
         ]);
         if (!$validator->fails()) {
-            $clients = client::findOrFail($id);
+            $clients = Client::findOrFail($id);
             $clients->email = $request->get('email');
             $isSaved = $clients->save();
             if ($isSaved) {
@@ -164,10 +164,10 @@ class ClientController extends Controller
     public function destroy($id)
     {
         //
-        $clients = client::findOrFail($id);
+        $clients = Client::findOrFail($id);
         $users = $clients->user;
         $deleteUser = User::destroy($users->id);
-        $deleteclient = client::destroy($id);
+        $deleteclient = Client::destroy($id);
         return response()->json(['icon' => 'success', 'title' => 'Deleted is Successfully'], $clients ? 200 : 400);
     }
 }

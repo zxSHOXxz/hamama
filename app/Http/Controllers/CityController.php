@@ -51,6 +51,7 @@ class CityController extends Controller
         if (!$validator->fails()) {
             $cities = new City();
             $cities->name = $request->get('name');
+            // $cities->bonus_id = $request->get('bonus_id');
             $isSaved = $cities->save();
 
             if ($isSaved) {
