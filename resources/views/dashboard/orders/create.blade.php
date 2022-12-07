@@ -60,7 +60,7 @@
                                         <select class="form-control" name="client_id" style="width: 100%;" id="client_id"
                                             aria-label=".form-select-sm example">
                                             @foreach ($clients as $client)
-                                                <option value="{{ $client->user->id }}">{{ $client->user->name }}</option>
+                                                <option value="{{ $client->id }}">{{ $client->user->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>

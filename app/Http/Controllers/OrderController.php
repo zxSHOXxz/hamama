@@ -16,6 +16,16 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // public function indexStreets($id)
+    // {
+    //     $orders = Order::where('city_id', $id)->orderBy('created_at', 'desc')->paginate(5);
+    //     return response()->view('dashboard.sub_city.index', compact('streets', 'id'));
+    // }
+    // public function createStreets($id)
+    // {
+    //     $cities = city::all();
+    //     return response()->view('dashboard.street.createInCity', compact('id', 'cities'));
+    // }
     public function index()
     {
         //
@@ -27,13 +37,13 @@ class OrderController extends Controller
         $orders = Order::where('client_id', $id)->with(['captain', 'client', 'street'])->orderBy('created_at', 'asc')->paginate(5);
         return response()->view('dashboard.orders.index', compact('orders', 'id'));
     }
-    public function createOrder()
+    public function createOrder($id)
     {
         $captains = Captain::all();
         $clients = client::all();
         $streets = Street::all();
         $cities = city::all();
-        return view('dashboard.orders.createInClient', compact('captains', 'clients', 'streets', 'cities'));
+        return view('dashboard.orders.createInClient', compact('captains', 'clients', 'streets', 'cities', 'id'));
     }
 
     /**

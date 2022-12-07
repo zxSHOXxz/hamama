@@ -19,10 +19,12 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">المحافظة الفرعية</h3>
-                            <a href="{{ route('sub_cities.create') }}" type="submit" class="btn btn-lg btn-success"> إضافة
+                            {{-- <a href="{{ route('sub_cities.create') }}" type="submit" class="btn btn-lg btn-success"> إضافة
                                 محافظة
                                 فرعية
-                                جديدة </a>
+                                جديدة </a> --}}
+                            <a href="{{ route('createSub_city', $id) }}" type="submit" class="btn btn-lg btn-success">إضافة
+                                محافظة فرعية جديدة</a>
                             <div class="card-tools">
 
                             </div>

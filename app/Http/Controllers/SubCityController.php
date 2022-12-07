@@ -13,11 +13,21 @@ class SubCityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function indexSubCities($id)
+    {
+        $sub_cities = sub_city::where('city_id', $id)->orderBy('created_at', 'desc')->paginate(5);
+        return response()->view('dashboard.sub_city.index', compact('sub_cities', 'id'));
+    }
+    public function createSub_city($id)
+    {
+        $cities = city::all();
+        return response()->view('dashboard.sub_city.createInCity', compact('id', 'cities'));
+    }
     public function index()
     {
         //
         $sub_cities = sub_city::withCount('city')->orderBy('id', 'desc')->paginate(5);
-        return view('dashboard.sub_city.index', compact('sub_cities'));
+        return view('dashboard.sub_city.indexAll', compact('sub_cities'));
 
     }
 

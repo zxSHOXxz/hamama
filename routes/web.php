@@ -38,6 +38,9 @@ Route::prefix('cms/admin')->group(function () {
     Route::resource('sub_cities', SubCityController::class);
     Route::post('sub_cities_update/{id}', [SubCityController::class, 'update'])->name('sub_cities_update');
 
+    Route::get('/index/sub_cities/{id}', [SubCityController::class, 'indexSubCities'])->name('indexSubCities');
+    Route::get('/create/sub_cities/{id}', [SubCityController::class, 'createSub_city'])->name('createSub_city');
+
     Route::resource('orders', OrderController::class);
     Route::post('orders_update/{id}', [OrderController::class, 'update'])->name('orders_update');
 

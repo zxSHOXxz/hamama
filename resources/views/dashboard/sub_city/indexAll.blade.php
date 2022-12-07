@@ -1,8 +1,8 @@
 @extends('dashboard.master')
-@section('title', 'محافظة')
+@section('title', 'المحافظة الفرعية')
 
-@section('main-title', 'عرض مدينة')
-@section('sub-title', 'عرض مدينة')
+@section('main-title', 'عرض المحافظة الفرعية')
+@section('sub-title', 'عرض المحافظة الفرعية')
 
 @section('styles')
     <style>
@@ -18,9 +18,13 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">محافظة</h3>
-                            <a href="{{ route('cities.create') }}" type="submit" class="btn btn-lg btn-success">إضافة محافظة
-                                جديدة</a>
+                            <h3 class="card-title">المحافظة الفرعية</h3>
+                            <a href="{{ route('sub_cities.create') }}" type="submit" class="btn btn-lg btn-success"> إضافة
+                                محافظة
+                                فرعية
+                                جديدة </a>
+                            {{-- <a href="{{ route('createSub_city', $id) }}" type="submit" class="btn btn-lg btn-success">إضافة --}}
+                            محافظة فرعية جديدة</a>
                             <div class="card-tools">
 
                             </div>
@@ -32,34 +36,28 @@
                             <table class="table table-hover table-bordered table-striped text-nowrap text-center">
                                 <thead>
                                     <tr class="bg-info">
-                                        <th>رقم محافظة</th>
-                                        <th>اسم محافظة </th>
-                                        <th> الشوارع </th>
-                                        <th> المحافظات الفرعية </th>
+                                        <th>رقم محافظة فرعية</th>
+                                        <th>اسم محافظة فرعية</th>
+                                        <th> المدينة الام </th>
+                                        {{-- <th> الشوارع </th> --}}
                                         <th>الاعدادات</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($cities as $city)
+                                    @foreach ($sub_cities as $sub_city)
                                         <tr>
-                                            <td>{{ $city->id }}</td>
-                                            <td>{{ $city->name }}</td>
-                                            <td><a href="{{ route('indexStreet', ['id' => $city->id]) }}"
-                                                    class="btn btn-info">({{ $city->streets_count }})
-                                                    شوارع</a> </td>
-                                            <td><a href="{{ route('indexSubCities', ['id' => $city->id]) }}"
-                                                    class="btn btn-info">({{ $city->sub_cities_count }})
-                                                    محافظات فرعية</a> </td>
-
+                                            <td>{{ $sub_city->id }}</td>
+                                            <td>{{ $sub_city->name }}</td>
+                                            <td>{{ $sub_city->city->name }}</td>
                                             <td>
 
                                                 <div class="btn group">
-                                                    <a href="{{ route('cities.edit', $city->id) }}" class="btn btn-primary"
-                                                        title="Edit">
+                                                    <a href="{{ route('sub_cities.edit', $sub_city->id) }}"
+                                                        class="btn btn-primary" title="Edit">
                                                         تعديل
                                                     </a>
 
-                                                    <a href="#" onclick="performDestroy({{ $city->id }},this)"
+                                                    <a href="#" onclick="performDestroy({{ $sub_city->id }},this)"
                                                         class="btn btn-danger" title="Delete">
                                                         حذف
                                                     </a>
@@ -75,7 +73,7 @@
 
                             </div>
                             <!-- /.card-body -->
-                            {{ $cities->links() }}
+                            {{ $sub_cities->links() }}
                         </div>
                         <!-- /.card -->
                     </div>
@@ -90,7 +88,7 @@
 
     <script>
         function performDestroy(id, referance) {
-            let url = '/cms/admin/cities/' + id;
+            let url = '/cms/admin/sub_cities/' + id;
             confirmDestroy(url, referance);
         }
     </script>

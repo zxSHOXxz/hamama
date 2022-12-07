@@ -16,7 +16,7 @@ class CityController extends Controller
     public function index()
     {
         //
-        $cities = City::withCount('streets')->orderBy('id', 'asc')->paginate(5);
+        $cities = City::withCount('streets', 'sub_cities')->orderBy('id', 'asc')->paginate(5);
         return view('dashboard.city.index', compact('cities'));
     }
 

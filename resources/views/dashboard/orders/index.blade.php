@@ -19,7 +19,8 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">الطلبات</h3>
-                            <a href="{{ route('createOrder', $id) }}" type="submit" class="btn btn-lg btn-success">إضافة طلب
+                            <a href="{{ route('createOrder', $id) }}" type="submit" class="btn btn-lg btn-success">إضافة
+                                طلب
                                 جديد</a>
                             <div class="card-tools">
 
