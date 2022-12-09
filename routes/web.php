@@ -8,6 +8,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\StreetsController;
 use App\Http\Controllers\SubCityController;
+use App\Http\Controllers\UserAuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,7 +24,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'dashboard.master')->name('parent');
 
-Route::prefix('cms/admin')->group(function () {
+Route::prefix('cms/')->middleware('guest:admin,client')->group(function () {
+    Route::get('{guard}/login', [UserAuthController::class, 'showLogin'])->name('view.login');
+    Route::post('{guard}/login', [UserAuthController::class, 'login']);
+});
+
+Route::prefix('cms/admin')->middleware('auth:admin,client')->group(function () {
+    Route::get('logout', [UserAuthController::class, 'logout'])->name('view.logout');
+});
+
+Route::prefix('cms/admin')->middleware('auth:admin,client')->group(function () {
     Route::view('/', 'dashboard.master');
 
     Route::resource('streets', StreetsController::class);

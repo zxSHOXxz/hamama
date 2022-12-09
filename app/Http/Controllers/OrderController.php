@@ -68,12 +68,12 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
-        $validator = validator($request->all(), [
-        ], [
+{
+    //
+    $validator = validator($request->all(), [
+    ], [
 
-        ]);
+    ]);
 
         if (!$validator->fails()) {
             $orders = new Order();
