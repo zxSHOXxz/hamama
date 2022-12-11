@@ -36,6 +36,7 @@
                                         <th> الصورة </th>
                                         <th>الأسم </th>
                                         <th>الايميل </th>
+                                        <th>الادوار </th>
                                         <th> رقم الجوال</th>
                                         <th> الجنس </th>
                                         <th>الاعدادات</th>
@@ -50,8 +51,14 @@
                                                     src="{{ asset('storage/images/admin/' . $admin->user->image) }}"
                                                     width="50" height="50" alt="User Image">
                                             </td>
+
                                             <td>{{ $admin->user ? $admin->user->name : '' }}</td>
                                             <td>{{ $admin->email }}</td>
+                                            <td>
+                                                @foreach ($admin->getRoleNames() as $role)
+                                                    <span class="badge badge-danger"> {{ $role }} </span>
+                                                @endforeach
+                                            </td>
                                             <td>{{ $admin->user ? $admin->user->mobile : '' }}</td>
                                             <td>{{ $admin->user->gender == 'male' ? 'ذكر' : 'انثى' }}</td>
                                             <td>

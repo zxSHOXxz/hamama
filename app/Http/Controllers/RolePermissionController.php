@@ -15,12 +15,19 @@ class RolePermissionController extends Controller
      */
     public function index($roleId)
     {
+        $role = Role::where('id', $roleId)->get();
+        foreach ($role as $item) {
 
-        // $permissions = Permission::all();
-        //  return response()->view('cms.spatie.roles.role-permissions', ['permissions' => $permissions]);
+            if ($item->guard_name == 'admin') {
+                $permissions = Permission::where('guard_name', 'admin')->orderBy("id", 'desc');
 
-        //
-        $permissions = Permission::all();
+            }
+            if ($item->guard_name == 'client') {
+                $permissions = Permission::where('guard_name', 'client')->orderBy("id", 'desc');
+
+            }
+        }
+        $permissions = $permissions->get();
         $rolePermissions = Role::findOrFail($roleId)->permissions;
 
         if (count($rolePermissions) > 0) {

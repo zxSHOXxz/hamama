@@ -16,9 +16,7 @@ class PermissionController extends Controller
     {
         $permissions = Permission::orderBy('id', 'desc')->paginate(10);
         return response()->view('dashboard.spaity.permission.index', compact('permissions'));
-
     }
-
     /**
      * Show the form for creating a new resource.
      *

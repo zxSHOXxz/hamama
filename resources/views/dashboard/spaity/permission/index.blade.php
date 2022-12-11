@@ -19,8 +19,8 @@
                     <div class="card">
                         <div class="card-header">
                             {{-- <h3 class="card-title">المدينة</h3> --}}
-                            <a href="{{ route('permissions.create') }}" type="submit" class="btn btn-lg btn-success">إضافة دور
-                                جديد</a>
+                            <a href="{{ route('permissions.create') }}" type="submit" class="btn btn-lg btn-success">اضافة
+                                صلاحية جديدة</a>
                             <div class="card-tools">
 
                             </div>
