@@ -6,6 +6,9 @@ use App\Http\Controllers\CaptainController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\StreetsController;
 use App\Http\Controllers\SubCityController;
 use App\Http\Controllers\UserAuthController;
@@ -26,6 +29,7 @@ Route::view('/', 'dashboard.master')->name('parent');
 
 Route::prefix('cms/')->middleware('guest:admin,client')->group(function () {
     Route::get('{guard}/login', [UserAuthController::class, 'showLogin'])->name('view.login');
+    Route::get('list', [UserAuthController::class, 'list'])->name('list');
     Route::post('{guard}/login', [UserAuthController::class, 'login']);
 });
 
@@ -68,4 +72,12 @@ Route::prefix('cms/admin')->middleware('auth:admin,client')->group(function () {
 
     Route::resource('clients', ClientController::class);
     Route::post('clients_update/{id}', [ClientController::class, 'update'])->name('clients_update');
+
+    Route::resource('roles', RoleController::class);
+    Route::post('roles_update/{id}', [RoleController::class, 'update'])->name('roles_update');
+
+    Route::resource('permissions', PermissionController::class);
+    Route::post('permissions_update/{id}', [PermissionController::class, 'update'])->name('permissions_update');
+
+    Route::resource('roles.permissions', RolePermissionController::class);
 });

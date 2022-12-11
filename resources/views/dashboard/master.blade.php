@@ -207,6 +207,56 @@
                             </a>
                         </li>
 
+                        <li class="nav-header"> الأدوار والصلاحيات</li>
+
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon far fa-envelope"></i>
+                                <p>
+                                    الأدوار
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('roles.index') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>عرض الأدوار</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('roles.create') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>إضافة دور</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon far fa-envelope"></i>
+                                <p>
+                                    الصلاحيات
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('permissions.index') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>عرض الصلاحيات</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('permissions.create') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>إضافة صلاحية</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
                         <li class="nav-header">مستخدمين النظام</li>
                         <!-- القائمة  -->
                         <li class="nav-item has-treeview">
@@ -403,7 +453,12 @@
                             </ul>
                         </li>
                         <li class="nav-header">الاعدادات</li>
-
+                        <li class="nav-item">
+                            <a href="{{ route('view.logout') }}" class="nav-link">
+                                <i class="nav-icon fas fa-file"></i>
+                                <p>تسجيل الخروج</p>
+                            </a>
+                        </li>
 
                     </ul>
                 </nav>

@@ -11,6 +11,9 @@ class UserAuthController extends Controller
     {
         return response()->view('dashboard.auth.login', compact('guard'));
     }
+    function list() {
+        return response()->view('dashboard.auth.list');
+    }
 
     public function login(Request $request)
     {

@@ -7,6 +7,7 @@ use App\Models\City;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
@@ -31,7 +32,8 @@ class AdminController extends Controller
     {
         //
         $cities = City::all();
-        return response()->view('dashboard.admin.create', compact('cities'));
+        $roles = Role::where('guard_name', 'admin')->get();
+        return response()->view('dashboard.admin.create', compact('cities', 'roles'));
     }
 
     /**
@@ -67,7 +69,8 @@ class AdminController extends Controller
 
                     $users->image = $imageName;
                 }
-
+                $roles = Role::findOrFail($request->get('role_id'));
+                $admins->assignRole($roles);
                 $users->name = $request->get('first_name') . " " . $request->get('last_name');
                 $users->mobile = $request->get('mobile');
                 $users->gender = $request->get('gender');
