@@ -2,7 +2,6 @@
 
 namespace App\Policies;
 
-use App\Models\Admin;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -56,7 +55,7 @@ class OrderPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(Admin $admin)
+    public function create()
     {
         //
         foreach (array_keys(config('auth.guards')) as $guard) {
@@ -75,7 +74,7 @@ class OrderPolicy
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(Admin $admin)
+    public function update()
     {
         //
         foreach (array_keys(config('auth.guards')) as $guard) {
@@ -95,7 +94,7 @@ class OrderPolicy
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(Admin $admin)
+    public function delete()
     {
         //
         foreach (array_keys(config('auth.guards')) as $guard) {
@@ -114,7 +113,7 @@ class OrderPolicy
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(Admin $admin)
+    public function restore()
     {
         //
         foreach (array_keys(config('auth.guards')) as $guard) {
@@ -133,7 +132,7 @@ class OrderPolicy
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(Admin $admin)
+    public function forceDelete()
     {
         //
         foreach (array_keys(config('auth.guards')) as $guard) {

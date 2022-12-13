@@ -16,7 +16,7 @@ class AdminPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(Admin $admin)
+    public function viewAny()
     {
         //
         foreach (array_keys(config('auth.guards')) as $guard) {
@@ -35,7 +35,7 @@ class AdminPolicy
      * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(Admin $admin)
+    public function view()
     {
         //
         foreach (array_keys(config('auth.guards')) as $guard) {
@@ -54,7 +54,7 @@ class AdminPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(Admin $admin)
+    public function create()
     {
         //
         foreach (array_keys(config('auth.guards')) as $guard) {
@@ -74,7 +74,7 @@ class AdminPolicy
      * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(Admin $admin)
+    public function update()
     {
         //
         foreach (array_keys(config('auth.guards')) as $guard) {
@@ -93,7 +93,7 @@ class AdminPolicy
      * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(Admin $admin)
+    public function delete()
     {
         //
         foreach (array_keys(config('auth.guards')) as $guard) {
@@ -112,7 +112,7 @@ class AdminPolicy
      * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(Admin $admin)
+    public function restore()
     {
         //
         foreach (array_keys(config('auth.guards')) as $guard) {
@@ -131,7 +131,7 @@ class AdminPolicy
      * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(Admin $admin)
+    public function forceDelete()
     {
         //
         foreach (array_keys(config('auth.guards')) as $guard) {
