@@ -20,6 +20,7 @@ class AdminController extends Controller
     {
         //
         $admins = Admin::orderBy('id', 'desc')->paginate(5);
+        $this->authorize('viewAny', Admin::class);
         return response()->view('dashboard.admin.index', compact('admins'));
     }
 
@@ -33,6 +34,7 @@ class AdminController extends Controller
         //
         $cities = City::all();
         $roles = Role::where('guard_name', 'admin')->get();
+        $this->authorize('create', Admin::class);
         return response()->view('dashboard.admin.create', compact('cities', 'roles'));
     }
 
@@ -44,6 +46,7 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Admin::class);
         $validator = validator($request->all(), [
             // 'first_name' => 'required',
             // 'last_name' => 'required',
@@ -99,6 +102,8 @@ class AdminController extends Controller
     public function show(admin $admin)
     {
         //
+        $this->authorize('view', Admin::class);
+
     }
 
     /**
@@ -111,6 +116,8 @@ class AdminController extends Controller
     {
         //
         $admins = Admin::findOrFail($id);
+        $this->authorize('update', Admin::class);
+
         return response()->view('dashboard.admin.edit', compact('admins'));
     }
 
@@ -123,6 +130,8 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('update', Admin::class);
+
         $validator = validator($request->all(), [
             // 'first_name' => 'required',
             // 'last_name' => 'required',
@@ -164,6 +173,7 @@ class AdminController extends Controller
      */
     public function destroy($id)
     { //
+        $this->authorize('delete', Admin::class);
         $admins = Admin::findOrFail($id);
         $users = $admins->user;
         $deleteUser = User::destroy($users->id);

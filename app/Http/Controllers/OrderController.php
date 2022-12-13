@@ -28,17 +28,21 @@ class OrderController extends Controller
     // }
     public function index()
     {
+        $this->authorize('viewAny', Order::class);
         //
         $orders = Order::with(['captain', 'client', 'street'])->where('status', 'waiting')->orderBy('id', 'asc')->paginate(5);
         return view('dashboard.orders.indexAll', compact('orders'));
     }
     public function indexOrders($id)
     {
+        $this->authorize('viewAny', Order::class);
         $orders = Order::where('client_id', $id)->with(['captain', 'client', 'street'])->orderBy('created_at', 'asc')->paginate(5);
         return response()->view('dashboard.orders.index', compact('orders', 'id'));
     }
     public function createOrder($id)
     {
+        $this->authorize('create', Order::class);
+
         $captains = Captain::all();
         $clients = client::all();
         $streets = Street::all();
@@ -53,6 +57,7 @@ class OrderController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Order::class);
         //
         $captains = Captain::all();
         $clients = client::all();
@@ -68,12 +73,14 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-{
-    //
-    $validator = validator($request->all(), [
-    ], [
+    {
+        //
+        $this->authorize('create', Order::class);
 
-    ]);
+        $validator = validator($request->all(), [
+        ], [
+
+        ]);
 
         if (!$validator->fails()) {
             $orders = new Order();
@@ -108,6 +115,8 @@ class OrderController extends Controller
     public function show($id)
     {
         //
+        $this->authorize('view', Order::class);
+
     }
 
     /**
@@ -119,6 +128,8 @@ class OrderController extends Controller
     public function edit($id)
     {
         //
+        $this->authorize('update', Order::class);
+
     }
 
     /**
@@ -131,6 +142,8 @@ class OrderController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->authorize('update', Order::class);
+
     }
 
     /**
@@ -142,5 +155,7 @@ class OrderController extends Controller
     public function destroy($id)
     {
         //
+        $this->authorize('delete', Order::class);
+
     }
 }

@@ -18,6 +18,8 @@ class BonusController extends Controller
         //
         $bonuses = bonus::with('city')->orderBy('id', 'desc')->paginate(5);
         return view('dashboard.bonus.indexAll', compact('bonuses'));
+        $this->authorize('viewAny', bonus::class);
+
     }
 
     /**
@@ -30,6 +32,7 @@ class BonusController extends Controller
         //
         $cities = city::all();
         return view('dashboard.bonus.create', compact('cities'));
+        $this->authorize('create', bonus::class);
 
     }
 
@@ -41,6 +44,8 @@ class BonusController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', bobonus::class);
+
         //
         $validator = validator($request->all(),
             [
@@ -71,6 +76,8 @@ class BonusController extends Controller
      */
     public function show(bonus $bonus)
     {
+        $this->authorize('view', bonus::class);
+
         //
     }
 
@@ -83,6 +90,8 @@ class BonusController extends Controller
     public function edit($id)
     {
         //
+        $this->authorize('update', bonus::class);
+
         $bonuses = bonus::findOrFail($id);
         $cities = city::all();
         return view('dashboard.bonus.edit', compact('cities', 'bonuses'));
@@ -98,6 +107,8 @@ class BonusController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->authorize('update', b::class);
+
         $validator = validator($request->all(),
             [
                 'price' => 'required|string',
@@ -129,6 +140,8 @@ class BonusController extends Controller
     public function destroy($id)
     {
         //
+        $this->authorize('delete', bonus::class);
+
         $bonus = bonus::destroy($id);
     }
 }

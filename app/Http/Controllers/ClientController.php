@@ -19,6 +19,7 @@ class ClientController extends Controller
     {
         //
         $clients = Client::withCount('orders')->orderBy('id', 'desc')->paginate(5);
+        $this->authorize('viewAny', Client::class);
         return response()->view('dashboard.clients.index', compact('clients'));
     }
 
@@ -31,6 +32,8 @@ class ClientController extends Controller
     {
         //
         $cities = city::all();
+        $this->authorize('create', Client::class);
+
         return response()->view('dashboard.clients.create', compact('cities'));
     }
 
@@ -43,6 +46,8 @@ class ClientController extends Controller
     public function store(Request $request)
     {
         //
+        $this->authorize('create', Client::class);
+
         $validator = validator($request->all(), [
             // 'first_name' => 'required',
             // 'last_name' => 'required',
@@ -97,6 +102,8 @@ class ClientController extends Controller
     public function show(client $client)
     {
         //
+        $this->authorize('view', Client::class);
+
     }
 
     /**
@@ -107,6 +114,8 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('update', Client::class);
+
         //
         $clients = Client::findOrFail($id);
         return response()->view('dashboard.clients.edit', compact('clients'));
@@ -122,6 +131,8 @@ class ClientController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->authorize('update', Client::class);
+
         $validator = validator($request->all(), [
             // 'first_name' => 'required',
             // 'last_name' => 'required',
@@ -164,6 +175,8 @@ class ClientController extends Controller
     public function destroy($id)
     {
         //
+        $this->authorize('delete', Client::class);
+
         $clients = Client::findOrFail($id);
         $users = $clients->user;
         $deleteUser = User::destroy($users->id);

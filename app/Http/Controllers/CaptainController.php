@@ -19,6 +19,7 @@ class CaptainController extends Controller
     {
         //
         $captains = Captain::orderBy('id', 'desc')->paginate(5);
+        $this->authorize('viewAny', Captain::class);
         return response()->view('dashboard.captain.index', compact('captains'));
     }
 
@@ -31,6 +32,7 @@ class CaptainController extends Controller
     {
         //
         $cities = city::all();
+        $this->authorize('create', Captain::class);
         return response()->view('dashboard.captain.create', compact('cities'));
     }
 
@@ -43,6 +45,8 @@ class CaptainController extends Controller
     public function store(Request $request)
     {
         //
+        $this->authorize('create', Captain::class);
+
         $validator = validator($request->all(), [
             // 'first_name' => 'required',
             // 'last_name' => 'required',
@@ -97,6 +101,8 @@ class CaptainController extends Controller
     public function show($id)
     {
         //
+        $this->authorize('view', Captain::class);
+
     }
 
     /**
@@ -109,6 +115,7 @@ class CaptainController extends Controller
     {
         //
         $captains = Captain::findOrFail($id);
+        $this->authorize('update', Captain::class);
         return response()->view('dashboard.captain.edit', compact('captains'));
     }
 
@@ -122,6 +129,7 @@ class CaptainController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->authorize('update', Captain::class);
         $validator = validator($request->all(), [
             // 'first_name' => 'required',
             // 'last_name' => 'required',
@@ -164,6 +172,8 @@ class CaptainController extends Controller
     public function destroy($id)
     {
         //
+        $this->authorize('delete', Captain::class);
+
         $captains = Captain::findOrFail($id);
         $users = $captains->user;
         $deleteUser = User::destroy($users->id);

@@ -16,8 +16,10 @@ class CityController extends Controller
     public function index()
     {
         //
+        $this->authorize('viewAny', city::class);
         $cities = City::withCount('streets', 'sub_cities')->orderBy('id', 'asc')->paginate(5);
         return view('dashboard.city.index', compact('cities'));
+
     }
 
     /**
@@ -28,7 +30,9 @@ class CityController extends Controller
     public function create()
     {
         //
+        $this->authorize('create', city::class);
         return view('dashboard.city.create');
+
     }
 
     /**
@@ -40,6 +44,8 @@ class CityController extends Controller
     public function store(Request $request)
     {
         //
+        $this->authorize('create', city::class);
+
         $validator = validator($request->all(), [
             'name' => 'required|string|min:3|max:20',
         ], [
@@ -51,7 +57,7 @@ class CityController extends Controller
         if (!$validator->fails()) {
             $cities = new City();
             $cities->name = $request->get('name');
-            // $cities->bonus_id = $request->get('bonus_id');
+            // $cities->c_id = $request->get('c_id');
             $isSaved = $cities->save();
 
             if ($isSaved) {
@@ -73,6 +79,8 @@ class CityController extends Controller
     public function show(city $city)
     {
         //
+        $this->authorize('view', city::class);
+
     }
 
     /**
@@ -83,6 +91,8 @@ class CityController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('update', city::class);
+
         $cities = City::findOrFail($id);
         return response()->view('dashboard.city.edit', compact('cities'));
     }
@@ -96,6 +106,8 @@ class CityController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('update', city::class);
+
         $validator = validator($request->all(), [
             'name' => 'required',
         ]);
@@ -127,6 +139,8 @@ class CityController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete', city::class);
+
         $cities = City::destroy($id);
         return response()->json(['icon' => 'success', 'title' => 'Deleted is Successfully'], $cities ? 200 : 400);
 

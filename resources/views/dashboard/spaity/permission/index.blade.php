@@ -63,17 +63,12 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            <div class="span text-center" style="margin-top: 20px; margin-bottom:10px">
-
-                                </span>
-
-                            </div>
                             <!-- /.card-body -->
-                            {{ $permissions->links() }}
                         </div>
                         <!-- /.card -->
                     </div>
                 </div>
+                {{ $permissions->links() }}
             </div>
     </section>
 

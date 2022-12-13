@@ -13,7 +13,7 @@
         <div class="container-fluid">
             <div class="row">
                 <!-- left column -->
-                <div class="col-md-12"> 
+                <div class="col-md-12">
                     <!-- general form elements -->
                     <div class="card card-primary">
                         <div class="card-header">
@@ -24,7 +24,6 @@
                         <form id="create_form">
                             @csrf
                             <div class="card-body">
-
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label for="customer"> اسم الزبون صاحب الطلب </label>
@@ -42,7 +41,8 @@
                                                 {{-- @if ($city->id == $streets->city->id)
                                                     @continue
                                                 @endif --}}
-                                                <option value="{{ $city->id }}" disabled> {{ $city->name }}</option>
+                                                <option value="{{ $city->id }}" {{ $city->sub_cities ? 'disable' : 'null' }}> {{ $city->name }}
+                                                </option>
                                                 @foreach ($city->sub_cities as $sub_cities)
                                                     <option value="{{ $sub_cities->id }}"> -- {{ $sub_cities->name }}
                                                     </option>

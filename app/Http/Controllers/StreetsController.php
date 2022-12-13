@@ -15,16 +15,20 @@ class StreetsController extends Controller
      */
     public function indexStreets($id)
     {
+        $this->authorize('viewAny', Street::class);
         $streets = Street::where('city_id', $id)->orderBy('created_at', 'desc')->paginate(5);
         return response()->view('dashboard.street.index', compact('streets', 'id'));
     }
     public function createStreets($id)
     {
+        $this->authorize('create', Street::class);
         $cities = city::all();
-        return response()->view('dashboard.street.createInCity', compact('id','cities'));
+        return response()->view('dashboard.street.createInCity', compact('id', 'cities'));
     }
     public function index()
     {
+        $this->authorize('viewAny', Street::class);
+
         //
         $streets = Street::with('city')->orderBy('id', 'desc')->paginate(5);
         return view('dashboard.street.indexAll', compact('streets'));
@@ -37,6 +41,8 @@ class StreetsController extends Controller
      */
     public function create()
     {
+
+        $this->authorize('create', Street::class);
         //
         $cities = city::all();
         return view('dashboard.street.create', compact('cities'));
@@ -50,6 +56,8 @@ class StreetsController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Street::class);
+
         $validator = validator($request->all(),
             [
                 'name' => 'required|string|min:3|max:20',
@@ -82,6 +90,8 @@ class StreetsController extends Controller
      */
     public function show(Street $street)
     {
+        $this->authorize('view', Street::class);
+
         //
     }
 
@@ -93,7 +103,9 @@ class StreetsController extends Controller
      */
     public function edit($id)
     {
+
         //
+        $this->authorize('update', Street::class);
 
         $streets = Street::with('city')->findOrFail($id);
         $cities = city::all();
@@ -109,6 +121,8 @@ class StreetsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('update', Street::class);
+
         $validator = validator($request->all(), [
             'name' => 'required',
         ]);
@@ -137,6 +151,8 @@ class StreetsController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete', Street::class);
+
         $street = Street::destroy($id);
         return response()->json(['icon' => 'success', 'title' => 'Deleted is Successfully'], $street ? 200 : 400);
     }

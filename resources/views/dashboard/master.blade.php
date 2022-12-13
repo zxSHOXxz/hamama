@@ -257,201 +257,256 @@
                             </ul>
                         </li>
 
-                        <li class="nav-header">مستخدمين النظام</li>
+                        @canany(['index-admin', 'create-admin', 'index-captain', 'create-captain', 'index-client',
+                            'create-client', 'create-bonus', 'index-bonus'])
+                            <li class="nav-header">مستخدمين النظام</li>
+                        @endcanany
                         <!-- القائمة  -->
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon far fa-envelope"></i>
-                                <p>
-                                    المشرف
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('admins.index') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>عرض المشرفين</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('admins.create') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>إضافة مشرف</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                        @canany(['index-admin', 'create-admin'])
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon far fa-envelope"></i>
+                                    <p>
+                                        المشرف
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @can('index-admin')
+                                        <li class="nav-item">
+                                            <a href="{{ route('admins.index') }}" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>عرض المشرفين</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('create-admin')
+                                        <li class="nav-item">
+                                            <a href="{{ route('admins.create') }}" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>إضافة مشرف</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                </ul>
+                            </li>
+                        @endcanany
                         <!-- نهاية القائمة  -->
 
                         <!-- القائمة  -->
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon far fa-envelope"></i>
-                                <p>
-                                    الكباتن
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('captains.index') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>عرض الكباتن</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('captains.create') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>إضافة كابتن</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                        @canany(['index-captain', 'create-captain'])
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon far fa-envelope"></i>
+                                    <p>
+                                        الكباتن
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @can('index-captain')
+                                        <li class="nav-item">
+                                            <a href="{{ route('captains.index') }}" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>عرض الكباتن</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('create-captain')
+                                        <li class="nav-item">
+                                            <a href="{{ route('captains.create') }}" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>إضافة كابتن</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                </ul>
+                            </li>
+                        @endcanany
                         <!-- نهاية القائمة  -->
 
                         <!-- القائمة  -->
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon far fa-envelope"></i>
-                                <p>
-                                    العملاء
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('clients.index') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>عرض العملاء</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('clients.create') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>إضافة عميل</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                        @canany(['index-client', 'create-client'])
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon far fa-envelope"></i>
+                                    <p>
+                                        العملاء
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @can('index-client')
+                                        <li class="nav-item">
+                                            <a href="{{ route('clients.index') }}" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>عرض العملاء</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('create-client')
+                                        <li class="nav-item">
+                                            <a href="{{ route('clients.create') }}" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>إضافة عميل</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                </ul>
+                            </li>
+                        @endcanany
                         <!-- نهاية القائمة  -->
+                        @canany(['index-city', 'create-city', 'index-street', 'create-street', 'index-sub_city',
+                            'create-sub_city', 'index-order', 'create-order'])
+                            <li class="nav-header">محتوى النظام</li>
+                        @endcanany
+                        @canany(['index-city', 'create-city'])
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon far fa-envelope"></i>
+                                    <p>
+                                        المدن
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @can('index-city')
+                                        <li class="nav-item">
+                                            <a href="{{ route('cities.index') }}" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>عرض المدن</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('create-city')
+                                        <li class="nav-item">
+                                            <a href="{{ route('cities.create') }}" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>إضافة مدينة</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                </ul>
+                            </li>
+                        @endcanany
+                        @canany(['index-street', 'create-street'])
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon far fa-envelope"></i>
+                                    <p>
+                                        الشوارع
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
 
-                        <li class="nav-header">محتوى النظام</li>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon far fa-envelope"></i>
-                                <p>
-                                    المدن
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('cities.index') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>عرض المدن</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('cities.create') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>إضافة مدينة</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon far fa-envelope"></i>
-                                <p>
-                                    الشوارع
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('streets.index') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>عرض الشوارع</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('streets.create') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>إضافة شارع</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon far fa-envelope"></i>
-                                <p>
-                                    المحافظة الفرعية
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('sub_cities.index') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p> عرض المحافظة الفرعية </p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('sub_cities.create') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p> إضافة محافظة فرعية </p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon far fa-envelope"></i>
-                                <p>
-                                    قائمة البونص
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('bonuses.index') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p> عرض قائمة البونص </p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('bonuses.create') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p> إضافة بونص جديد </p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon far fa-envelope"></i>
-                                <p>
-                                    قائمة الطلبات
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('orders.index') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p> عرض قائمة الطلبات </p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('orders.create') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p> إضافة طلب جديد </p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                                <ul class="nav nav-treeview">
+                                    @can('index-street')
+                                        <li class="nav-item">
+                                            <a href="{{ route('streets.index') }}" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>عرض الشوارع</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('create-street')
+                                        <li class="nav-item">
+                                            <a href="{{ route('streets.create') }}" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>إضافة شارع</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                </ul>
+                            </li>
+                        @endcanany
+                        @canany(['index-sub_city', 'create-sub_city'])
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon far fa-envelope"></i>
+                                    <p>
+                                        المحافظة الفرعية
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @can('index-sub_city')
+                                        <li class="nav-item">
+                                            <a href="{{ route('sub_cities.index') }}" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p> عرض المحافظة الفرعية </p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('create-sub_city')
+                                        <li class="nav-item">
+                                            <a href="{{ route('sub_cities.create') }}" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p> إضافة محافظة فرعية </p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                </ul>
+                            </li>
+                        @endcanany
+                        @canany(['index-bonus', 'create-bonus'])
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon far fa-envelope"></i>
+                                    <p>
+                                        قائمة البونص
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @can('index-bonus')
+                                        <li class="nav-item">
+                                            <a href="{{ route('bonuses.index') }}" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p> عرض قائمة البونص </p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('create-bonus')
+                                        <li class="nav-item">
+                                            <a href="{{ route('bonuses.create') }}" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p> إضافة بونص جديد </p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                </ul>
+                            </li>
+                        @endcanany
+
+                        @canany(['index-order', 'create-order'])
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon far fa-envelope"></i>
+                                    <p>
+                                        قائمة الطلبات
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @can('index-order')
+                                        <li class="nav-item">
+                                            <a href="{{ route('orders.index') }}" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p> عرض قائمة الطلبات </p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('create-order')
+                                        <li class="nav-item">
+                                            <a href="{{ route('orders.create') }}" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p> إضافة طلب جديد </p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                </ul>
+                            </li>
+                        @endcanany
                         <li class="nav-header">الاعدادات</li>
                         <li class="nav-item">
                             <a href="{{ route('view.logout') }}" class="nav-link">
