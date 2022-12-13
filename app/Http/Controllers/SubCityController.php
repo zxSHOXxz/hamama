@@ -15,14 +15,14 @@ class SubCityController extends Controller
      */
     public function indexSubCities($id)
     {
-        $this->authorize('viewAny', Street::class);
+        $this->authorize('viewAny', sub_city::class);
 
         $sub_cities = sub_city::where('city_id', $id)->orderBy('created_at', 'desc')->paginate(5);
         return response()->view('dashboard.sub_city.index', compact('sub_cities', 'id'));
     }
     public function createSub_city($id)
     {
-        $this->authorize('create', Street::class);
+        $this->authorize('create', sub_city::class);
 
         $cities = city::all();
         return response()->view('dashboard.sub_city.createInCity', compact('id', 'cities'));
@@ -30,7 +30,7 @@ class SubCityController extends Controller
     public function index()
     {
         //
-        $this->authorize('viewAny', Street::class);
+        $this->authorize('viewAny', sub_city::class);
         $sub_cities = sub_city::withCount('city')->orderBy('id', 'desc')->paginate(5);
         return view('dashboard.sub_city.indexAll', compact('sub_cities'));
 
@@ -43,7 +43,7 @@ class SubCityController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', Street::class);
+        $this->authorize('create', sub_city::class);
 
         //
         $cities = city::all();
@@ -58,7 +58,7 @@ class SubCityController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', Street::class);
+        $this->authorize('create', sub_city::class);
 
         $validator = validator($request->all(), [
             'name' => 'required|string|min:3|max:20',
@@ -93,7 +93,7 @@ class SubCityController extends Controller
      */
     public function show(sub_city $sub_city)
     {
-        $this->authorize('view', Street::class);
+        $this->authorize('view', sub_city::class);
 
         //
     }
@@ -107,7 +107,7 @@ class SubCityController extends Controller
     public function edit($id)
     {
         //
-        $this->authorize('update', Street::class);
+        $this->authorize('update', sub_city::class);
 
         $sub_city = sub_city::findOrFail($id);
         $cities = City::all();
@@ -123,7 +123,7 @@ class SubCityController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->authorize('update', Street::class);
+        $this->authorize('update', sub_city::class);
 
         $validator = validator($request->all(), [
             'name' => 'required',
@@ -160,7 +160,7 @@ class SubCityController extends Controller
     public function destroy($id)
     {
         //
-        $this->authorize('delete', Street::class);
+        $this->authorize('delete', sub_city::class);
 
         $sub_cities = sub_city::destroy($id);
     }

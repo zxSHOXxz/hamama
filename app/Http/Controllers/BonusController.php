@@ -44,7 +44,7 @@ class BonusController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', bobonus::class);
+        $this->authorize('create', bonus::class);
 
         //
         $validator = validator($request->all(),
@@ -107,7 +107,7 @@ class BonusController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $this->authorize('update', b::class);
+        $this->authorize('update', bonus::class);
 
         $validator = validator($request->all(),
             [

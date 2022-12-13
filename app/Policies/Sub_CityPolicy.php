@@ -88,7 +88,7 @@ class Sub_CityPolicy
     public function restore(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('index-sub-city') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+        return $admin->hasPermissionTo('restore-sub-city') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
 
     }
 
@@ -102,7 +102,7 @@ class Sub_CityPolicy
     public function forceDelete(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('index-sub-city') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+        return $admin->hasPermissionTo('forceDelete-sub-city') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
 
     }
 }

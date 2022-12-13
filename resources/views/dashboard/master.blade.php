@@ -419,7 +419,7 @@
                                 </ul>
                             </li>
                         @endcanany
-                        @canany(['index-sub_city', 'create-sub_city'])
+                        @canany(['index-sub-city', 'create-sub-city'])
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon far fa-envelope"></i>
@@ -429,7 +429,7 @@
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
-                                    @can('index-sub_city')
+                                    @can('index-sub-city')
                                         <li class="nav-item">
                                             <a href="{{ route('sub_cities.index') }}" class="nav-link">
                                                 <i class="far fa-circle nav-icon"></i>
@@ -437,7 +437,7 @@
                                             </a>
                                         </li>
                                     @endcan
-                                    @can('create-sub_city')
+                                    @can('create-sub-city')
                                         <li class="nav-item">
                                             <a href="{{ route('sub_cities.create') }}" class="nav-link">
                                                 <i class="far fa-circle nav-icon"></i>
