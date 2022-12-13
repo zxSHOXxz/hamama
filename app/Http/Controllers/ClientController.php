@@ -7,6 +7,7 @@ use App\Models\Client;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class ClientController extends Controller
 {
@@ -33,8 +34,9 @@ class ClientController extends Controller
         //
         $cities = city::all();
         $this->authorize('create', Client::class);
+        $roles = Role::where('guard_name', 'client')->get();
 
-        return response()->view('dashboard.clients.create', compact('cities'));
+        return response()->view('dashboard.clients.create', compact('cities', 'roles'));
     }
 
     /**
@@ -76,6 +78,8 @@ class ClientController extends Controller
 
                 $users->name = $request->get('first_name') . " " . $request->get('last_name');
                 $users->mobile = $request->get('mobile');
+                $roles = Role::findOrFail($request->get('role_id'));
+                $clients->assignRole($roles);
                 $users->gender = $request->get('gender');
                 $users->address = $request->get('address');
 
@@ -115,10 +119,10 @@ class ClientController extends Controller
     public function edit($id)
     {
         $this->authorize('update', Client::class);
-
         //
+        $roles = Role::where('guard_name', 'client')->get();
         $clients = Client::findOrFail($id);
-        return response()->view('dashboard.clients.edit', compact('clients'));
+        return response()->view('dashboard.clients.edit', compact('clients', 'roles'));
     }
 
     /**
@@ -147,6 +151,8 @@ class ClientController extends Controller
             if ($isSaved) {
                 $users = $clients->user;
                 $users->name = $request->get('name');
+                $users->mobile = $request->get('mobile');
+                $roles = Role::findOrFail($request->get('role_id'));
                 $users->mobile = $request->get('mobile');
                 $users->gender = $request->get('gender');
                 $users->address = $request->get('address');

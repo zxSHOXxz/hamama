@@ -20,8 +20,14 @@ class CityPolicy
     public function viewAny(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('index-city') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
 
+        foreach (array_keys(config('auth.guards')) as $guard) {
+
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('index-city') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }
     }
 
     /**
@@ -34,8 +40,13 @@ class CityPolicy
     public function view(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('show-city') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+        foreach (array_keys(config('auth.guards')) as $guard) {
 
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('show-city') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }
     }
 
     /**
@@ -47,8 +58,13 @@ class CityPolicy
     public function create(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('create-city') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+        foreach (array_keys(config('auth.guards')) as $guard) {
 
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('create-city') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }
     }
 
     /**
@@ -61,8 +77,13 @@ class CityPolicy
     public function update(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('update-city') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+        foreach (array_keys(config('auth.guards')) as $guard) {
 
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('update-city') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }
     }
 
     /**
@@ -75,8 +96,13 @@ class CityPolicy
     public function delete(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('delete-city') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+        foreach (array_keys(config('auth.guards')) as $guard) {
 
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('delete-city') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }
     }
 
     /**
@@ -89,8 +115,13 @@ class CityPolicy
     public function restore(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('restore-city') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+        foreach (array_keys(config('auth.guards')) as $guard) {
 
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('restore-city') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }
     }
 
     /**
@@ -103,7 +134,12 @@ class CityPolicy
     public function forceDelete(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('forceDelete-city') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+        foreach (array_keys(config('auth.guards')) as $guard) {
 
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('forceDelete-city') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }
     }
 }

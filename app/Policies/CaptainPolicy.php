@@ -20,8 +20,13 @@ class CaptainPolicy
     public function viewAny(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('index-captain') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+        foreach (array_keys(config('auth.guards')) as $guard) {
 
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('index-captain') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }
     }
 
     /**
@@ -34,7 +39,13 @@ class CaptainPolicy
     public function view(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('show-captain') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+        foreach (array_keys(config('auth.guards')) as $guard) {
+
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('show-captain') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }
 
     }
 
@@ -47,7 +58,13 @@ class CaptainPolicy
     public function create(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('create-captain') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+        foreach (array_keys(config('auth.guards')) as $guard) {
+
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('create-captain') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }
     }
 
     /**
@@ -60,7 +77,13 @@ class CaptainPolicy
     public function update(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('update-captain') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+        foreach (array_keys(config('auth.guards')) as $guard) {
+
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('update-captain') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }
 
     }
 
@@ -74,7 +97,13 @@ class CaptainPolicy
     public function delete(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('delete-captain') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+        foreach (array_keys(config('auth.guards')) as $guard) {
+
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('delete-captain') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }
     }
 
     /**
@@ -87,6 +116,13 @@ class CaptainPolicy
     public function restore(Admin $admin)
     {
         //
+        foreach (array_keys(config('auth.guards')) as $guard) {
+
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('restore-captain') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }
     }
 
     /**
@@ -99,5 +135,12 @@ class CaptainPolicy
     public function forceDelete(Admin $admin)
     {
         //
+        foreach (array_keys(config('auth.guards')) as $guard) {
+
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('forceDelete-captain') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }
     }
 }

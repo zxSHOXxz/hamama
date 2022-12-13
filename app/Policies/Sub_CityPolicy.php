@@ -20,7 +20,14 @@ class Sub_CityPolicy
     public function viewAny(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('index-sub-city') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+        foreach (array_keys(config('auth.guards')) as $guard) {
+
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('index-sub-city') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }
+
     }
 
     /**
@@ -33,8 +40,13 @@ class Sub_CityPolicy
     public function view(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('show-sub-city') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+        foreach (array_keys(config('auth.guards')) as $guard) {
 
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('show-sub-city') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }
     }
 
     /**
@@ -46,8 +58,13 @@ class Sub_CityPolicy
     public function create(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('create-sub-city') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+        foreach (array_keys(config('auth.guards')) as $guard) {
 
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('create-sub-city') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }
     }
 
     /**
@@ -60,8 +77,13 @@ class Sub_CityPolicy
     public function update(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('update-sub-city') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+        foreach (array_keys(config('auth.guards')) as $guard) {
 
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('update-sub-city') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }
     }
 
     /**
@@ -74,8 +96,13 @@ class Sub_CityPolicy
     public function delete(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('delete-sub-city') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+        foreach (array_keys(config('auth.guards')) as $guard) {
 
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('delete-sub-city') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }
     }
 
     /**
@@ -88,8 +115,13 @@ class Sub_CityPolicy
     public function restore(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('restore-sub-city') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+        foreach (array_keys(config('auth.guards')) as $guard) {
 
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('restore-sub-city') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }
     }
 
     /**
@@ -102,7 +134,12 @@ class Sub_CityPolicy
     public function forceDelete(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('forceDelete-sub-city') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+        foreach (array_keys(config('auth.guards')) as $guard) {
 
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('forceDelete-sub-city') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }
     }
 }

@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Auth;
 
 class OrderPolicy
 {
@@ -17,11 +18,17 @@ class OrderPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(Admin $admin)
+    public function viewAny()
     {
         //
-        return $admin->hasPermissionTo('index-order') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
 
+        foreach (array_keys(config('auth.guards')) as $guard) {
+
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('index-order') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }
     }
 
     /**
@@ -31,10 +38,16 @@ class OrderPolicy
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(Admin $admin)
+    public function view()
     {
         //
-        return $admin->hasPermissionTo('show-order') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+        foreach (array_keys(config('auth.guards')) as $guard) {
+
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('show-order') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }
     }
 
     /**
@@ -46,8 +59,13 @@ class OrderPolicy
     public function create(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('create-order') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+        foreach (array_keys(config('auth.guards')) as $guard) {
 
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('create-order') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }
     }
 
     /**
@@ -60,7 +78,13 @@ class OrderPolicy
     public function update(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('update-order') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+        foreach (array_keys(config('auth.guards')) as $guard) {
+
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('update-order') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }
 
     }
 
@@ -74,8 +98,13 @@ class OrderPolicy
     public function delete(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('delete-order') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+        foreach (array_keys(config('auth.guards')) as $guard) {
 
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('delete-order') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }
     }
 
     /**
@@ -88,8 +117,13 @@ class OrderPolicy
     public function restore(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('restore-order') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+        foreach (array_keys(config('auth.guards')) as $guard) {
 
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('restore-order') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }
     }
 
     /**
@@ -102,7 +136,12 @@ class OrderPolicy
     public function forceDelete(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('forceDelete-order') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+        foreach (array_keys(config('auth.guards')) as $guard) {
 
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('forceDelete-order') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }
     }
 }

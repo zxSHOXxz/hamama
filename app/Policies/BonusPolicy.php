@@ -20,8 +20,13 @@ class BonusPolicy
     public function viewAny(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('index-bonus') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+        foreach (array_keys(config('auth.guards')) as $guard) {
 
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('index-bonus') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }
     }
 
     /**
@@ -34,8 +39,13 @@ class BonusPolicy
     public function view(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('show-bonus') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
-    }
+        foreach (array_keys(config('auth.guards')) as $guard) {
+
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('show-bonus') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }}
 
     /**
      * Determine whether the user can create models.
@@ -46,8 +56,13 @@ class BonusPolicy
     public function create(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('create-bonus') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
-    }
+        foreach (array_keys(config('auth.guards')) as $guard) {
+
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('create-bonus') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }}
 
     /**
      * Determine whether the user can update the model.
@@ -59,8 +74,13 @@ class BonusPolicy
     public function update(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('update-bonus') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
-    }
+        foreach (array_keys(config('auth.guards')) as $guard) {
+
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('update-bonus') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }}
 
     /**
      * Determine whether the user can delete the model.
@@ -72,8 +92,13 @@ class BonusPolicy
     public function delete(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('delete-bonus') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
-    }
+        foreach (array_keys(config('auth.guards')) as $guard) {
+
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('delete-bonus') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }}
 
     /**
      * Determine whether the user can restore the model.
@@ -85,8 +110,13 @@ class BonusPolicy
     public function restore(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('restore-bonus') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
-    }
+        foreach (array_keys(config('auth.guards')) as $guard) {
+
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('restore-bonus') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }}
 
     /**
      * Determine whether the user can permanently delete the model.
@@ -98,6 +128,11 @@ class BonusPolicy
     public function forceDelete(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('forceDelete-bonus') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
-    }
+        foreach (array_keys(config('auth.guards')) as $guard) {
+
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('forceDelete-bonus') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }}
 }

@@ -20,8 +20,13 @@ class ClientPolicy
     public function viewAny(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('index-client') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+        foreach (array_keys(config('auth.guards')) as $guard) {
 
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('index-client') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }
     }
 
     /**
@@ -34,8 +39,13 @@ class ClientPolicy
     public function view(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('show-client') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
-    }
+        foreach (array_keys(config('auth.guards')) as $guard) {
+
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('index-client') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }}
 
     /**
      * Determine whether the user can create models.
@@ -46,8 +56,13 @@ class ClientPolicy
     public function create(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('create-client') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
-    }
+        foreach (array_keys(config('auth.guards')) as $guard) {
+
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('show-client') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }}
 
     /**
      * Determine whether the user can update the model.
@@ -59,8 +74,13 @@ class ClientPolicy
     public function update(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('update-client') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
-    }
+        foreach (array_keys(config('auth.guards')) as $guard) {
+
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('update-client') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }}
 
     /**
      * Determine whether the user can delete the model.
@@ -72,8 +92,13 @@ class ClientPolicy
     public function delete(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('delete-client') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
-    }
+        foreach (array_keys(config('auth.guards')) as $guard) {
+
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('delete-client') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }}
 
     /**
      * Determine whether the user can restore the model.
@@ -85,8 +110,13 @@ class ClientPolicy
     public function restore(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('restore-client') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
-    }
+        foreach (array_keys(config('auth.guards')) as $guard) {
+
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('restore-client') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }}
 
     /**
      * Determine whether the user can permanently delete the model.
@@ -98,6 +128,11 @@ class ClientPolicy
     public function forceDelete(Admin $admin)
     {
         //
-        return $admin->hasPermissionTo('forceDelete-client') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
-    }
+        foreach (array_keys(config('auth.guards')) as $guard) {
+
+            if (auth()->guard($guard)->check()) {
+                return auth()->user()->hasPermissionTo('forceDelete-client') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+            }
+
+        }}
 }

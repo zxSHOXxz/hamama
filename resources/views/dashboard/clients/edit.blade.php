@@ -71,6 +71,17 @@
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="role_id"> المسمى الوظيفي </label>
+                                        <select class="form-control" name="role_id" style="width: 100%;" id="role_id"
+                                            aria-label=".form-select-sm example">
+                                            @foreach ($roles as $role)
+                                                <option value="{{ $role->id }}"> {{ $role->name }} </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <!-- /.card-body -->
                                     <div class="card-footer">
                                         <button type="button" onclick="performUpdate({{ $clients->id }})"
@@ -100,6 +111,7 @@
         function performUpdate(id) {
             let formData = new FormData();
             formData.append('name', document.getElementById('name').value);
+            formData.append('role_id', document.getElementById('role_id').value);
             formData.append('mobile', document.getElementById('mobile').value);
             formData.append('email', document.getElementById('email').value);
             formData.append('gender', document.getElementById('gender').value);

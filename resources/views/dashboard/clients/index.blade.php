@@ -36,6 +36,7 @@
                                         <th> الصورة </th>
                                         <th>الأسم </th>
                                         <th>الايميل </th>
+                                        <th>الدور</th>
                                         <th> الطلبات </th>
                                         <th> رقم الجوال</th>
                                         <th> الجنس </th>
@@ -53,6 +54,11 @@
                                             </td>
                                             <td>{{ $client->user ? $client->user->name : '' }}</td>
                                             <td>{{ $client->email }}</td>
+                                            <td>
+                                                @foreach ($client->getRoleNames() as $role)
+                                                    <span class="badge badge-danger"> {{ $role }} </span>
+                                                @endforeach
+                                            </td>
 
                                             <td><a href="{{ route('indexOrders', ['id' => $client->id]) }}"
                                                     class="btn btn-info">({{ $client->orders_count }})
