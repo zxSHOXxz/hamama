@@ -42,7 +42,7 @@
                                         <th> اسم الزبون</th>
                                         <th> الحالة </th>
                                         <th> اسم الكابتن </th>
-                                        <th> اسم الشارع </th>
+                                        <th> تفاصيل الطلب </th>
                                         <th>الاعدادات</th>
                                     </tr>
                                 </thead>
@@ -68,7 +68,7 @@
                                                 @endif
                                             </td>
                                             <td>{{ $order->captain->user->name }}</td>
-                                            <td>{{ $order->street->name }}</td>
+                                            <td>{{ $order->details }}</td>
                                             <td>
                                                 <div class="btn group">
                                                     <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-primary"

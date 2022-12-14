@@ -17,7 +17,7 @@ class CityController extends Controller
     {
         //
         $this->authorize('viewAny', city::class);
-        $cities = City::withCount('streets', 'sub_cities')->orderBy('id', 'asc')->paginate(5);
+        $cities = City::withCount('sub_cities')->orderBy('id', 'asc')->get();
         return view('dashboard.city.index', compact('cities'));
 
     }

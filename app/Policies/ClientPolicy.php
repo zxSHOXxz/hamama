@@ -41,7 +41,7 @@ class ClientPolicy
         foreach (array_keys(config('auth.guards')) as $guard) {
 
             if (auth()->guard($guard)->check()) {
-                return auth()->user()->hasPermissionTo('index-client') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+                return auth()->user()->hasPermissionTo('show-client') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
             }
 
         }}
@@ -58,7 +58,7 @@ class ClientPolicy
         foreach (array_keys(config('auth.guards')) as $guard) {
 
             if (auth()->guard($guard)->check()) {
-                return auth()->user()->hasPermissionTo('show-client') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+                return auth()->user()->hasPermissionTo('create-client') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
             }
 
         }}

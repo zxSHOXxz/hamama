@@ -12,10 +12,6 @@ class city extends Model
     {
         return $this->hasMany(User::class);
     }
-    public function streets()
-    {
-        return $this->hasMany(Street::class);
-    }
     public function sub_cities()
     {
         return $this->hasMany(sub_city::class);
@@ -27,6 +23,10 @@ class city extends Model
     public function bonuses()
     {
         return $this->hasOne(bonus::class);
+    }
+    public function captain()
+    {
+        return $this->hasOne(Captain::class);
     }
 
 }

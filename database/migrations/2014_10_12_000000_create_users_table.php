@@ -17,8 +17,8 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('mobile');
-            $table->string('image');
-            $table->string('address');
+            $table->string('image')->nullable();
+            $table->string('address')->nullable();
             $table->enum('gender', ['male', 'female']);
             $table->morphs('actor');
             $table->timestamps();

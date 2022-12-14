@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Captain;
 use App\Models\city;
+use App\Models\sub_city;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -57,6 +58,9 @@ class CaptainController extends Controller
         if (!$validator->fails()) {
             $captains = new Captain();
             $captains->email = $request->get('email');
+            $captains->sub_city_id = $request->get('sub_city');
+            $sub_city = sub_city::findOrFail($request->get('sub_city'));
+            $captains->city_id = $sub_city->parent;
             $captains->password = Hash::make($request->get('password'));
             $isSaved = $captains->save();
             if ($isSaved) {

@@ -48,7 +48,7 @@
                                         <tr>
                                             <td>{{ $sub_city->id }}</td>
                                             <td>{{ $sub_city->name }}</td>
-                                            <td>{{ $sub_city->city->name }}</td>
+                                            <td>{{ $sub_city->parent }}</td>
                                             <td>
 
                                                 <div class="btn group">

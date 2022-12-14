@@ -33,15 +33,15 @@
                             <table class="table table-hover table-bordered table-striped text-nowrap text-center">
                                 <thead>
                                     <tr class="bg-info">
-                                        <th>رقم الطلب</th>
-                                        <th>سعر الطلب </th>
+                                        <th> رقم الطلب </th>
+                                        <th> اسم العميل </th>
+                                        <th> سعر الطلب </th>
                                         <th> السعر شامل التوصيل </th>
-                                        <th>اسم المدينة</th>
-                                        <th> اسم الزبون صاحب الطلب </th>
+                                        <th> اسم المدينة </th>
+                                        <th> اسم الزبون</th>
                                         <th> الحالة </th>
                                         <th> اسم الكابتن </th>
-                                        <th>اسم الشارع</th>
-                                        <th> عرض الطلب </th>
+                                        <th> تفاصيل الطلب </th>
                                         <th>الاعدادات</th>
                                     </tr>
                                 </thead>
@@ -49,6 +49,7 @@
                                     @foreach ($orders as $order)
                                         <tr>
                                             <td>{{ $order->id }}</td>
+                                            <td>{{ $order->client->user->name }}</td>
                                             <td>{{ $order->price }}</td>
                                             @php
                                                 $total = $order->city->bonuses->price + $order->price;
@@ -66,12 +67,8 @@
                                                 @endif
                                             </td>
                                             <td>{{ $order->captain->user->name }}</td>
-                                            <td>{{ $order->street->name }}</td>
-                                            <td> <a href="{{ route('orders.show', $order->id) }}" class="btn btn-primary"
-                                                    title="عرض">
-                                                    عرض
-                                                </a>
-                                            </td>
+                                            <td>{{ $order->details }}</td>
+
                                             <td>
                                                 <div class="btn group">
                                                     <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-primary"
@@ -84,6 +81,7 @@
                                                     </a>
                                                 </div>
                                             </td>
+
                                         </tr>
                                     @endforeach
                                 </tbody>

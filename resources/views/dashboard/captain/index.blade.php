@@ -32,19 +32,18 @@
                             <table class="table table-hover table-bordered table-striped text-nowrap text-center">
                                 <thead>
                                     <tr class="bg-info">
-                                        <th>رقم الكابتن</th>
                                         <th> الصورة </th>
                                         <th>الأسم </th>
                                         <th>الايميل </th>
                                         <th> رقم الجوال</th>
                                         <th> الجنس </th>
+                                        <th>المحافظة </th>
                                         <th>الاعدادات</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($captains as $captain)
                                         <tr>
-                                            <td>{{ $captain->id }}</td>
                                             <td>
                                                 <img class="img-circle img-bordered-sm"
                                                     src="{{ asset('storage/images/admin/' . $captain->user->image) }}"
@@ -54,6 +53,7 @@
                                             <td>{{ $captain->email }}</td>
                                             <td>{{ $captain->user ? $captain->user->mobile : '' }}</td>
                                             <td>{{ $captain->user->gender == 'male' ? 'ذكر' : 'انثى' }}</td>
+                                            <td>{{ $captain->sub_city->name }}</td>
                                             <td>
                                                 <div class="btn group">
                                                     <a href="{{ route('captains.edit', $captain->id) }}"

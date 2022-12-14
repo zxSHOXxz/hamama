@@ -12,4 +12,8 @@ class sub_city extends Model
     {
         return $this->belongsTo(City::class);
     }
+    public function captain()
+    {
+        return $this->hasOne(Captain::class);
+    }
 }

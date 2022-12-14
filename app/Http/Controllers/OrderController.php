@@ -6,7 +6,7 @@ use App\Models\Captain;
 use App\Models\city;
 use App\Models\client;
 use App\Models\Order;
-use App\Models\Street;
+use App\Models\sub_city;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -16,27 +16,18 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function indexStreets($id)
-    // {
-    //     $orders = Order::where('city_id', $id)->orderBy('created_at', 'desc')->paginate(5);
-    //     return response()->view('dashboard.sub_city.index', compact('streets', 'id'));
-    // }
-    // public function createStreets($id)
-    // {
-    //     $cities = city::all();
-    //     return response()->view('dashboard.street.createInCity', compact('id', 'cities'));
-    // }
+
     public function index()
     {
         $this->authorize('viewAny', Order::class);
         //
-        $orders = Order::with(['captain', 'client', 'street'])->where('status', 'waiting')->orderBy('id', 'asc')->paginate(5);
+        $orders = Order::with(['captain', 'client', 'city'])->where('status', 'waiting')->orderBy('id', 'asc')->paginate(5);
         return view('dashboard.orders.indexAll', compact('orders'));
     }
     public function indexOrders($id)
     {
         $this->authorize('viewAny', Order::class);
-        $orders = Order::where('client_id', $id)->with(['captain', 'client', 'street'])->orderBy('created_at', 'asc')->paginate(5);
+        $orders = Order::where('client_id', $id)->with(['captain', 'client'])->orderBy('created_at', 'asc')->paginate(5);
         return response()->view('dashboard.orders.index', compact('orders', 'id'));
     }
     public function createOrder($id)
@@ -45,9 +36,8 @@ class OrderController extends Controller
 
         $captains = Captain::all();
         $clients = client::all();
-        $streets = Street::all();
         $cities = city::all();
-        return view('dashboard.orders.createInClient', compact('captains', 'clients', 'streets', 'cities', 'id'));
+        return view('dashboard.orders.createInClient', compact('captains', 'clients', 'cities', 'id'));
     }
 
     /**
@@ -61,9 +51,8 @@ class OrderController extends Controller
         //
         $captains = Captain::all();
         $clients = client::all();
-        $streets = Street::all();
         $cities = city::all();
-        return view('dashboard.orders.create', compact('captains', 'clients', 'streets', 'cities'));
+        return view('dashboard.orders.create', compact('captains', 'clients', 'cities'));
     }
 
     /**
@@ -78,6 +67,7 @@ class OrderController extends Controller
         $this->authorize('create', Order::class);
 
         $validator = validator($request->all(), [
+
         ], [
 
         ]);
@@ -86,13 +76,19 @@ class OrderController extends Controller
             $orders = new Order();
             $orders->customer = $request->get('customer');
             $orders->details = $request->get('details');
-            $orders->status = $request->get('status');
+            $orders->status = 'waiting';
             $orders->price = $request->get('price');
-            $orders->statusDetails = $request->get('statusDetails');
-            $orders->captain_id = $request->get('captain_id');
+            $orders->sub_city_id = $request->get('sub_city_id');
+            $sub_city = sub_city::findOrFail($request->get('sub_city_id'));
+            $orders->city_id = $sub_city->parent;
+            $city = city::with('captain')->findOrFail($sub_city->parent);
+            if ($request->get('captain_id') != null) {
+                $orders->captain_id = $request->get('captain_id');
+            } else {
+                $orders->captain_id = $sub_city->captain->id;
+            }
+            $orders->statusDetails = 'قيد الارسال';
             $orders->client_id = $request->get('client_id');
-            $orders->street_id = $request->get('street_id');
-            $orders->city_id = $request->get('city_id');
             $isSaved = $orders->save();
 
             if ($isSaved) {

@@ -88,12 +88,33 @@
                                             placeholder="أدخل عنوان الكابتن  ">
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="city_id"> العنوان </label>
+                                        <select class="form-control" name="city_id" style="width: 100%;" id="city_id"
+                                            aria-label=".form-select-sm example">
+                                            {{-- <option selected> {{ $streets->city->name }} </option> --}}
+                                            @foreach ($cities as $city)
+                                                {{-- @if ($city->id == $streets->city->id)
+                                                    @continue
+                                                @endif --}}
+                                                <option value="{{ $city->id }}"
+                                                    {{ $city->sub_cities ? 'disabled' : 'null' }}> {{ $city->name }}
+                                                </option>
+                                                @foreach ($city->sub_cities as $sub_cities)
+                                                    <option value="{{ $sub_cities->id }}"> -- {{ $sub_cities->name }}
+                                                    </option>
+                                                @endforeach
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer">
                                     <button type="button" onclick="performStore()"
                                         class="btn btn-lg btn-success">حفظ</button>
 
-                                    <a href="{{ route('admins.index') }}" type="submit"
+                                    <a href="{{ route('captains.index') }}" type="submit"
                                         class="btn btn-lg btn-secondary">إلغاء</a>
                                 </div>
                             </div>
@@ -124,6 +145,7 @@
             formData.append('password', document.getElementById('password').value);
             formData.append('gender', document.getElementById('gender').value);
             formData.append('address', document.getElementById('address').value);
+            formData.append('sub_city', document.getElementById('city_id').value);
             formData.append('image', document.getElementById('image').files[0]);
             store('/cms/admin/captains', formData);
         }

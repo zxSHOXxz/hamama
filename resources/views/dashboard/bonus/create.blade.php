@@ -55,7 +55,7 @@
                                     <button type="button" onclick="performStore()"
                                         class="btn btn-lg btn-success">حفظ</button>
 
-                                    <a href="{{ route('streets.index') }}" type="submit"
+                                    <a href="{{ route('bonuses.index') }}" type="submit"
                                         class="btn btn-lg btn-secondary">إلغاء</a>
                                 </div>
                         </form>

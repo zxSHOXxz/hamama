@@ -18,14 +18,12 @@ class CreateOrdersTable extends Migration
             $table->string('customer')->nullable();
             $table->integer('price');
             $table->string('details')->nullable();
-            $table->enum('status', ['waiting', 'done', 'fail']);
+            $table->enum('status', ['waiting', 'done', 'fail'])->default('waiting');
             $table->string('statusDetails')->nullable();
             $table->foreignId('captain_id');
             $table->foreign('captain_id')->on('captains')->references('id')->cascadeOnDelete();
             $table->foreignId('client_id');
             $table->foreign('client_id')->on('clients')->references('id')->cascadeOnDelete();
-            $table->foreignId('street_id');
-            $table->foreign('street_id')->on('streets')->references('id')->cascadeOnDelete();
             $table->foreignId('city_id');
             $table->foreign('city_id')->on('cities')->references('id')->cascadeOnDelete();
             $table->timestamps();

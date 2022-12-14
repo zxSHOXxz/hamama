@@ -32,9 +32,7 @@
                                             placeholder=" اسم الزبون صاحب الطلب ">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="city_id"> المدينة </label>
-                                        {{-- <input type="text" name="city_id" id="city_id" value="{{ $id }}"
-                                            class="form-control form-control-solid" hidden /> --}}
+                                        <label for="city_id"> العنوان </label>
                                         <select class="form-control" name="city_id" style="width: 100%;" id="city_id"
                                             aria-label=".form-select-sm example">
                                             {{-- <option selected> {{ $streets->city->name }} </option> --}}
@@ -42,7 +40,13 @@
                                                 {{-- @if ($city->id == $streets->city->id)
                                                     @continue
                                                 @endif --}}
-                                                <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                                <option value="{{ $city->id }}"
+                                                    {{ $city->sub_cities ? 'disabled' : 'null' }}> {{ $city->name }}
+                                                </option>
+                                                @foreach ($city->sub_cities as $sub_cities)
+                                                    <option value="{{ $sub_cities->id }}"> -- {{ $sub_cities->name }}
+                                                    </option>
+                                                @endforeach
                                             @endforeach
                                         </select>
                                     </div>
@@ -72,41 +76,6 @@
                                             placeholder=" التفاصيل">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="street_id"> الشارع </label>
-                                        {{-- <input type="text" name="city_id" id="city_id" value="{{ $id }}"
-                                            class="form-control form-control-solid" hidden /> --}}
-                                        <select class="form-control" name="street_id" style="width: 100%;" id="street_id"
-                                            aria-label=".form-select-sm example">
-                                            {{-- <option selected> {{ $streets->city->name }} </option> --}}
-                                            @foreach ($streets as $street)
-                                                {{-- @if ($city->id == $streets->city->id)
-                                                    @continue
-                                                @endif --}}
-                                                <option value="{{ $street->id }}">{{ $street->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <label for="statusDetails"> تفاصيل الحالة </label>
-                                        <input type="text" name="statusDetails" class="form-control" id="statusDetails"
-                                            placeholder=" تفاصيل الحالة ">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="satus"> الحالة </label>
-                                        {{-- <input type="text" name="city_id" id="city_id" value="{{ $id }}"
-                                            class="form-control form-control-solid" hidden /> --}}
-                                        <select class="form-control" name="status" style="width: 100%;" id="status"
-                                            aria-label=".form-select-sm example">
-                                            <option value="waiting"> قيد الارسال </option>
-                                            <option value="done"> تم الارسال </option>
-                                            <option value="fail"> فشل الارسال </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-md-6">
                                         <label for="captain_id"> الكابتن </label>
                                         {{-- <input type="text" name="city_id" id="city_id" value="{{ $id }}"
                                             class="form-control form-control-solid" hidden /> --}}
@@ -118,7 +87,6 @@
                                         </select>
                                     </div>
                                 </div>
-
 
                                 <!-- /.card-body -->
                                 <div class="card-footer">
@@ -151,12 +119,9 @@
             formData.append('customer', document.getElementById('customer').value);
             formData.append('price', document.getElementById('price').value);
             formData.append('details', document.getElementById('details').value);
-            formData.append('statusDetails', document.getElementById('statusDetails').value);
-            formData.append('city_id', document.getElementById('city_id').value);
-            formData.append('street_id', document.getElementById('street_id').value);
+            formData.append('sub_city_id', document.getElementById('city_id').value);
             formData.append('captain_id', document.getElementById('captain_id').value);
             formData.append('client_id', document.getElementById('client_id').value);
-            formData.append('status', document.getElementById('status').value);
             store('/cms/admin/orders', formData);
 
         }

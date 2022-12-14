@@ -34,7 +34,6 @@
                                     <tr class="bg-info">
                                         <th>رقم محافظة</th>
                                         <th>اسم محافظة </th>
-                                        <th> الشوارع </th>
                                         <th> المحافظات الفرعية </th>
                                         <th>الاعدادات</th>
                                     </tr>
@@ -44,13 +43,9 @@
                                         <tr>
                                             <td>{{ $city->id }}</td>
                                             <td>{{ $city->name }}</td>
-                                            <td><a href="{{ route('indexStreet', ['id' => $city->id]) }}"
-                                                    class="btn btn-info">({{ $city->streets_count }})
-                                                    شوارع</a> </td>
                                             <td><a href="{{ route('indexSubCities', ['id' => $city->id]) }}"
                                                     class="btn btn-info">({{ $city->sub_cities_count }})
                                                     محافظات فرعية</a> </td>
-
                                             <td>
 
                                                 <div class="btn group">
@@ -75,7 +70,7 @@
 
                             </div>
                             <!-- /.card-body -->
-                            {{ $cities->links() }}
+                            {{-- {{ $cities->links() }} --}}
                         </div>
                         <!-- /.card -->
                     </div>

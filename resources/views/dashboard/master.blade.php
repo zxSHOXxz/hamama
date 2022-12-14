@@ -389,36 +389,7 @@
                                 </ul>
                             </li>
                         @endcanany
-                        @canany(['index-street', 'create-street'])
-                            <li class="nav-item has-treeview">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon far fa-envelope"></i>
-                                    <p>
-                                        الشوارع
-                                        <i class="fas fa-angle-left right"></i>
-                                    </p>
-                                </a>
 
-                                <ul class="nav nav-treeview">
-                                    @can('index-street')
-                                        <li class="nav-item">
-                                            <a href="{{ route('streets.index') }}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>عرض الشوارع</p>
-                                            </a>
-                                        </li>
-                                    @endcan
-                                    @can('create-street')
-                                        <li class="nav-item">
-                                            <a href="{{ route('streets.create') }}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>إضافة شارع</p>
-                                            </a>
-                                        </li>
-                                    @endcan
-                                </ul>
-                            </li>
-                        @endcanany
                         @canany(['index-sub-city', 'create-sub-city'])
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
@@ -488,22 +459,42 @@
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
-                                    @can('index-order')
-                                        <li class="nav-item">
-                                            <a href="{{ route('orders.index') }}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p> عرض قائمة الطلبات </p>
-                                            </a>
-                                        </li>
-                                    @endcan
-                                    @can('create-order')
-                                        <li class="nav-item">
-                                            <a href="{{ route('orders.create') }}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p> إضافة طلب جديد </p>
-                                            </a>
-                                        </li>
-                                    @endcan
+                                    @if (auth('admin')->check())
+                                        @can('index-order')
+                                            <li class="nav-item">
+                                                <a href="{{ route('orders.index') }}" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p> عرض قائمة الطلبات </p>
+                                                </a>
+                                            </li>
+                                        @endcan
+                                        @can('create-order')
+                                            <li class="nav-item">
+                                                <a href="{{ route('orders.create') }}" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p> إضافة طلب جديد </p>
+                                                </a>
+                                            </li>
+                                        @endcan
+                                    @endif
+                                    @if (auth('client')->check())
+                                        @can('index-order')
+                                            <li class="nav-item">
+                                                <a href="{{ route('indexOrders', ['id' => Auth::id()]) }}" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p> عرض قائمة الطلبات </p>
+                                                </a>
+                                            </li>
+                                        @endcan
+                                        @can('create-order')
+                                            <li class="nav-item">
+                                                <a href="{{ route('createOrder', ['id' => Auth::id()]) }}" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p> إضافة طلب جديد </p>
+                                                </a>
+                                            </li>
+                                        @endcan
+                                    @endif
                                 </ul>
                             </li>
                         @endcanany

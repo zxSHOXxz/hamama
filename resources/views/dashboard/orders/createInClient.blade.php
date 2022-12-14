@@ -30,10 +30,12 @@
                                         <input type="text" name="customer" class="form-control" id="customer"
                                             placeholder=" اسم الزبون صاحب الطلب ">
                                     </div>
+                                    <input type="text" name="client_id" id="client_id" value="{{ $id }}"
+                                        class="form-control form-control-solid" hidden />
+                                    <input type="text" name="status" id="status" value="waiting"
+                                        class="form-control form-control-solid" hidden />
                                     <div class="form-group col-md-6">
                                         <label for="city_id"> العنوان </label>
-                                        {{-- <input type="text" name="city_id" id="city_id" value="{{ $id }}"
-                                            class="form-control form-control-solid" hidden /> --}}
                                         <select class="form-control" name="city_id" style="width: 100%;" id="city_id"
                                             aria-label=".form-select-sm example">
                                             {{-- <option selected> {{ $streets->city->name }} </option> --}}
@@ -41,7 +43,8 @@
                                                 {{-- @if ($city->id == $streets->city->id)
                                                     @continue
                                                 @endif --}}
-                                                <option value="{{ $city->id }}" {{ $city->sub_cities ? 'disable' : 'null' }}> {{ $city->name }}
+                                                <option value="{{ $city->id }}"
+                                                    {{ $city->sub_cities ? 'disabled' : 'null' }}> {{ $city->name }}
                                                 </option>
                                                 @foreach ($city->sub_cities as $sub_cities)
                                                     <option value="{{ $sub_cities->id }}"> -- {{ $sub_cities->name }}
@@ -69,7 +72,7 @@
                                         <button type="button" onclick="performStore()"
                                             class="btn btn-lg btn-success">حفظ</button>
 
-                                        <a href="{{ route('orders.index') }}" type="submit"
+                                        <a href="{{ route('indexOrders', ['id' => Auth::id()]) }}" type="submit"
                                             class="btn btn-lg btn-secondary">إلغاء</a>
                                     </div>
                                 </div>
@@ -98,10 +101,7 @@
             formData.append('customer', document.getElementById('customer').value);
             formData.append('price', document.getElementById('price').value);
             formData.append('details', document.getElementById('details').value);
-            formData.append('statusDetails', document.getElementById('statusDetails').value);
-            formData.append('city_id', document.getElementById('city_id').value);
-            formData.append('street_id', document.getElementById('street_id').value);
-            formData.append('captain_id', document.getElementById('captain_id').value);
+            formData.append('sub_city_id', document.getElementById('city_id').value);
             formData.append('client_id', document.getElementById('client_id').value);
             formData.append('status', document.getElementById('status').value);
             store('/cms/admin/orders', formData);

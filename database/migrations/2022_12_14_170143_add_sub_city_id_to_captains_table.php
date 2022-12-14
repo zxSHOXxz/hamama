@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddCityIdToStreetsTable extends Migration
+class AddSubCityIdToCaptainsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class AddCityIdToStreetsTable extends Migration
      */
     public function up()
     {
-        Schema::table('streets', function (Blueprint $table) {
+        Schema::table('captains', function (Blueprint $table) {
             //
-            $table->foreignId('city_id');
-            $table->foreign('city_id')->on('cities')->references('id')->cascadeOnDelete();
+            $table->foreignId('sub_city_id');
+            $table->foreign('sub_city_id')->on('cities')->references('id')->cascadeOnDelete();
         });
     }
 
@@ -27,7 +27,7 @@ class AddCityIdToStreetsTable extends Migration
      */
     public function down()
     {
-        Schema::table('streets', function (Blueprint $table) {
+        Schema::table('captains', function (Blueprint $table) {
             //
         });
     }
