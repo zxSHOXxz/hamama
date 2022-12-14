@@ -92,9 +92,12 @@
 
                             </div>
                             <!-- /.card-body -->
-                            @if ($orders)
-                                {{ $orders->links() }}
-                            @endif
+                            <div class="d-flex justify-content-center">
+                                @if ($orders)
+                                    {{ $orders->links() }}
+                                @endif
+                            </div>
+
                         </div>
                         <!-- /.card -->
                     </div>
