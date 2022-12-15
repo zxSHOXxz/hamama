@@ -1,8 +1,8 @@
 @extends('dashboard.master')
-@section('title', 'طلبات العميل')
+@section('title', 'الطلب')
 
-@section('main-title', 'عرض طلبات العميل')
-@section('sub-title', 'عرض طلبات العميل')
+@section('main-title', 'عرض الطلب')
+@section('sub-title', 'عرض الطلب')
 
 @section('styles')
     <style>
@@ -18,10 +18,12 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">الطلبات</h3>
-                            <a href="{{ route('createOrder', $id) }}" type="submit" class="btn btn-lg btn-success">إضافة
-                                طلب
+                            <h3 class="card-title">الطلب</h3>
+                            <a href="{{ route('orders.create') }}" type="submit" class="btn btn-lg btn-success">إضافة طلب
                                 جديد</a>
+                            {{-- <a href="{{ route('createbonus' , $id) }}" type="submit" class="btn btn-lg
+                        btn-success">إضافة طلب
+                        جديد</a> --}}
                             <div class="card-tools">
 
                             </div>
@@ -36,7 +38,7 @@
                                         <th> اسم العميل </th>
                                         <th> سعر الطلب </th>
                                         <th> السعر شامل التوصيل </th>
-                                        <th> اسم المدينة </th>
+                                        <th> اسم المحافظة </th>
                                         <th> رقم الزبون</th>
                                         <th> الحالة </th>
                                         <th> اسم الكابتن </th>
@@ -86,7 +88,6 @@
                                                     </div>
                                                 </td>
                                             @endcanany
-
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -97,12 +98,9 @@
 
                             </div>
                             <!-- /.card-body -->
-                            <div class="d-flex justify-content-center">
-                                @if ($orders)
-                                    {{ $orders->links() }}
-                                @endif
-                            </div>
-
+                            @if ($orders)
+                                {{ $orders->links() }}
+                            @endif
                         </div>
                         <!-- /.card -->
                     </div>

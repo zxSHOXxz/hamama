@@ -20,9 +20,9 @@ class Order extends Model
     {
         return $this->belongsTo(client::class, 'client_id', 'id');
     }
-    public function street()
+    public function sub_city()
     {
-        return $this->belongsTo(Street::class);
+        return $this->belongsTo(sub_city::class);
     }
 
 }

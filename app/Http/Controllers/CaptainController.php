@@ -19,7 +19,7 @@ class CaptainController extends Controller
     public function index()
     {
         //
-        $captains = Captain::orderBy('id', 'desc')->paginate(5);
+        $captains = Captain::orderBy('id', 'desc')->paginate(10);
         $this->authorize('viewAny', Captain::class);
         return response()->view('dashboard.captain.index', compact('captains'));
     }

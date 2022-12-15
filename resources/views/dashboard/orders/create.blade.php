@@ -27,9 +27,9 @@
 
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <label for="customer"> اسم الطلب </label>
+                                        <label for="customer"> رقم هاتف صاحب الطلب</label>
                                         <input type="text" name="customer" class="form-control" id="customer"
-                                            placeholder=" اسم الزبون صاحب الطلب ">
+                                            placeholder=" رقم هاتف صاحب الطلب ">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="city_id"> العنوان </label>

@@ -26,9 +26,9 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <label for="customer"> اسم الزبون صاحب الطلب </label>
+                                        <label for="customer"> رقم هاتف صاحب الطلب</label>
                                         <input type="text" name="customer" class="form-control" id="customer"
-                                            placeholder=" اسم الزبون صاحب الطلب ">
+                                            placeholder=" رقم هاتف صاحب الطلب ">
                                     </div>
                                     <input type="text" name="client_id" id="client_id" value="{{ $id }}"
                                         class="form-control form-control-solid" hidden />

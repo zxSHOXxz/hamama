@@ -34,29 +34,29 @@
                             <table class="table table-hover table-bordered table-striped text-nowrap text-center">
                                 <thead>
                                     <tr class="bg-info">
-                                        <th> رقم الطلب </th>
                                         <th> اسم العميل </th>
                                         <th> سعر الطلب </th>
                                         <th> السعر شامل التوصيل </th>
-                                        <th> اسم المدينة </th>
-                                        <th> اسم الزبون</th>
+                                        <th> اسم المحافظة </th>
+                                        <th> رقم الزبون</th>
                                         <th> الحالة </th>
                                         <th> اسم الكابتن </th>
                                         <th> تفاصيل الطلب </th>
-                                        <th>الاعدادات</th>
+                                        @canany(['update-order', 'delete-order'])
+                                            <th>الاعدادات</th>
+                                        @endcanany
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($orders as $order)
                                         <tr>
-                                            <td>{{ $order->id }}</td>
                                             <td>{{ $order->client->user->name }}</td>
                                             <td>{{ $order->price }}</td>
                                             @php
                                                 $total = $order->city->bonuses->price + $order->price;
                                             @endphp
                                             <td>{{ $order->city->bonuses->price . '+' . $order->price . '=' . $total }}</td>
-                                            <td>{{ $order->city->name }}</td>
+                                            <td>{{ $order->city->name . '(' . $order->sub_city->name . ')' }}</td>
                                             <td>{{ $order->customer }}</td>
                                             <td>
                                                 @if ($order->status == 'waiting')
@@ -69,18 +69,24 @@
                                             </td>
                                             <td>{{ $order->captain->user->name }}</td>
                                             <td>{{ $order->details }}</td>
-                                            <td>
-                                                <div class="btn group">
-                                                    <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-primary"
-                                                        title="Edit">
-                                                        تعديل
-                                                    </a>
-                                                    <a href="#" onclick="performDestroy({{ $order->id }} , this)"
-                                                        class="btn btn-danger" title="Delete">
-                                                        حذف
-                                                    </a>
-                                                </div>
-                                            </td>
+                                            @canany(['update-order', 'delete-order'])
+                                                <td>
+                                                    <div class="btn group">
+                                                        @can('update-order')
+                                                            <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-primary"
+                                                                title="Edit">
+                                                                تعديل
+                                                            </a>
+                                                        @endcan
+                                                        @can('delete-order')
+                                                            <a href="#" onclick="performDestroy({{ $order->id }} , this)"
+                                                                class="btn btn-danger" title="Delete">
+                                                                حذف
+                                                            </a>
+                                                        @endcan
+                                                    </div>
+                                                </td>
+                                            @endcanany
                                         </tr>
                                     @endforeach
                                 </tbody>

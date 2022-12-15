@@ -56,6 +56,7 @@ Route::prefix('cms/admin')->middleware('auth:admin,client')->group(function () {
     Route::get('/create/sub_cities/{id}', [SubCityController::class, 'createSub_city'])->name('createSub_city');
 
     Route::resource('orders', OrderController::class);
+    Route::get('archive', [OrderController::class, 'archive'])->name('orders_archive');
     Route::post('orders_update/{id}', [OrderController::class, 'update'])->name('orders_update');
 
     Route::get('/index/orders/{id}', [OrderController::class, 'indexOrders'])->name('indexOrders');

@@ -468,6 +468,14 @@
                                                 </a>
                                             </li>
                                         @endcan
+                                        @can('index-order')
+                                            <li class="nav-item">
+                                                <a href="{{ route('orders_archive') }}" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p> عرض ارشيف الطلبات </p>
+                                                </a>
+                                            </li>
+                                        @endcan
                                         @can('create-order')
                                             <li class="nav-item">
                                                 <a href="{{ route('orders.create') }}" class="nav-link">

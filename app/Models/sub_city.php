@@ -16,4 +16,8 @@ class sub_city extends Model
     {
         return $this->hasOne(Captain::class);
     }
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }
