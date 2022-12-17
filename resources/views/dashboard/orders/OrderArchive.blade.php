@@ -19,13 +19,55 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">الطلب</h3>
-                            <a href="{{ route('orders.create') }}" type="submit" class="btn btn-lg btn-success">إضافة طلب
-                                جديد</a>
-                            {{-- <a href="{{ route('createbonus' , $id) }}" type="submit" class="btn btn-lg
-                        btn-success">إضافة طلب
-                        جديد</a> --}}
-                            <div class="card-tools">
 
+                            <div class="card-tools">
+                                <a href="{{ route('orders.create') }}" type="submit" class="btn btn-md btn-success">إضافة طلب
+                                    جديد</a>
+                                <a href="{{ route('exportSearched', request()->query()) }}"
+                                    class="btn btn-md btn-outline-dark">
+                                    <i class="fa-solid fa-file-excel"></i>
+                                    تصدير اكسل
+                                </a>
+                                <form action="" method="get" class="m-3">
+
+                                    <div class="row">
+
+                                        <div class="input-icon col-md-3 col-12">
+                                            <label for="start_date"> اسم المحافظة </label>
+                                            <input type="text" class="form-control"
+                                                placeholder="ابحث من خلال اسم المحافظة" name='sub_city' id="sub_city"
+                                                @if (request()->sub_city) value={{ request()->sub_city }} @endif />
+                                        </div>
+
+                                        <div class="input-icon col-md-3 col-12">
+                                            <label for="client_name">اسم العميل</label>
+                                            <input type="text" class="form-control" placeholder="ادخل اسم العميل"
+                                                name='client_name' id="client_name"
+                                                @if (request()->client_name) value={{ request()->client_name }} @endif />
+                                        </div>
+
+                                        <div class="input-icon col-md-3 col-12">
+                                            <label for="captain_name">اسم الكابتن</label>
+                                            <input type="text" class="form-control" placeholder="ادخل اسم الكابتن"
+                                                name='captain_name' id="captain_name"
+                                                @if (request()->captain_name) value={{ request()->captain_name }} @endif />
+                                        </div>
+
+                                        <div class="input-icon col-md-3 col-12">
+                                            <label for="start_date">تاريخ </label>
+                                            <input type="date" class="form-control"
+                                                placeholder="ابحث من خلال تاريخ الانشاء " name='created_at' id="created_at"
+                                                @if (request()->created_at) value={{ request()->created_at }} @endif />
+                                        </div>
+
+                                        <div class="col mt-4">
+                                            <button class="btn btn-danger btn-md submit" type="submit">Filter</button>
+                                            <a href="{{ route('orders_archive') }}" type="button"
+                                                class="btn btn-info">إنهاء
+                                                البحث </a>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                             <br>
                         </div>
@@ -56,7 +98,8 @@
                                             @php
                                                 $total = $order->city->bonuses->price + $order->price;
                                             @endphp
-                                            <td>{{ $order->city->bonuses->price . '+' . $order->price . '=' . $total }}</td>
+                                            <td>{{ $order->city->bonuses->price . '+' . $order->price . '=' . $total }}
+                                            </td>
                                             <td>{{ $order->city->name . '(' . $order->sub_city->name . ')' }}</td>
                                             <td>{{ $order->customer }}</td>
                                             <td>
@@ -74,9 +117,15 @@
                                                 <td>
                                                     <div class="btn group">
                                                         @can('update-order')
-                                                            <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-primary"
-                                                                title="Edit">
+                                                            <a href="{{ route('orders.edit', $order->id) }}"
+                                                                class="btn btn-primary" title="Edit">
                                                                 تعديل
+                                                            </a>
+                                                        @endcan
+                                                        @can('show-order')
+                                                            <a href="{{ route('orders.show', $order->id) }}"
+                                                                class="btn btn-success" title="show">
+                                                                عرض
                                                             </a>
                                                         @endcan
                                                         @can('delete-order')

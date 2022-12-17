@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\OrderSearchedExport;
 use App\Models\Captain;
 use App\Models\city;
 use App\Models\client;
 use App\Models\Order;
 use App\Models\sub_city;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OrderController extends Controller
 {
@@ -17,18 +21,59 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function exportSearched(Request $request)
+    {
+        $query = Order::with(['captain', 'client', 'city', 'sub_city'])
+            ->when($request->get('sub_city'), function ($query, $value) {
+                $sub_city = sub_city::where('name', 'like', "%{$value}%")->first();
+                $query->where('sub_city_id', $sub_city->id);
+            })
+            ->when($request->get('client_name'), function ($query, $value) {
+                $userClient = User::where('name', 'like', "%{$value}%")->first();
+                $query->where('client_id', '=', $userClient->actor_id);
+            })
+            ->when($request->get('captain_name'), function ($query, $value) {
+                $userCaptain = User::where('name', 'like', "%{$value}%")->first();
+                $query->where('captain_id', '=', $userCaptain->actor_id);
+            })
+            ->when($request->get('created_at'), function ($query, $value) {
+                $query->where('created_at', '>=', $value);
+            });
+
+        $export = new OrderSearchedExport();
+        $export->setQuery($query);
+        return Excel::download($export, 'orders.xlsx');
+
+    }
+
     public function index()
     {
         $this->authorize('viewAny', Order::class);
+        $orders = Order::with(['captain', 'client', 'city', 'sub_city'])->whereDate('created_at', Carbon::today())->where('status', 'waiting')->orderBy('id', 'asc')->paginate(50);
         //
-        $orders = Order::with(['captain', 'client', 'city', 'sub_city'])->where('status', 'waiting')->orderBy('id', 'asc')->paginate(50);
         return view('dashboard.orders.indexAll', compact('orders'));
     }
-    public function archive()
+    public function archive(Request $request)
     {
         $this->authorize('viewAny', Order::class);
         //
-        $orders = Order::with(['captain', 'client', 'city', 'sub_city'])->orderBy('id', 'asc')->paginate(50);
+        $orders = Order::with(['captain', 'client', 'city', 'sub_city'])->orderBy('id', 'asc');
+        if ($request->get('sub_city')) {
+            $sub_city = sub_city::where('name', $request->get('sub_city'))->first();
+            $orders = $orders->where('sub_city_id', 'like', '%' . $sub_city->id . '%');
+        }
+        if ($request->get('client_name')) {
+            $userClient = User::where('name', $request->get('client_name'))->first();
+            $orders = $orders->where('client_id', 'like', '%' . $userClient->actor_id . '%');
+        }
+        if ($request->get('captain_name')) {
+            $userCaptain = User::where('name', $request->get('captain_name'))->first();
+            $orders = $orders->where('captain_id', 'like', '%' . $userCaptain->actor_id . '%');
+        }
+        if ($request->get('created_at')) {
+            $orders = $orders->where('created_at', 'like', '%' . $request->created_at . '%');
+        }
+        $orders = $orders->paginate(50);
         return view('dashboard.orders.OrderArchive', compact('orders'));
     }
     public function indexOrders($id)
@@ -119,7 +164,9 @@ class OrderController extends Controller
     {
         //
         $this->authorize('view', Order::class);
+        $order = Order::findOrFail($id);
 
+        return view('dashboard.orders.show', compact('order'));
     }
 
     /**

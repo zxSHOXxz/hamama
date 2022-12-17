@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Changa:wght@800&family=Lalezar&display=swap');
+.hero{
+    background-image: url('image.png');
+    nav{
+        height: 10vh;
+        background: transparent;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .logos{
+            width: 100px;
+            height: 100px;
+            font-family: 'Changa', sans-serif;
+            font-size: 32px;
+        }
+        .buttons button{
+            background-color: #eb1700 !important;
+            border: 2px solid transparent;
+            outline: none;       
+            padding: 5px 25px;
+            border-radius: 30px;
+            margin: 0 10px;
+            font-weight: 600;
+            font-size: 16px;
+            color: #ffffff;
+            transition: all .3s linear;
+        }
+        button:hover{
+            background-color: #fcaf26 !important;
+        }
+
+    }
+    .text-hero{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-5%, -50%);
+        color: #ffffff;
+
+        h1{
+            font-family: 'Changa', sans-serif;
+            font-size: 93px !important;
+            text-align: center;
+        }
+        .img{
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .one{
+            font-family: 'Changa', sans-serif;
+            font-size: 35px;
+            span{
+                margin-inline: 10px;
+            }
+        }
+    }
+}

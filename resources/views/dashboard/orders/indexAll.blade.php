@@ -19,12 +19,14 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">الطلب</h3>
-                            <a href="{{ route('orders.create') }}" type="submit" class="btn btn-lg btn-success">إضافة طلب
-                                جديد</a>
-                            {{-- <a href="{{ route('createbonus' , $id) }}" type="submit" class="btn btn-lg btn-success">إضافة طلب
-                                جديد</a> --}}
                             <div class="card-tools">
-
+                                <a href="{{ route('orders.create') }}" type="submit"
+                                    class="btn btn-md btn-success mx-1">إضافة طلب
+                                    جديد</a>
+                                <a href="{{ route('orders_exel', ['null', 'index']) }}" class="btn btn-md btn-outline-dark">
+                                    <i class="fa-solid fa-file-excel"></i>
+                                    تصدير اكسل
+                                </a>
                             </div>
                             <br>
                         </div>
@@ -76,6 +78,12 @@
                                                             <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-primary"
                                                                 title="Edit">
                                                                 تعديل
+                                                            </a>
+                                                        @endcan
+                                                        @can('show-order')
+                                                            <a href="{{ route('orders.show', $order->id) }}"
+                                                                class="btn btn-success" title="show">
+                                                                عرض
                                                             </a>
                                                         @endcan
                                                         @can('delete-order')

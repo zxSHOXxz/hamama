@@ -1,6 +1,6 @@
 @extends('dashboard.master')
 
-@section('title', 'المدينة')
+@section('title', 'البونص')
 
 @section('styles')
 
@@ -17,7 +17,7 @@
                     <!-- general form elements -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3>انشاء شارع</h3>
+                            <h3>انشاء بونص</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
@@ -27,13 +27,13 @@
 
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <label for="name">اسم الشارع </label>
+                                        <label for="name">اسم البونص </label>
                                         <input type="text" name="name" class="form-control" id="name"
-                                            placeholder="أدخل اسم الشارع  ">
+                                            placeholder="أدخل اسم البونص  ">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="name">وصف الشارع </label>
-                                        <textarea type="text" name="details" class="form-control" id="details" placeholder="أدخل وصف الشارع  "></textarea>
+                                        <label for="name">وصف البونص </label>
+                                        <textarea type="text" name="details" class="form-control" id="details" placeholder="أدخل وصف البونص  "></textarea>
                                         <input type="text" name="city_id" id="city_id" value="{{ $id }}"
                                             class="form-control form-control-solid" hidden />
                                     </div>

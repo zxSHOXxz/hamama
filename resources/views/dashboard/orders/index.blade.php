@@ -19,9 +19,14 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">الطلبات</h3>
-                            <a href="{{ route('createOrder', $id) }}" type="submit" class="btn btn-lg btn-success">إضافة
+                            <a href="{{ route('createOrder', $id) }}" type="submit"
+                                class="btn btn-md btn-outline-success">إضافة
                                 طلب
                                 جديد</a>
+                            <a href="{{ route('orders_exel', [$id, 'client_id']) }}" class="btn btn-md btn-outline-dark">
+                                <i class="fa-solid fa-file-excel"></i>
+                                تصدير اكسل
+                            </a>
                             <div class="card-tools">
 
                             </div>
@@ -33,10 +38,10 @@
                             <table class="table table-hover table-bordered table-striped text-nowrap text-center">
                                 <thead>
                                     <tr class="bg-info">
-                                        <th> اسم العميل </th>
+                                        <th> تاريخ الطلب </th>
                                         <th> سعر الطلب </th>
                                         <th> السعر شامل التوصيل </th>
-                                        <th> اسم المدينة </th>
+                                        <th> اسم المحافظة </th>
                                         <th> رقم الزبون</th>
                                         <th> الحالة </th>
                                         <th> اسم الكابتن </th>
@@ -49,7 +54,7 @@
                                 <tbody>
                                     @foreach ($orders as $order)
                                         <tr>
-                                            <td>{{ $order->client->user->name }}</td>
+                                            <td>{{ $order->created_at }}</td>
                                             <td>{{ $order->price }}</td>
                                             @php
                                                 $total = $order->city->bonuses->price + $order->price;
@@ -75,6 +80,12 @@
                                                             <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-primary"
                                                                 title="Edit">
                                                                 تعديل
+                                                            </a>
+                                                        @endcan
+                                                        @can('show-order')
+                                                            <a href="{{ route('orders.show', $order->id) }}"
+                                                                class="btn btn-success" title="show">
+                                                                عرض
                                                             </a>
                                                         @endcan
                                                         @can('delete-order')

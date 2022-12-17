@@ -1,6 +1,6 @@
 @extends('dashboard.master')
 
-@section('title', 'المدينة')
+@section('title', 'المحافظة')
 
 
 
@@ -21,7 +21,7 @@
                     <!-- general form elements -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">انشاء مدينة</h3>
+                            <h3 class="card-title">انشاء محافظة</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
@@ -31,9 +31,9 @@
 
                                 <div class="row">
                                     <div class="form-group col-md-12">
-                                        <label for="name">اسم المدينة </label>
+                                        <label for="name">اسم المحافظة </label>
                                         <input type="text" name="name" class="form-control" id="name"
-                                            placeholder="أدخل اسم المدينة  ">
+                                            placeholder="أدخل اسم المحافظة  ">
                                     </div>
                                 </div>
 

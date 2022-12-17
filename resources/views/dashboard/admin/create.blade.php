@@ -63,7 +63,7 @@
                                     <div class="form-group col-md-6">
                                         <label for="mobile"> رقم الجوال </label>
                                         <input type="text" name="mobile" class="form-control" id="mobile"
-                                            placeholder="أدخل ايميل المشرف  ">
+                                            placeholder="أدخل رقم المشرف  ">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="gender"> الجنس</label>

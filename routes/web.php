@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::view('/', 'dashboard.master')->name('parent');
+Route::view('/', 'front')->name('frontView');
 
 Route::prefix('cms/')->middleware('guest:admin,client')->group(function () {
     Route::get('{guard}/login', [UserAuthController::class, 'showLogin'])->name('view.login');
@@ -38,8 +38,8 @@ Route::prefix('cms/admin')->middleware('auth:admin,client')->group(function () {
 });
 
 Route::prefix('cms/admin')->middleware('auth:admin,client')->group(function () {
-    Route::view('/', 'dashboard.master');
 
+    Route::view('/', 'dashboard.master')->name('parent');
     Route::resource('streets', StreetsController::class);
     Route::post('streets_update/{id}', [StreetsController::class, 'update'])->name('streets_update');
 
@@ -57,8 +57,8 @@ Route::prefix('cms/admin')->middleware('auth:admin,client')->group(function () {
 
     Route::resource('orders', OrderController::class);
     Route::get('archive', [OrderController::class, 'archive'])->name('orders_archive');
+    Route::get('archive/excel', [OrderController::class, 'exportSearched'])->name('exportSearched');
     Route::post('orders_update/{id}', [OrderController::class, 'update'])->name('orders_update');
-
     Route::get('/index/orders/{id}', [OrderController::class, 'indexOrders'])->name('indexOrders');
     Route::get('/create/orders/{id}', [OrderController::class, 'createOrder'])->name('createOrder');
 
@@ -81,4 +81,5 @@ Route::prefix('cms/admin')->middleware('auth:admin,client')->group(function () {
     Route::post('permissions_update/{id}', [PermissionController::class, 'update'])->name('permissions_update');
 
     Route::resource('roles.permissions', RolePermissionController::class);
+
 });

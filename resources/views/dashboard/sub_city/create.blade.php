@@ -32,7 +32,7 @@
                                             placeholder="أدخل اسم المحافظة الفرعية  ">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="city_id"> المدينة </label>
+                                        <label for="city_id"> المحافظة </label>
                                         {{-- <input type="text" name="city_id" id="city_id" value="{{ $id }}"
                                             class="form-control form-control-solid" hidden /> --}}
                                         <select class="form-control" name="city_id" style="width: 100%;" id="city_id"

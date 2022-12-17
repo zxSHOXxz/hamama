@@ -123,7 +123,6 @@
             formData.append('captain_id', document.getElementById('captain_id').value);
             formData.append('client_id', document.getElementById('client_id').value);
             store('/cms/admin/orders', formData);
-
         }
     </script>
 @endsection

@@ -1,8 +1,8 @@
 @extends('dashboard.master')
-@section('title', 'الشارع')
+@section('title', 'البونص')
 
-@section('main-title', 'عرض الشارع')
-@section('sub-title', 'عرض الشارع')
+@section('main-title', 'عرض البونص')
+@section('sub-title', 'عرض البونص')
 
 @section('styles')
     <style>
@@ -18,10 +18,11 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">المدينة</h3>
+                            <h3 class="card-title">البونص</h3>
                             {{-- <a href="{{ route('streets.create') }}" type="submit" class="btn btn-lg btn-success">إضافة شارع
                                 جديد</a> --}}
-                            <a href="{{ route('createStreet' , $id) }}" type="submit" class="btn btn-lg btn-success">إضافة شارع
+                            <a href="{{ route('createStreet', $id) }}" type="submit" class="btn btn-lg btn-success">إضافة
+                                بونص
                                 جديد</a>
                             <div class="card-tools">
 
@@ -34,9 +35,9 @@
                             <table class="table table-hover table-bordered table-striped text-nowrap text-center">
                                 <thead>
                                     <tr class="bg-info">
-                                        <th>رقم الشارع</th>
-                                        <th>اسم الشارع </th>
-                                        <th>اسم المدينة</th>
+                                        <th>رقم البونص</th>
+                                        <th>اسم البونص </th>
+                                        <th>اسم المحافظة</th>
                                         <th>الاعدادات</th>
                                     </tr>
                                 </thead>
@@ -52,7 +53,7 @@
                                                         class="btn btn-primary" title="Edit">
                                                         تعديل
                                                     </a>
-                                                    <a href="#" onclick="performDestroy({{$street->id}} , this)"
+                                                    <a href="#" onclick="performDestroy({{ $street->id }} , this)"
                                                         class="btn btn-danger" title="Delete">
                                                         حذف
                                                     </a>

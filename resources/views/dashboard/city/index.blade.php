@@ -1,8 +1,8 @@
 @extends('dashboard.master')
 @section('title', 'محافظة')
 
-@section('main-title', 'عرض مدينة')
-@section('sub-title', 'عرض مدينة')
+@section('main-title', 'عرض محافظة')
+@section('sub-title', 'عرض محافظة')
 
 @section('styles')
     <style>

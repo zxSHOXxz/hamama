@@ -1,9 +1,9 @@
 @extends('dashboard.master')
 
-@section('title',' المدينة')
+@section('title',' المحافظة')
 
-@section('main-title','تعديل مدينة')
-@section('sub-title','تعديل مدينة')
+@section('main-title','تعديل محافظة')
+@section('sub-title','تعديل محافظة')
 
 @section('styles')
 
@@ -20,7 +20,7 @@
                 <!-- general form elements -->
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">تعديل مدينة</h3>
+                        <h3 class="card-title">تعديل محافظة</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
@@ -30,10 +30,10 @@
 
                             <div class="row">
                                 <div class="form-group col-md-12">
-                                    <label for="name">تعديل اسم المدينة </label>
+                                    <label for="name">تعديل اسم المحافظة </label>
                                     <input type="text" name="name" class="form-control"
                                         id="name" value="{{$cities->name}}"
-                                        placeholder="أدخل اسم المدينة  ">
+                                        placeholder="أدخل اسم المحافظة  ">
                                 </div>
 
                             </div>
