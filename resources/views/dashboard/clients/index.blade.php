@@ -19,7 +19,7 @@
                     <div class="card">
                         <div class="card-header">
                             {{-- <h3 class="card-title">المشرف</h3> --}}
-                            <a href="{{ route('clients.create') }}" type="submit" class="btn btn-lg btn-success">إضافة كابتن
+                            <a href="{{ route('clients.create') }}" type="submit" class="btn btn-lg btn-success">إضافة زبون
                                 جديد</a>
                             <div class="card-tools">
 

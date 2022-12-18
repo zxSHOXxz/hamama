@@ -183,11 +183,33 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="{{ asset('cms/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2"
-                            alt="User Image">
+                        @if (Auth::guard('admin')->id())
+                            {{-- @if (auth('admin')->user()->user->images != '') --}}
+                            <img class="brand-image img-circle elevation-3"
+                                src="{{ asset('storage/images/admin/' . auth('admin')->user()->user->image) }}"alt="User Image">
+                            {{-- @else --}}
+                            {{-- <img src="{{ asset('cms/dist/img/user2-160x160.jpg') }}"
+                                    class="img-circle elevation-2" alt="User Image">
+                            @endif --}}
+                        @endif
+                        @if (Auth::guard('client')->id())
+                            {{-- @if (auth('client')->user()->user->images != '') --}}
+                            <img class="brand-image img-circle elevation-3"
+                                src="{{ asset('storage/images/admin/' . auth('client')->user()->user->image) }}"alt="User Image">
+                            {{-- @else
+                                <img src="{{ asset('cms/dist/img/user2-160x160.jpg') }}"
+                                    class="img-circle elevation-2" alt="User Image">
+                            @endif --}}
+                        @endif
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Alexander Pierce</a>
+                        <a href="#" class="d-block">
+                            @if (Auth::guard('admin')->id())
+                                <a href="#" class="d-block"> {{ auth('admin')->user()->user->name }}</a>
+                            @elseif (Auth::guard('client')->id())
+                                <a href="#" class="d-block"> {{ auth('client')->user()->user->name }}</a>
+                            @endif
+                        </a>
                     </div>
                 </div>
 
@@ -197,7 +219,7 @@
                         data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                        <li class="nav-item has-treeview menu-open">
+                        {{-- <li class="nav-item has-treeview menu-open">
                             <a href="#" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
@@ -205,7 +227,7 @@
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
-                        </li>
+                        </li> --}}
                         {{-- @canany(['Index-Role'])
                             <li class="nav-header"> الأدوار والصلاحيات</li>
 

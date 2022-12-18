@@ -57,22 +57,22 @@ class OrderController extends Controller
     {
         $this->authorize('viewAny', Order::class);
         //
-        $orders = Order::with(['captain', 'client', 'city', 'sub_city'])->orderBy('id', 'asc');
-        if ($request->get('sub_city')) {
-            $sub_city = sub_city::where('name', $request->get('sub_city'))->first();
-            $orders = $orders->where('sub_city_id', 'like', '%' . $sub_city->id . '%');
-        }
-        if ($request->get('client_name')) {
-            $userClient = User::where('name', $request->get('client_name'))->first();
-            $orders = $orders->where('client_id', 'like', '%' . $userClient->actor_id . '%');
-        }
-        if ($request->get('captain_name')) {
-            $userCaptain = User::where('name', $request->get('captain_name'))->first();
-            $orders = $orders->where('captain_id', 'like', '%' . $userCaptain->actor_id . '%');
-        }
-        if ($request->get('created_at')) {
-            $orders = $orders->where('created_at', 'like', '%' . $request->created_at . '%');
-        }
+        $orders = Order::with(['captain', 'client', 'city', 'sub_city'])->orderBy('id', 'asc')
+            ->when($request->get('sub_city'), function ($orders, $value) {
+                $sub_city = sub_city::where('name', 'like', "%{$value}%")->first();
+                $orders->where('sub_city_id', $sub_city->id);
+            })
+            ->when($request->get('client_name'), function ($orders, $value) {
+                $userClient = User::where('name', 'like', "%{$value}%")->first();
+                $orders->where('client_id', '=', $userClient->actor_id);
+            })
+            ->when($request->get('captain_name'), function ($orders, $value) {
+                $userCaptain = User::where('name', 'like', "%{$value}%")->first();
+                $orders->where('captain_id', '=', $userCaptain->actor_id);
+            })
+            ->when($request->get('created_at'), function ($orders, $value) {
+                $orders->where('created_at', '>=', $value);
+            });
         $orders = $orders->paginate(50);
         return view('dashboard.orders.OrderArchive', compact('orders'));
     }

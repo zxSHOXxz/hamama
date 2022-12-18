@@ -23,7 +23,8 @@
                                 <a href="{{ route('orders.create') }}" type="submit"
                                     class="btn btn-md btn-success mx-1">إضافة طلب
                                     جديد</a>
-                                <a href="{{ route('orders_exel', ['null', 'index']) }}" class="btn btn-md btn-outline-dark">
+                                <a href="{{ route('exportSearched', request()->query()) }}"
+                                    class="btn btn-md btn-outline-dark">
                                     <i class="fa-solid fa-file-excel"></i>
                                     تصدير اكسل
                                 </a>

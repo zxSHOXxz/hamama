@@ -23,7 +23,7 @@
                                 class="btn btn-md btn-outline-success">إضافة
                                 طلب
                                 جديد</a>
-                            <a href="{{ route('orders_exel', [$id, 'client_id']) }}" class="btn btn-md btn-outline-dark">
+                            <a href="{{ route('exportSearched', request()->query()) }}" class="btn btn-md btn-outline-dark">
                                 <i class="fa-solid fa-file-excel"></i>
                                 تصدير اكسل
                             </a>

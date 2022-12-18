@@ -20,7 +20,8 @@
                         <div class="card-header">
                             <h3 class="card-title">الطلبات</h3>
                             <div class="card-tools">
-                                <a href="{{ route('orders_exel', [$order->id, 'id']) }}" class="btn btn-sm btn-success">
+                                <a href="{{ route('exportSearched', request()->query()) }}"
+                                    class="btn btn-md btn-outline-dark">
                                     <i class="fa-solid fa-file-excel"></i>
                                     تصدير اكسل
                                 </a>
