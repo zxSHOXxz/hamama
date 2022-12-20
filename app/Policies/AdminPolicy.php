@@ -95,13 +95,11 @@ class AdminPolicy
      */
     public function delete()
     {
-        //
         foreach (array_keys(config('auth.guards')) as $guard) {
 
             if (auth()->guard($guard)->check()) {
                 return auth()->user()->hasPermissionTo('delete-admin') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
             }
-
         }
     }
 
@@ -114,14 +112,7 @@ class AdminPolicy
      */
     public function restore()
     {
-        //
-        foreach (array_keys(config('auth.guards')) as $guard) {
 
-            if (auth()->guard($guard)->check()) {
-                return auth()->user()->hasPermissionTo('restore-admin') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
-            }
-
-        }
     }
 
     /**
@@ -133,13 +124,5 @@ class AdminPolicy
      */
     public function forceDelete()
     {
-        //
-        foreach (array_keys(config('auth.guards')) as $guard) {
-
-            if (auth()->guard($guard)->check()) {
-                return auth()->user()->hasPermissionTo('forceDelete-admin') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
-            }
-
-        }
     }
 }

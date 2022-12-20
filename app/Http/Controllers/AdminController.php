@@ -18,7 +18,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        //
+
         $admins = Admin::orderBy('id', 'desc')->paginate(5);
         $this->authorize('viewAny', Admin::class);
         return response()->view('dashboard.admin.index', compact('admins'));
@@ -31,7 +31,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+
         $cities = City::all();
         $roles = Role::where('guard_name', 'admin')->get();
         $this->authorize('create', Admin::class);
@@ -101,7 +101,6 @@ class AdminController extends Controller
      */
     public function show(admin $admin)
     {
-        //
         $this->authorize('view', Admin::class);
 
     }
@@ -114,7 +113,7 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        //
+
         $admins = Admin::findOrFail($id);
         $this->authorize('update', Admin::class);
 
@@ -172,7 +171,7 @@ class AdminController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    { //
+    {
         $this->authorize('delete', Admin::class);
         $admins = Admin::findOrFail($id);
         $users = $admins->user;

@@ -37,14 +37,15 @@
                             <table class="table table-hover table-bordered table-striped text-nowrap text-center">
                                 <thead>
                                     <tr class="bg-info">
+                                        <th> Qr Code </th>
                                         <th> اسم العميل </th>
                                         <th> سعر الطلب </th>
-                                        <th> السعر شامل التوصيل </th>
                                         <th> اسم المحافظة </th>
                                         <th> رقم الزبون</th>
                                         <th> الحالة </th>
                                         <th> اسم الكابتن </th>
                                         <th> تفاصيل الطلب </th>
+                                        <th> السعر شامل التوصيل </th>
                                         @canany(['update-order', 'delete-order'])
                                             <th>الاعدادات</th>
                                         @endcanany
@@ -53,12 +54,12 @@
                                 <tbody>
                                     @foreach ($orders as $order)
                                         <tr>
+                                            <td>{{ QrCode::size(50)->generate(url('cms/admin/orders/' . $order->id)) }}</td>
                                             <td>{{ $order->client->user->name }}</td>
                                             <td>{{ $order->price }}</td>
                                             @php
                                                 $total = $order->city->bonuses->price + $order->price;
                                             @endphp
-                                            <td>{{ $order->city->bonuses->price . '+' . $order->price . '=' . $total }}</td>
                                             <td>{{ $order->city->name . '(' . $order->sub_city->name . ')' }}</td>
                                             <td>{{ $order->customer }}</td>
                                             <td>
@@ -72,12 +73,13 @@
                                             </td>
                                             <td>{{ $order->captain->user->name }}</td>
                                             <td>{{ $order->details }}</td>
+                                            <td>{{ $order->city->bonuses->price . '+' . $order->price . '=' . $total }}</td>
                                             @canany(['update-order', 'delete-order'])
                                                 <td>
                                                     <div class="btn group">
                                                         @can('update-order')
-                                                            <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-primary"
-                                                                title="Edit">
+                                                            <a href="{{ route('orders.edit', $order->id) }}"
+                                                                class="btn btn-primary" title="Edit">
                                                                 تعديل
                                                             </a>
                                                         @endcan
@@ -85,6 +87,10 @@
                                                             <a href="{{ route('orders.show', $order->id) }}"
                                                                 class="btn btn-success" title="show">
                                                                 عرض
+                                                            </a>
+                                                            <a href="{{ route('order_print', $order->id) }}" class="btn btn-dark"
+                                                                title="print">
+                                                                <i class="fa-solid fa-print"></i>
                                                             </a>
                                                         @endcan
                                                         @can('delete-order')

@@ -1,22 +1,47 @@
 @import url("https://fonts.googleapis.com/css2?family=Changa:wght@800&family=Lalezar&display=swap");
 .hero {
-  background-image: url("image.png");
+  background-image: url("6501029.png");
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 .hero nav {
   height: 10vh;
-  background: transparent;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 .hero nav .logos {
-  width: 100px;
-  height: 100px;
   font-family: "Changa", sans-serif;
   font-size: 32px;
 }
+.one{
+    font-family: "Changa", sans-serif;
+    font-size: 57px;
+    margin-left: 53px;
+    color: #fcaf26;
+    text-align: right;
+}
+.one:nth-child(even){
+    color: #fff;
+}
+.image{
+  width: 50px;
+  height: 50px;
+  background: #000000;
+}
+.image img{
+    object-fit :cover;
+    width: 100%;
+    height: 100%;
+    background-color: #fcaf26;
+}
+.right .image{
+    width: 150px;
+    height: 150px;
+}
 .hero nav .buttons a {
-  background-color: #eb1700 !important;
+  background-color: #cd0029 !important;
   border: 2px solid transparent;
   outline: none;
   padding: 5px 25px;

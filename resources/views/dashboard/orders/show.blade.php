@@ -44,7 +44,7 @@
                                         <th> اسم الكابتن </th>
                                         <th> تفاصيل الطلب </th>
                                         <th>تاريخ الانشاء</th>
-                                        <th>تاريخ التعديل</th>
+                                        <th> QrCode </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -70,9 +70,23 @@
                                         <td>{{ $order->statusDetails }}</td>
                                         <td>{{ $order->captain->user->name }}</td>
                                         <td>{{ $order->details }}</td>
-                                        <td>{{ $order->created_at }}</td>
                                         <td>{{ $order->updated_at }}</td>
-
+                                        <td>{{ QrCode::size('100')->encoding('UTF-8')->generate(
+                                                ' : اسم العميل ' .
+                                                    $order->client->user->name .
+                                                    ' : السعر ' .
+                                                    $order->price .
+                                                    ' : رقم الزبون ' .
+                                                    $order->customer .
+                                                    ' : المحافظة ' .
+                                                    $order->city->name .
+                                                    '(' .
+                                                    $order->sub_city->name .
+                                                    ')' .
+                                                    ' : التفاصيل ' .
+                                                    $order->details,
+                                            ) }}
+                                        </td>
 
                                     </tr>
                                 </tbody>

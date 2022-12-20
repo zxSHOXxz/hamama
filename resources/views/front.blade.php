@@ -19,12 +19,14 @@
             <div class="hero vh-100">
                 <div class="container d-flex flex-column">
                     <div class="row">
-                        <nav>
-                            <div class="logos d-flex justify-content-center align-items-center">
-                                <img src="{{ asset('front/313427414_447607517496777_6429835025409110466_n.png') }}"
-                                    class="img img-fluid" alt="">
+                        <nav class="mt-lg-4 bg-gradient-dark">
+                            <div class="logos d-flex justify-content-between align-items-center">
+                                <div class="image rounded-circle m-1">
+                                    <img src="{{ asset('front/313427414_447607517496777_6429835025409110466_n.png') }}"
+                                        class="rounded-circle" alt="">
+                                </div>
                                 <div class="text-light">
-                                    حمامة
+                                    حـمـامـة
                                 </div>
                             </div>
                             <div class="buttons">
@@ -34,31 +36,20 @@
                             </div>
                         </nav>
                     </div>
-                    <div class="row text-hero">
-                        <h1>
-                            حمامة ديلفري<br> ليست مجرد خدمة
-                        </h1>
-                        <div class="bests d-flex justify-content-around">
-                            <div class="one d-flex justify-content-between align-items-center">
-                                <div class="img">
-                                    <img src="{{ asset('front/1_53d821b1-0997-41f5-90cb-d36062376689.webp') }}"
-                                        alt="">
-                                </div>
-                                <span> سرعة عالية </span>
+                    <div class="row">
+                        <div class="col right">
+                            <div class="">
+                                <div class="one py-3">ديلفري</div>
+                                <div class="one py-3">ليسـت</div>
+                                <div class="one py-3">مـجـرد</div>
+                                <div class="one py-3">خـدمة</div>
                             </div>
-                            <div class="one d-flex justify-content-between align-items-center">
-                                <div class="img">
-                                    <img src="{{ asset('front/2.png') }}" alt="">
-                                </div>
-                                <span> اسعار مميزة </span>
-                            </div>
-                            <div class="one d-flex justify-content-between align-items-center">
-                                <div class="img">
-                                    <img src="{{ asset('front/3.png') }}" alt="">
-                                </div>
-                                <span> دعم متواصل </span>
+                            <div class="image rounded-circle m-1">
+                                <img src="{{ asset('front/313427414_447607517496777_6429835025409110466_n.png') }}"
+                                    class="rounded-circle" alt="">
                             </div>
                         </div>
+                        <div class="col left"></div>
                     </div>
                 </div>
             </div>

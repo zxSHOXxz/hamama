@@ -160,12 +160,16 @@ class OrderController extends Controller
      * @param  \App\Models\orders  $orders
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    function print($id) {
         $this->authorize('view', Order::class);
         $order = Order::findOrFail($id);
 
+        return view('dashboard.orders.print', compact('order'));
+    }
+    public function show($id)
+    {
+        $this->authorize('view', Order::class);
+        $order = Order::findOrFail($id);
         return view('dashboard.orders.show', compact('order'));
     }
 

@@ -85,6 +85,7 @@
                                         <th> الحالة </th>
                                         <th> اسم الكابتن </th>
                                         <th> تفاصيل الطلب </th>
+                                        <th> Qr Code </th>
                                         @canany(['update-order', 'delete-order'])
                                             <th>الاعدادات</th>
                                         @endcanany
@@ -113,6 +114,8 @@
                                             </td>
                                             <td>{{ $order->captain->user->name }}</td>
                                             <td>{{ $order->details }}</td>
+                                            <td>{{ QrCode::size(50)->generate(url('cms/admin/orders/' . $order->id)) }}
+                                            </td>
                                             @canany(['update-order', 'delete-order'])
                                                 <td>
                                                     <div class="btn group">

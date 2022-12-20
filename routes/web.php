@@ -55,12 +55,13 @@ Route::prefix('cms/admin')->middleware('auth:admin,client')->group(function () {
     Route::get('/index/sub_cities/{id}', [SubCityController::class, 'indexSubCities'])->name('indexSubCities');
     Route::get('/create/sub_cities/{id}', [SubCityController::class, 'createSub_city'])->name('createSub_city');
 
-    Route::resource('orders', OrderController::class);
+    Route::get('orders/print/{id}', [OrderController::class, 'print'])->name('order_print');
     Route::get('archive', [OrderController::class, 'archive'])->name('orders_archive');
     Route::get('archive/excel', [OrderController::class, 'exportSearched'])->name('exportSearched');
     Route::post('orders_update/{id}', [OrderController::class, 'update'])->name('orders_update');
     Route::get('/index/orders/{id}', [OrderController::class, 'indexOrders'])->name('indexOrders');
     Route::get('/create/orders/{id}', [OrderController::class, 'createOrder'])->name('createOrder');
+    Route::resource('orders', OrderController::class);
 
     Route::resource('cities', CityController::class);
     Route::post('cities_update/{id}', [CityController::class, 'update'])->name('cities_update');
