@@ -70,16 +70,16 @@
         </a> --}}
                 </div>
                 <!-- /.social-auth-links -->
-
-                <p class="mb-1">
-                    <a href="{{ route('list') }}"> قائمة كيف تريد تسجيل الدخول </a>
-                </p>
-
-                <p class="mb-1">
+                @can('index-admin')
+                    <p class="mb-1">
+                        <a href="{{ route('list') }}"> قائمة كيف تريد تسجيل الدخول </a>
+                    </p>
+                @endcan
+                {{-- <p class="mb-1">
                     <a href="forgot-password.html">نسيت كلمة المرور</a>
-                </p>
+                </p> --}}
                 <p class="mb-0">
-                    <a href="register.html" class="text-center">إنشاء حساب جديد</a>
+                    <a href="{{ route('create_account') }}" class="text-center">إنشاء حساب جديد</a>
                 </p>
             </div>
             <!-- /.login-card-body -->

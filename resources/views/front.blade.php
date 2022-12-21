@@ -32,7 +32,7 @@
                             <div class="buttons">
                                 <a href="{{ route('list') }}" class=""><i class="fa-solid fa-user"></i>
                                     تسجيل دخول</a>
-                                <a href="" class="">تسجيل</a>
+                                <a href="{{ route('create_account') }}" class="">تسجيل</a>
                             </div>
                         </nav>
                     </div>

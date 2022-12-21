@@ -29,6 +29,7 @@
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
+                
                 <p class="login-box-msg">كيف تريد تسجيل دخول ؟</p>
                 <div class="button-group text-center">
                     <a href="{{ route('view.login', ['guard' => 'client']) }}" class="btn btn-danger"> عميل </a>

@@ -31,6 +31,9 @@ Route::prefix('cms/')->middleware('guest:admin,client')->group(function () {
     Route::get('{guard}/login', [UserAuthController::class, 'showLogin'])->name('view.login');
     Route::get('list', [UserAuthController::class, 'list'])->name('list');
     Route::post('{guard}/login', [UserAuthController::class, 'login']);
+    Route::get('create_account', [UserAuthController::class, 'create_account'])->name('create_account');
+    Route::post('signup', [ClientController::class, 'sign_up'])->name('sign_up');
+
 });
 
 Route::prefix('cms/admin')->middleware('auth:admin,client')->group(function () {

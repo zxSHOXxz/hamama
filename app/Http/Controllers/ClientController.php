@@ -109,6 +109,55 @@ class ClientController extends Controller
             return response()->json(['icon' => 'error', 'title' => $validator->getMessageBag()->first()], 400);
         }
     }
+    public function sign_up(Request $request)
+    {
+
+        $validator = validator($request->all(), [
+            // 'first_name' => 'required',
+            // 'last_name' => 'required',
+            // 'mobile' => 'required',
+            'email' => 'required|email',
+            // 'image'=>"required|image|max:2048|mimes:png,jpg,jpeg,pdf",
+        ]);
+        if (!$validator->fails()) {
+            $clients = new Client();
+            $clients->email = $request->get('email');
+            $clients->password = Hash::make($request->get('password'));
+            $isSaved = $clients->save();
+            if ($isSaved) {
+                $users = new User();
+
+                if (request()->hasFile('image')) {
+
+                    $image = $request->file('image');
+
+                    $imageName = time() . 'image.' . $image->getClientOriginalExtension();
+
+                    $image->move('storage/images/admin', $imageName);
+
+                    $users->image = $imageName;
+                }
+
+                $users->name = $request->get('name');
+                $users->mobile = $request->get('mobile');
+                // $roles = Role::findOrFail($request->get('role_id'));
+                $clients->assignRole('عميل عادي');
+                $users->gender = $request->get('gender');
+                $users->address = $request->get('address');
+
+                $users->actor()->associate($clients);
+                $isSaved = $users->save();
+
+                return response()->json(['icon' => 'success', 'title' => 'تمت الإضافة بنجاح'], 200);
+
+            } else {
+                return response()->json(['icon' => 'error', 'title' => 'فشلت عملية الاضافة '], 400);
+            }
+
+        } else {
+            return response()->json(['icon' => 'error', 'title' => $validator->getMessageBag()->first()], 400);
+        }
+    }
 
     /**
      * Display the specified resource.

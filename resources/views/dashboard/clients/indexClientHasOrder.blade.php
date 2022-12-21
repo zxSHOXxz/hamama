@@ -43,6 +43,11 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($clients as $client)
+                                        @if ($client->orders_count == null)
+                                            {
+                                            @continue
+                                            }
+                                        @endif
                                         <tr>
                                             <td>{{ $client->id }}</td>
                                             <td>

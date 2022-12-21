@@ -52,4 +52,9 @@ class UserAuthController extends Controller
         $request->session()->invalidate();
         return redirect()->route('frontView', $guard);
     }
+
+    public function create_account()
+    {
+        return view('dashboard.auth.sign-up');
+    }
 }

@@ -56,7 +56,6 @@ class OrderController extends Controller
             ,
             (new Carbon())->today()->hour(12)]
         )
-
             ->where('status', 'waiting')
             ->orderBy('id', 'asc')->paginate(50);
 
