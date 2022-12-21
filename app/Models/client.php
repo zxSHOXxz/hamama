@@ -18,6 +18,7 @@ class Client extends Authenticatable
     {
         return $this->hasMany(Order::class);
     }
+
     public function user()
     {
         return $this->morphOne(User::class, 'actor', 'actor_type', 'actor_id', 'id');

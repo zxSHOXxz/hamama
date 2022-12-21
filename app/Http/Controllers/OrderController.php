@@ -48,9 +48,18 @@ class OrderController extends Controller
 
     public function index()
     {
+
         $this->authorize('viewAny', Order::class);
-        $orders = Order::with(['captain', 'client', 'city', 'sub_city'])->whereDate('created_at', Carbon::today())->where('status', 'waiting')->orderBy('id', 'asc')->paginate(50);
-        //
+        $orders = Order::with(['captain', 'client', 'city', 'sub_city'])->
+            whereBetween('created_at', [
+            (new Carbon())->yesterday()->hour(12)
+            ,
+            (new Carbon())->today()->hour(12)]
+        )
+
+            ->where('status', 'waiting')
+            ->orderBy('id', 'asc')->paginate(50);
+
         return view('dashboard.orders.indexAll', compact('orders'));
     }
     public function archive(Request $request)
@@ -81,6 +90,21 @@ class OrderController extends Controller
         $this->authorize('viewAny', Order::class);
         $orders = Order::where('client_id', $id)->with(['captain', 'client'])->orderBy('created_at', 'asc')->paginate(50);
         return response()->view('dashboard.orders.index', compact('orders', 'id'));
+    }
+    public function indexOrdersClientToday($id)
+    {
+        $this->authorize('viewAny', Order::class);
+        $orders = Order::with(['captain', 'client', 'city', 'sub_city'])->
+            whereBetween('created_at', [
+            (new Carbon())->yesterday()->hour(12)
+            ,
+            (new Carbon())->today()->hour(12)]
+        )
+
+            ->where('status', 'waiting')
+            ->where('client_id', $id)
+            ->orderBy('id', 'asc')->paginate(50);
+        return response()->view('dashboard.orders.indexClientOrders', compact('orders', 'id'));
     }
     public function createOrder($id)
     {

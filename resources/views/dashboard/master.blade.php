@@ -387,6 +387,12 @@
                                                     <p> عرض قائمة الطلبات </p>
                                                 </a>
                                             </li>
+                                            <li class="nav-item">
+                                                <a href="{{ route('indexClientHasOrders') }}" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p> عرض عملاء اليوم </p>
+                                                </a>
+                                            </li>
                                         @endcan
                                         @can('index-order')
                                             <li class="nav-item">

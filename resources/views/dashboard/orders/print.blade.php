@@ -6,54 +6,99 @@
 
 @section('styles')
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
 
+        .logos {
+            width: 100%;
+            height: 75px;
+        }
+
+        .info {
+            width: 100%;
+            height: 75px;
+        }
+
+        .img {
+            height: 100%;
+        }
+
+        .img img {
+            height: 100%;
+            object-fit: contain;
+        }
+
+        span {
+            padding: 15px;
+            font-family: 'Amiri', serif;
+            font-size: 18px;
+            font-weight: 700;
+        }
     </style>
 @endsection
 
 @section('content')
-    <section class="content">
-        <div class="container-fluid">
-            <div class="row d-flex justify-content-center align-items-md-start">
-                <div class="col-12 mx-auto">
-                    <div class="card">
-                        <!-- /.card-header -->
-                        <div class="card-body table-responsive p-0">
-                            <table class="table table-hover table-bordered table-striped text-nowrap text-center">
-                                <thead>
-                                    <tr class="bg-dark">
-                                        <th> اسم العميل </th>
-                                        <th> السعر </th>
-                                        <th> اسم المحافظة </th>
-                                        <th> رقم الزبون</th>
-                                        <th> تفاصيل الطلب </th>
-                                        <th> QrCode </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>{{ $order->client->user->name }}</td>
-                                        <td>{{ $order->price }}</td>
-                                        <td>{{ $order->city->name . '(' . $order->sub_city->name . ')' }}</td>
-                                        <td>{{ $order->customer }}</td>
-                                        <td>{{ $order->details }}</td>
-                                        <td>{{ QrCode::size(50)->generate(url('cms/admin/orders/' . $order->id)) }}
-                                        </td>
 
-                                    </tr>
-                                </tbody>
-                            </table>
 
-                            <!-- /.card-body -->
-                            <div class="d-flex justify-content-center">
+    <section class="content py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <div class="row logos">
+                        <div class="img col-6">
+                            <img src="{{ asset('front/313427414_447607517496777_6429835025409110466_n.png') }}"
+                                alt="Hamama Logo" class="img-circle">
+                        </div>
+                        <div class="qr-code col-6 text-right">
+                            {{ QrCode::size('75')->encoding('UTF-8')->generate(
+                                    ' : اسم العميل ' .
+                                        $order->client->user->name .
+                                        ' : السعر ' .
+                                        $order->price .
+                                        ' : رقم الزبون ' .
+                                        $order->customer .
+                                        ' : المحافظة ' .
+                                        $order->city->name .
+                                        '(' .
+                                        $order->sub_city->name .
+                                        ')' .
+                                        ' : التفاصيل ' .
+                                        $order->details,
+                                ) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row row-col-2 info ">
+                                <div class="client col-6  py-2">
+                                    <span>اسم العميل
+                                        : {{ $order->client->user->name }}</span>
+                                </div>
+                                <div class="customer col-6 py-2">
+                                    <span> رقم الزبون : {{ $order->customer }}</span>
+                                </div>
+
+                                <div class="price col-6 py-2">
+                                    <span> السعر : {{ $order->price }}</span>
+                                </div>
+                                <div class="sub_city col-6 py-2">
+                                    <span> المحافظة الفرعية :
+                                        {{ $order->city->name . '(' . $order->sub_city->name . ')' }}</span>
+                                </div>
+                                <div class="details col-12 py-2 text-center">
+                                    <span class="text-center">
+                                        التفاصيل : {{ $order->details }}
+                                    </span>
+                                </div>
 
                             </div>
-
                         </div>
-                        <!-- /.card -->
                     </div>
                 </div>
             </div>
+        </div>
     </section>
+
+
 
 
 @endsection
@@ -62,11 +107,6 @@
 
     <script>
         window.print();
-
-        function performDestroy(id, referance) {
-            let url = '/cms/admin/orders/' + id;
-            confirmDestroy(url, referance);
-        }
     </script>
 
 @endsection

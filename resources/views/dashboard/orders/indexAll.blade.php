@@ -54,7 +54,22 @@
                                 <tbody>
                                     @foreach ($orders as $order)
                                         <tr>
-                                            <td>{{ QrCode::size(50)->generate(url('cms/admin/orders/' . $order->id)) }}</td>
+                                            <td>{{ QrCode::size('75')->encoding('UTF-8')->generate(
+                                                    ' : اسم العميل ' .
+                                                        $order->client->user->name .
+                                                        ' : السعر ' .
+                                                        $order->price .
+                                                        ' : رقم الزبون ' .
+                                                        $order->customer .
+                                                        ' : المحافظة ' .
+                                                        $order->city->name .
+                                                        '(' .
+                                                        $order->sub_city->name .
+                                                        ')' .
+                                                        ' : التفاصيل ' .
+                                                        $order->details,
+                                                ) }}
+                                            </td>
                                             <td>{{ $order->client->user->name }}</td>
                                             <td>{{ $order->price }}</td>
                                             @php

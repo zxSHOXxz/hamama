@@ -60,6 +60,7 @@ Route::prefix('cms/admin')->middleware('auth:admin,client')->group(function () {
     Route::get('archive/excel', [OrderController::class, 'exportSearched'])->name('exportSearched');
     Route::post('orders_update/{id}', [OrderController::class, 'update'])->name('orders_update');
     Route::get('/index/orders/{id}', [OrderController::class, 'indexOrders'])->name('indexOrders');
+    Route::get('/index/orders_today/{id}', [OrderController::class, 'indexOrdersClientToday'])->name('indexOrdersClientToday');
     Route::get('/create/orders/{id}', [OrderController::class, 'createOrder'])->name('createOrder');
     Route::resource('orders', OrderController::class);
 
@@ -73,6 +74,7 @@ Route::prefix('cms/admin')->middleware('auth:admin,client')->group(function () {
     Route::post('captains_update/{id}', [CaptainController::class, 'update'])->name('captains_update');
 
     Route::resource('clients', ClientController::class);
+    Route::get('clients_orderes', [ClientController::class, 'indexClientHasOrders'])->name('indexClientHasOrders');
     Route::post('clients_update/{id}', [ClientController::class, 'update'])->name('clients_update');
 
     Route::resource('roles', RoleController::class);

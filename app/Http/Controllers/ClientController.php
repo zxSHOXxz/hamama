@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\city;
 use App\Models\Client;
 use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
@@ -22,6 +24,17 @@ class ClientController extends Controller
         $clients = Client::withCount('orders')->orderBy('id', 'desc')->paginate(5);
         $this->authorize('viewAny', Client::class);
         return response()->view('dashboard.clients.index', compact('clients'));
+    }
+    public function indexClientHasOrders()
+    {
+        $clients = Client::withCount(['orders' => function (Builder $query) {
+            $query->whereBetween('created_at', [(new Carbon())->yesterday()->hour(12)
+                ,
+                (new Carbon())->today()->hour(12)])
+                ->where('status', 'waiting');}])
+            ->orderBy('id', 'asc')->paginate(5);
+        $this->authorize('viewAny', Client::class);
+        return response()->view('dashboard.clients.indexClientHasOrder', compact('clients'));
     }
 
     /**

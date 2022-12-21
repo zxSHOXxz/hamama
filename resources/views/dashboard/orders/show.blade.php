@@ -43,6 +43,7 @@
                                         <th> تفاصيل الحالة </th>
                                         <th> اسم الكابتن </th>
                                         <th> تفاصيل الطلب </th>
+                                        <th>تاريخ التعديل</th>
                                         <th>تاريخ الانشاء</th>
                                         <th> QrCode </th>
                                     </tr>
@@ -71,7 +72,8 @@
                                         <td>{{ $order->captain->user->name }}</td>
                                         <td>{{ $order->details }}</td>
                                         <td>{{ $order->updated_at }}</td>
-                                        <td>{{ QrCode::size('100')->encoding('UTF-8')->generate(
+                                        <td>{{ $order->created_at }}</td>
+                                        <td>{{ QrCode::size('55')->encoding('UTF-8')->generate(
                                                 ' : اسم العميل ' .
                                                     $order->client->user->name .
                                                     ' : السعر ' .
@@ -91,16 +93,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <div class="span text-center" style="margin-top: 20px; margin-bottom:10px">
-
-                                </span>
-
-                            </div>
                             <!-- /.card-body -->
-                            <div class="d-flex justify-content-center">
-
-                            </div>
-
                         </div>
                         <!-- /.card -->
                     </div>
