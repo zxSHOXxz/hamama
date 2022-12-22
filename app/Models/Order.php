@@ -22,7 +22,7 @@ class Order extends Model
     }
     public function sub_city()
     {
-        return $this->belongsTo(sub_city::class);
+        return $this->belongsTo(Sub_City::class);
     }
 
 }

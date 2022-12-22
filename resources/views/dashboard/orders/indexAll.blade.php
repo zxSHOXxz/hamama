@@ -98,16 +98,14 @@
                                                                 تعديل
                                                             </a>
                                                         @endcan
-                                                        @can('show-order')
-                                                            <a href="{{ route('orders.show', $order->id) }}"
-                                                                class="btn btn-success" title="show">
-                                                                عرض
-                                                            </a>
-                                                            <a href="{{ route('order_print', $order->id) }}" class="btn btn-dark"
-                                                                title="print">
-                                                                <i class="fa-solid fa-print"></i>
-                                                            </a>
-                                                        @endcan
+                                                        <a href="{{ route('orders.show', $order->id) }}"
+                                                            class="btn btn-success" title="show">
+                                                            عرض
+                                                        </a>
+                                                        <a href="{{ route('order_print', $order->id) }}" class="btn btn-dark"
+                                                            title="print">
+                                                            <i class="fa-solid fa-print"></i>
+                                                        </a>
                                                         @can('delete-order')
                                                             <a href="#" onclick="performDestroy({{ $order->id }} , this)"
                                                                 class="btn btn-danger" title="Delete">

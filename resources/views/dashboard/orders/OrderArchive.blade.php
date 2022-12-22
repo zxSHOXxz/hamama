@@ -115,21 +115,21 @@
                                             <td>{{ $order->captain->user->name }}</td>
                                             <td>{{ $order->details }}</td>
                                             <td>{{ QrCode::size('75')->encoding('UTF-8')->generate(
-                                                ' : اسم العميل ' .
-                                                    $order->client->user->name .
-                                                    ' : السعر ' .
-                                                    $order->price .
-                                                    ' : رقم الزبون ' .
-                                                    $order->customer .
-                                                    ' : المحافظة ' .
-                                                    $order->city->name .
-                                                    '(' .
-                                                    $order->sub_city->name .
-                                                    ')' .
-                                                    ' : التفاصيل ' .
-                                                    $order->details,
-                                            ) }}
-                                        </td>
+                                                    ' : اسم العميل ' .
+                                                        $order->client->user->name .
+                                                        ' : السعر ' .
+                                                        $order->price .
+                                                        ' : رقم الزبون ' .
+                                                        $order->customer .
+                                                        ' : المحافظة ' .
+                                                        $order->city->name .
+                                                        '(' .
+                                                        $order->sub_city->name .
+                                                        ')' .
+                                                        ' : التفاصيل ' .
+                                                        $order->details,
+                                                ) }}
+                                            </td>
                                             @canany(['update-order', 'delete-order'])
                                                 <td>
                                                     <div class="btn group">
@@ -139,16 +139,14 @@
                                                                 تعديل
                                                             </a>
                                                         @endcan
-                                                        @can('show-order')
-                                                            <a href="{{ route('orders.show', $order->id) }}"
-                                                                class="btn btn-success" title="show">
-                                                                عرض
-                                                            </a>
-                                                            <a href="{{ route('order_print', $order->id) }}" class="btn btn-dark"
-                                                                title="print">
-                                                                <i class="fa-solid fa-print"></i>
-                                                            </a>
-                                                        @endcan
+                                                        <a href="{{ route('orders.show', $order->id) }}"
+                                                            class="btn btn-success" title="show">
+                                                            عرض
+                                                        </a>
+                                                        <a href="{{ route('order_print', $order->id) }}" class="btn btn-dark"
+                                                            title="print">
+                                                            <i class="fa-solid fa-print"></i>
+                                                        </a>
                                                         @can('delete-order')
                                                             <a href="#" onclick="performDestroy({{ $order->id }} , this)"
                                                                 class="btn btn-danger" title="Delete">

@@ -14,7 +14,7 @@ class Captain extends Model
     }
     public function sub_city()
     {
-        return $this->belongsTo(sub_city::class, 'sub_city_id', 'id');
+        return $this->belongsTo(Sub_City::class, 'sub_city_id', 'id');
     }
     public function user()
     {

@@ -14,7 +14,7 @@ class City extends Model
     }
     public function sub_cities()
     {
-        return $this->hasMany(sub_city::class);
+        return $this->hasMany(Sub_City::class);
     }
     public function orders()
     {

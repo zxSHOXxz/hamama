@@ -30,7 +30,8 @@
                                 </div>
                             </div>
                             <div class="buttons">
-                                <a href="{{ route('list') }}" class=""><i class="fa-solid fa-user"></i>
+                                <a href="{{ route('view.login', ['guard' => 'client']) }}" class=""><i
+                                        class="fa-solid fa-user"></i>
                                     تسجيل دخول</a>
                                 <a href="{{ route('create_account') }}" class="">تسجيل</a>
                             </div>

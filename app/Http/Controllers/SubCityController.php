@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\city;
+use App\Models\City;
 use App\Models\sub_city;
 use Illuminate\Http\Request;
 
@@ -24,14 +24,13 @@ class SubCityController extends Controller
     {
         $this->authorize('create', sub_city::class);
 
-        $cities = city::all();
+        $cities = City::all();
         return response()->view('dashboard.sub_city.createInCity', compact('id', 'cities'));
     }
     public function index()
     {
-        //
         $this->authorize('viewAny', sub_city::class);
-        $sub_cities = sub_city::withCount('city')->orderBy('id', 'desc')->paginate(5);
+        $sub_cities = sub_city::orderBy('id', 'desc')->paginate(5);
         return view('dashboard.sub_city.indexAll', compact('sub_cities'));
 
     }
@@ -44,9 +43,7 @@ class SubCityController extends Controller
     public function create()
     {
         $this->authorize('create', sub_city::class);
-
-        //
-        $cities = city::all();
+        $cities = City::all();
         return view('dashboard.sub_city.create', compact('cities'));
     }
 
@@ -94,8 +91,6 @@ class SubCityController extends Controller
     public function show(sub_city $sub_city)
     {
         $this->authorize('view', sub_city::class);
-
-        //
     }
 
     /**
@@ -106,10 +101,9 @@ class SubCityController extends Controller
      */
     public function edit($id)
     {
-        //
         $this->authorize('update', sub_city::class);
 
-        $sub_city = sub_city::findOrFail($id);
+        $sub_city = Sub_City::findOrFail($id);
         $cities = City::all();
         return response()->view('dashboard.sub_city.edit', compact('cities', 'sub_city'));
     }
@@ -159,7 +153,6 @@ class SubCityController extends Controller
      */
     public function destroy($id)
     {
-        //
         $this->authorize('delete', sub_city::class);
 
         $sub_cities = sub_city::destroy($id);

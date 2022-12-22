@@ -79,7 +79,7 @@ class OrderController extends Controller
                 $orders->where('captain_id', '=', $userCaptain->actor_id);
             })
             ->when($request->get('created_at'), function ($orders, $value) {
-                $orders->where('created_at', '>=', $value);
+                $orders->whereDate('created_at', $value);
             });
         $orders = $orders->paginate(50);
         return view('dashboard.orders.OrderArchive', compact('orders'));
@@ -184,14 +184,12 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     function print($id) {
-        $this->authorize('view', Order::class);
         $order = Order::findOrFail($id);
 
         return view('dashboard.orders.print', compact('order'));
     }
     public function show($id)
     {
-        $this->authorize('view', Order::class);
         $order = Order::findOrFail($id);
         return view('dashboard.orders.show', compact('order'));
     }
