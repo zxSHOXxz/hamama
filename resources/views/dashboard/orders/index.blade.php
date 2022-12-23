@@ -38,14 +38,13 @@
                             <table class="table table-hover table-bordered table-striped text-nowrap text-center">
                                 <thead>
                                     <tr class="bg-info">
-                                        <th> تاريخ الطلب </th>
-                                        <th> سعر الطلب </th>
                                         <th> السعر شامل التوصيل </th>
                                         <th> اسم المحافظة </th>
                                         <th> رقم الزبون</th>
                                         <th> الحالة </th>
                                         <th> اسم الكابتن </th>
                                         <th> تفاصيل الطلب </th>
+                                        <th>موعد ارسال الطلب</th>
                                         <th> Qr Code </th>
 
                                         @canany(['update-order', 'delete-order'])
@@ -56,8 +55,6 @@
                                 <tbody>
                                     @foreach ($orders as $order)
                                         <tr>
-                                            <td>{{ $order->created_at }}</td>
-                                            <td>{{ $order->price }}</td>
                                             @php
                                                 $total = $order->city->bonuses->price + $order->price;
                                             @endphp
@@ -74,7 +71,17 @@
                                                 @endif
                                             </td>
                                             <td>{{ $order->captain->user->name }}</td>
-                                            <td>{{ $order->details }}</td>
+                                            <td class="text-wrap" widt='10%'>{{ $order->details }}</td>
+                                            <td>
+                                                <div class="badge badge-danger">
+                                                    @if ($order->created_at >=
+                                                        \Carbon\Carbon::today()->hour(12)->minute(10) && $order->created_at <= \Carbon\Carbon::today()->hour(14))
+                                                        سيتم الترحيل للغد
+                                                    @else
+                                                        طبيعي
+                                                    @endif
+                                                </div>
+                                            </td>
                                             <td>{{ QrCode::size('75')->encoding('UTF-8')->generate(
                                                     ' : اسم العميل ' .
                                                         $order->client->user->name .
@@ -95,14 +102,14 @@
                                                 <td>
                                                     <div class="btn group">
                                                         @can('update-order')
-                                                            <a href="{{ route('orders.edit', $order->id) }}"
-                                                                class="btn btn-primary" title="Edit">
+                                                            <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-primary"
+                                                                title="Edit">
                                                                 تعديل
                                                             </a>
                                                         @endcan
                                                         @can('show-order')
-                                                            <a href="{{ route('orders.show', $order->id) }}"
-                                                                class="btn btn-success" title="show">
+                                                            <a href="{{ route('orders.show', $order->id) }}" class="btn btn-success"
+                                                                title="show">
                                                                 عرض
                                                             </a>
                                                             <a href="{{ route('order_print', $order->id) }}" class="btn btn-dark"
@@ -124,11 +131,6 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            <div class="span text-center" style="margin-top: 20px; margin-bottom:10px">
-
-                                </span>
-
-                            </div>
                             <!-- /.card-body -->
                             <div class="d-flex justify-content-center">
                                 @if ($orders)

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\OrderSearchedExport;
 use App\Models\Captain;
 use App\Models\city;
-use App\Models\client;
+use App\Models\Client;
 use App\Models\Order;
 use App\Models\sub_city;
 use App\Models\User;
@@ -52,14 +52,29 @@ class OrderController extends Controller
         $this->authorize('viewAny', Order::class);
         $orders = Order::with(['captain', 'client', 'city', 'sub_city'])->
             whereBetween('created_at', [
-            (new Carbon())->yesterday()->hour(12)
+            (new Carbon())->yesterday()->hour(14)
             ,
-            (new Carbon())->today()->hour(12)]
+            (new Carbon())->today()->hour(12)->minute(10)]
         )
             ->where('status', 'waiting')
             ->orderBy('id', 'asc')->paginate(50);
 
         return view('dashboard.orders.indexAll', compact('orders'));
+    }
+    public function indexTomorrow()
+    {
+
+        $this->authorize('viewAny', Order::class);
+        $orders = Order::with(['captain', 'client', 'city', 'sub_city'])->
+            whereBetween('created_at', [
+            (new Carbon())->today()->hour(2)
+            ,
+            (new Carbon())->now()]
+        )
+            ->where('status', 'waiting')
+            ->orderBy('id', 'asc')->paginate(50);
+
+        return view('dashboard.orders.indexTomorrow', compact('orders'));
     }
     public function archive(Request $request)
     {
@@ -158,16 +173,31 @@ class OrderController extends Controller
             $orders->city_id = $sub_city->parent;
             $city = city::with('captain')->findOrFail($sub_city->parent);
             if ($request->get('captain_id') != null) {
-                $orders->captain_id = $request->get('captain_id');
+                $captains = Captain::all();
+                foreach ($captains as $captain) {
+                    if ($captain->user->name == $request->get('captain_id')) {
+                        $orders->captain_id = $captain->id;
+                    }
+                }
             } else {
                 $orders->captain_id = $sub_city->captain->id;
             }
             $orders->statusDetails = 'قيد الارسال';
-            $orders->client_id = $request->get('client_id');
+            $clients = Client::all();
+            foreach ($clients as $client) {
+                if ($client->user->name == $request->get('client_id')) {
+                    $orders->client_id = $client->id;
+                }
+            }
             $isSaved = $orders->save();
 
             if ($isSaved) {
-                return response()->json(['icon' => 'success', 'title' => "تمت الإضافة بنجاح"], 200);
+                if (Carbon::now() >= Carbon::today()->hour(12)->minute(10) && Carbon::now() <= Carbon::today()->hour(14)) {
+                    return response()->json(['icon' => 'warning', 'title' => "سيتم ترحيل طلبك للغد"], 200);
+                } else {
+                    return response()->json(['icon' => 'warning', 'title' => "تمت العملية بنجاح"], 200);
+                }
+
             } else {
                 return response()->json(['icon' => 'error', 'title' => "فشلت عملية التخزين"], 400);
             }

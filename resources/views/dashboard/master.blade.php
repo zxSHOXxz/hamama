@@ -124,58 +124,55 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
+                        <li class="nav-header"> الأدوار والصلاحيات</li>
 
-                        @canany(['Index-Role'])
-                            <li class="nav-header"> الأدوار والصلاحيات</li>
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon far fa-envelope"></i>
+                                <p>
+                                    الأدوار
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('roles.index') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>عرض الأدوار</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('roles.create') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>إضافة دور</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
 
-                            <li class="nav-item has-treeview">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon far fa-envelope"></i>
-                                    <p>
-                                        الأدوار
-                                        <i class="fas fa-angle-left right"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="{{ route('roles.index') }}" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>عرض الأدوار</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('roles.create') }}" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>إضافة دور</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li class="nav-item has-treeview">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon far fa-envelope"></i>
-                                    <p>
-                                        الصلاحيات
-                                        <i class="fas fa-angle-left right"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="{{ route('permissions.index') }}" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>عرض الصلاحيات</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('permissions.create') }}" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>إضافة صلاحية</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endcanany
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon far fa-envelope"></i>
+                                <p>
+                                    الصلاحيات
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('permissions.index') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>عرض الصلاحيات</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('permissions.create') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>إضافة صلاحية</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
 
                         @canany(['index-admin', 'create-admin', 'index-captain', 'create-captain', 'index-client',
                             'create-client', 'create-bonus', 'index-bonus'])
@@ -384,7 +381,13 @@
                                             <li class="nav-item">
                                                 <a href="{{ route('orders.index') }}" class="nav-link">
                                                     <i class="far fa-circle nav-icon"></i>
-                                                    <p> عرض قائمة الطلبات </p>
+                                                    <p> عرض قائمة اليوم </p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="{{ route('indexTomorrow') }}" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p> عرض قائمة الغد </p>
                                                 </a>
                                             </li>
                                             <li class="nav-item">

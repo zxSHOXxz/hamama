@@ -59,14 +59,8 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="client_id"> العملاء </label>
-                                        {{-- <input type="text" name="city_id" id="city_id" value="{{ $id }}"
-                                            class="form-control form-control-solid" hidden /> --}}
-                                        <select class="form-control" name="client_id" style="width: 100%;" id="client_id"
-                                            aria-label=".form-select-sm example">
-                                            @foreach ($clients as $client)
-                                                <option value="{{ $client->id }}">{{ $client->user->name }}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" name="client_id" id="client_id"
+                                            class="form-control form-control-solid" placeholder="أدخل اسم العميل بدقة" />
                                     </div>
                                 </div>
                                 <div class="row">
@@ -77,14 +71,8 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="captain_id"> الكابتن </label>
-                                        {{-- <input type="text" name="city_id" id="city_id" value="{{ $id }}"
-                                            class="form-control form-control-solid" hidden /> --}}
-                                        <select class="form-control" name="captain_id" style="width: 100%;" id="captain_id"
-                                            aria-label=".form-select-sm example">
-                                            @foreach ($captains as $captain)
-                                                <option value="{{ $captain->id }}">{{ $captain->user->name }}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" name="captain_id" id="captain_id"
+                                            class="form-control form-control-solid" placeholder="أدخل اسم الكابتن بدقة" />
                                     </div>
                                 </div>
 

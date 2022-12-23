@@ -60,6 +60,7 @@ Route::prefix('cms/admin')->middleware('auth:admin,client')->group(function () {
 
     Route::get('orders/print/{id}', [OrderController::class, 'print'])->name('order_print');
     Route::get('archive', [OrderController::class, 'archive'])->name('orders_archive');
+    Route::get('orders_tomorrow', [OrderController::class, 'indexTomorrow'])->name('indexTomorrow');
     Route::get('archive/excel', [OrderController::class, 'exportSearched'])->name('exportSearched');
     Route::post('orders_update/{id}', [OrderController::class, 'update'])->name('orders_update');
     Route::get('/index/orders/{id}', [OrderController::class, 'indexOrders'])->name('indexOrders');

@@ -28,9 +28,9 @@ class ClientController extends Controller
     public function indexClientHasOrders()
     {
         $clients = Client::withCount(['orders' => function (Builder $query) {
-            $query->whereBetween('created_at', [(new Carbon())->yesterday()->hour(12)
+            $query->whereBetween('created_at', [(new Carbon())->yesterday()->hour(14)
                 ,
-                (new Carbon())->today()->hour(12)])
+                (new Carbon())->today()->hour(12)->minute(10)])
                 ->where('status', 'waiting');}])
             ->orderBy('id', 'asc')->paginate(5);
         $this->authorize('viewAny', Client::class);
