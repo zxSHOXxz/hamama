@@ -124,55 +124,67 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
-                        <li class="nav-header"> الأدوار والصلاحيات</li>
 
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon far fa-envelope"></i>
-                                <p>
-                                    الأدوار
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('roles.index') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>عرض الأدوار</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('roles.create') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>إضافة دور</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                        @canany(['Index-Role', 'Create-Role', 'Index-Permission', 'Create-Permission'])
+                            <li class="nav-header"> الأدوار والصلاحيات</li>
 
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon far fa-envelope"></i>
-                                <p>
-                                    الصلاحيات
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('permissions.index') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>عرض الصلاحيات</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('permissions.create') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>إضافة صلاحية</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon far fa-envelope"></i>
+                                    <p>
+                                        الأدوار
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @can('Index-Role')
+                                        <li class="nav-item">
+                                            <a href="{{ route('roles.index') }}" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>عرض الأدوار</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('Create-Role')
+                                        <li class="nav-item">
+                                            <a href="{{ route('roles.create') }}" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>إضافة دور</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                </ul>
+                            </li>
+
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon far fa-envelope"></i>
+                                    <p>
+                                        الصلاحيات
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+
+                                <ul class="nav nav-treeview">
+                                    @can('Index-Permission')
+                                        <li class="nav-item">
+                                            <a href="{{ route('permissions.index') }}" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>عرض الصلاحيات</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('Create-Permission')
+                                        <li class="nav-item">
+                                            <a href="{{ route('permissions.create') }}" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>إضافة صلاحية</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                </ul>
+                            </li>
+                        @endcanany
 
                         @canany(['index-admin', 'create-admin', 'index-captain', 'create-captain', 'index-client',
                             'create-client', 'create-bonus', 'index-bonus'])
@@ -182,7 +194,7 @@
                         @canany(['index-admin', 'create-admin'])
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
-                                    <i class="nav-icon far fa-envelope"></i>
+                                    <i class="fa-solid fa-user"></i>
                                     <p>
                                         المشرف
                                         <i class="fas fa-angle-left right"></i>
@@ -214,7 +226,7 @@
                         @canany(['index-captain', 'create-captain'])
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
-                                    <i class="nav-icon far fa-envelope"></i>
+                                    <i class="fa-solid fa-person-biking-mountain"></i>
                                     <p>
                                         الكباتن
                                         <i class="fas fa-angle-left right"></i>
@@ -246,7 +258,7 @@
                         @canany(['index-client', 'create-client'])
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
-                                    <i class="nav-icon far fa-envelope"></i>
+                                    <i class="fa-solid fa-person-sign"></i>
                                     <p>
                                         العملاء
                                         <i class="fas fa-angle-left right"></i>
@@ -280,7 +292,7 @@
                         @canany(['index-city', 'create-city'])
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
-                                    <i class="nav-icon far fa-envelope"></i>
+                                    <i class="fa-solid fa-city"></i>
                                     <p>
                                         المدن
                                         <i class="fas fa-angle-left right"></i>
@@ -310,7 +322,7 @@
                         @canany(['index-sub-city', 'create-sub-city'])
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
-                                    <i class="nav-icon far fa-envelope"></i>
+                                    <i class="fa-solid fa-mountain-city"></i>
                                     <p>
                                         المحافظة الفرعية
                                         <i class="fas fa-angle-left right"></i>
@@ -339,7 +351,7 @@
                         @canany(['index-bonus', 'create-bonus'])
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
-                                    <i class="nav-icon far fa-envelope"></i>
+                                    <i class="fa-duotone fa-sack-dollar"></i>
                                     <p>
                                         قائمة البونص
                                         <i class="fas fa-angle-left right"></i>
@@ -369,7 +381,7 @@
                         @canany(['index-order', 'create-order'])
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
-                                    <i class="nav-icon far fa-envelope"></i>
+                                    <i class="fa-solid fa-cart-circle-check"></i>
                                     <p>
                                         قائمة الطلبات
                                         <i class="fas fa-angle-left right"></i>
@@ -438,7 +450,7 @@
                         <li class="nav-header">الاعدادات</li>
                         <li class="nav-item">
                             <a href="{{ route('view.logout') }}" class="nav-link">
-                                <i class="nav-icon fas fa-file"></i>
+                                <i class="fa-solid fa-right-from-bracket"></i>
                                 <p>تسجيل الخروج</p>
                             </a>
                         </li>

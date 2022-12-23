@@ -30,8 +30,6 @@
                                         <input type="text" name="customer" class="form-control" id="customer"
                                             placeholder=" رقم هاتف صاحب الطلب ">
                                     </div>
-                                    <input type="text" name="client_id" id="client_id" value="{{ $id }}"
-                                        class="form-control form-control-solid" hidden />
                                     <input type="text" name="status" id="status" value="waiting"
                                         class="form-control form-control-solid" hidden />
                                     <div class="form-group col-md-6">
@@ -61,7 +59,14 @@
                                         <input type="text" name="details" class="form-control" id="details"
                                             placeholder="  ادخل تفاصيل المكان ورقم هاتف الزبون">
                                     </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="customer"> العميل </label>
+                                        <input type="text" name="client_id" id="client_id"
+                                            value="{{ $client->user->name }}" class="form-control form-control-solid"
+                                            disabled />
+                                    </div>
                                 </div>
+
                                 <div class="row">
                                     <!-- /.card-body -->
                                     <div class="card-footer">

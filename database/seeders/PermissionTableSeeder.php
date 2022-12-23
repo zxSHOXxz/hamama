@@ -65,6 +65,7 @@ class PermissionTableSeeder extends Seeder
         Permission::create(['name' => 'create-order', 'guard_name' => 'admin', 'created_at' => now(), 'updated_at' => now()]);
         Permission::create(['name' => 'update-order', 'guard_name' => 'admin', 'created_at' => now(), 'updated_at' => now()]);
         Permission::create(['name' => 'delete-order', 'guard_name' => 'admin', 'created_at' => now(), 'updated_at' => now()]);
+        Permission::create(['name' => 'show-order', 'guard_name' => 'admin', 'created_at' => now(), 'updated_at' => now()]);
 
         Permission::create(['name' => 'index-bonus', 'guard_name' => 'admin', 'created_at' => now(), 'updated_at' => now()]);
         Permission::create(['name' => 'create-bonus', 'guard_name' => 'admin', 'created_at' => now(), 'updated_at' => now()]);
@@ -105,6 +106,7 @@ class PermissionTableSeeder extends Seeder
         Permission::create(['name' => 'create-order', 'guard_name' => 'client', 'created_at' => now(), 'updated_at' => now()]);
         Permission::create(['name' => 'update-order', 'guard_name' => 'client', 'created_at' => now(), 'updated_at' => now()]);
         Permission::create(['name' => 'delete-order', 'guard_name' => 'client', 'created_at' => now(), 'updated_at' => now()]);
+        Permission::create(['name' => 'show-order', 'guard_name' => 'client', 'created_at' => now(), 'updated_at' => now()]);
 
         Permission::create(['name' => 'index-bonus', 'guard_name' => 'client', 'created_at' => now(), 'updated_at' => now()]);
         Permission::create(['name' => 'create-bonus', 'guard_name' => 'client', 'created_at' => now(), 'updated_at' => now()]);

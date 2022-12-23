@@ -125,9 +125,9 @@ class OrderController extends Controller
         $this->authorize('create', Order::class);
 
         $captains = Captain::all();
-        $clients = client::all();
+        $client = client::findOrFail($id);
         $cities = city::all();
-        return view('dashboard.orders.createInClient', compact('captains', 'clients', 'cities', 'id'));
+        return view('dashboard.orders.createInClient', compact('captains', 'client', 'cities', 'id'));
     }
 
     /**
@@ -195,7 +195,7 @@ class OrderController extends Controller
                 if (Carbon::now() >= Carbon::today()->hour(12)->minute(10) && Carbon::now() <= Carbon::today()->hour(14)) {
                     return response()->json(['icon' => 'warning', 'title' => "سيتم ترحيل طلبك للغد"], 200);
                 } else {
-                    return response()->json(['icon' => 'warning', 'title' => "تمت العملية بنجاح"], 200);
+                    return response()->json(['icon' => 'success', 'title' => "تمت العملية بنجاح"], 200);
                 }
 
             } else {
