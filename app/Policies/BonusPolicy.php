@@ -2,7 +2,6 @@
 
 namespace App\Policies;
 
-use App\Models\Admin;
 use App\Models\bonus;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -19,7 +18,7 @@ class BonusPolicy
      */
     public function viewAny()
     {
-        //
+
         foreach (array_keys(config('auth.guards')) as $guard) {
 
             if (auth()->guard($guard)->check()) {
@@ -38,7 +37,6 @@ class BonusPolicy
      */
     public function view()
     {
-        //
         foreach (array_keys(config('auth.guards')) as $guard) {
 
             if (auth()->guard($guard)->check()) {

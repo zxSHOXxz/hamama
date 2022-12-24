@@ -38,7 +38,7 @@ class CaptainPolicy
      */
     public function view()
     {
-        //
+        
         foreach (array_keys(config('auth.guards')) as $guard) {
 
             if (auth()->guard($guard)->check()) {

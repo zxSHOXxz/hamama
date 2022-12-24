@@ -35,6 +35,7 @@
                                         <th>رقم المظروف</th>
                                         <th>تفاصيل المظروف </th>
                                         <th>اسم العميل</th>
+                                        <th>التاريخ</th>
                                         <th>الاعدادات</th>
                                     </tr>
                                 </thead>
@@ -42,8 +43,10 @@
                                     @foreach ($envelopes as $envelop)
                                         <tr>
                                             <td>{{ $envelop->id }}</td>
-                                            <td>{{ $envelop->details }}</td>
+                                            <td class="text-wrap" width="25%">{{ $envelop->details }}</td>
                                             <td>{{ $envelop->client->user->name }}</td>
+                                            <td>{{ $envelop->created_at }}</td>
+                                            </td>
                                             <td>
                                                 <div class="btn group">
                                                     <a href="{{ route('envelopes.edit', $envelop->id) }}"
@@ -60,11 +63,6 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            <div class="span text-center" style="margin-top: 20px; margin-bottom:10px">
-
-                                </span>
-
-                            </div>
                             <!-- /.card-body -->
                             @if ($envelopes)
                                 {{ $envelopes->links() }}

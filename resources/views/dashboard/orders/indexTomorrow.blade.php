@@ -1,8 +1,8 @@
 @extends('dashboard.master')
 @section('title', 'الطلب')
 
-@section('main-title', 'عرض الطلب')
-@section('sub-title', 'عرض الطلب')
+@section('main-title', 'عرض طلبات الغد')
+@section('sub-title', 'عرض طلبات الغد')
 
 @section('styles')
     <style>

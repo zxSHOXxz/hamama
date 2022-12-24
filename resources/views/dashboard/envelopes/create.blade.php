@@ -27,14 +27,19 @@
 
                                 <div class="row">
                                     <div class="form-group col-md-3">
-                                        <label for="details"> تفاصيل المظروف </label>
-                                        <input type="number" name="details" class="form-control" id="details"
-                                            placeholder="أدخل تفاصيل المظروف ">
+                                        <label for="details" class="form-label"> تفاصيل المظروف </label>
+                                        <textarea class="form-control" id="details" rows="3" placeholder="أدخل تفاصيل المظروف"></textarea>
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <label for="client_id"> العميل </label>
-                                        <input type="text" name="client_id" id="client_id"
-                                            class="form-control form-control-solid" hidden />
+                                        <label for="client_id"> اسم العميل </label>
+                                        <select class="form-control" name="client_id" style="width: 100%;" id="client_id"
+                                            aria-label=".form-select-sm example">
+                                            @foreach ($clients as $client)
+                                                @if ($client->orders_count == null)
+                                                    @continue
+                                                @endif
+                                                <option value="{{ $client->id }}">{{ $client->user->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>

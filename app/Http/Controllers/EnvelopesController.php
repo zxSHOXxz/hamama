@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Envelopes;
+use App\Models\Client;
+use App\Models\Envelope;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class EnvelopesController extends Controller
@@ -14,7 +17,9 @@ class EnvelopesController extends Controller
      */
     public function index()
     {
-        //
+        $this->authorize('viewAny', Envelope::class);
+        $envelopes = Envelope::with('client')->orderBy('id', 'desc')->paginate(50);
+        return view('dashboard.envelopes.indexAll', compact('envelopes'));
     }
 
     /**
@@ -24,7 +29,14 @@ class EnvelopesController extends Controller
      */
     public function create()
     {
-        //
+        $this->authorize('create', Envelope::class);
+        $clients = Client::withCount(['orders' => function (Builder $query) {
+            $query->whereBetween('created_at', [(new Carbon())->yesterday()->hour(14)
+                ,
+                (new Carbon())->today()->hour(12)->minute(10)])
+                ->where('status', 'waiting');}])
+            ->orderBy('id', 'asc')->paginate(5);
+        return view('dashboard.envelopes.create', compact('clients'));
     }
 
     /**
@@ -35,51 +47,70 @@ class EnvelopesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->authorize('create', Envelope::class);
+        $validator = validator($request->all(),
+            [
+                'details' => 'required|string',
+            ], [
+                'details.required' => 'القيمة مطلوبة',
+            ]);
+        if (!$validator->fails()) {
+            $envelope = new Envelope();
+            $envelope->details = $request->get('details');
+            $envelope->client_id = $request->get('client_id');
+            $isSaved = $envelope->save();
+            if ($isSaved) {
+                return response()->json(['icon' => 'success', 'title' => "تمت الإضافة بنجاح"], 200);
+            } else {
+                return response()->json(['icon' => 'error', 'title' => "لم تتم عملية الاضافة"], 400);
+            }
+        } else {
+            return response()->json(['icon' => 'error', 'title' => $validator->getMessageBag()->first()], 400);
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Envelopes  $envelopes
+     * @param  \App\Models\Envelope  $envelopes
      * @return \Illuminate\Http\Response
      */
-    public function show(Envelopes $envelopes)
+    public function show(Envelope $envelopes)
     {
-        //
+        $this->authorize('show', Envelope::class);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Envelopes  $envelopes
+     * @param  \App\Models\Envelope  $envelop
      * @return \Illuminate\Http\Response
      */
-    public function edit(Envelopes $envelopes)
+    public function edit(Envelope $envelop)
     {
-        //
+        $this->authorize('update', Envelope::class);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Envelopes  $envelopes
+     * @param  \App\Models\Envelop  $envelop
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Envelopes $envelopes)
+    public function update(Request $request, Envelope $envelop)
     {
-        //
+        $this->authorize('update', Envelope::class);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Envelopes  $envelopes
+     * @param  \App\Models\Envelop  $envelop
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Envelopes $envelopes)
+    public function destroy(Envelope $envelop)
     {
-        //
+        $this->authorize('delete', Envelope::class);
     }
 }

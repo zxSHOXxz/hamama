@@ -2,12 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Admin;
-use App\Models\Street;
+use App\Models\Envelope;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class StreetPolicy
+class EnvelopePolicy
 {
     use HandlesAuthorization;
 
@@ -17,13 +16,12 @@ class StreetPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny()
+    public function viewAny(User $user)
     {
-        //
         foreach (array_keys(config('auth.guards')) as $guard) {
 
             if (auth()->guard($guard)->check()) {
-                return auth()->user()->hasPermissionTo('index-street') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+                return auth()->user()->hasPermissionTo('index-envelope') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
             }
 
         }
@@ -33,16 +31,15 @@ class StreetPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Street  $street
+     * @param  \App\Models\Envelope  $envelope
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view()
+    public function view(User $user, Envelope $envelope)
     {
-        //
         foreach (array_keys(config('auth.guards')) as $guard) {
 
             if (auth()->guard($guard)->check()) {
-                return auth()->user()->hasPermissionTo('show-street') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+                return auth()->user()->hasPermissionTo('show-envelope') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
             }
 
         }
@@ -54,13 +51,12 @@ class StreetPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create()
+    public function create(User $user)
     {
-        //
         foreach (array_keys(config('auth.guards')) as $guard) {
 
             if (auth()->guard($guard)->check()) {
-                return auth()->user()->hasPermissionTo('create-street') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+                return auth()->user()->hasPermissionTo('create-envelope') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
             }
 
         }
@@ -70,16 +66,15 @@ class StreetPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Street  $street
+     * @param  \App\Models\Envelope  $envelope
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update()
+    public function update(User $user, Envelope $envelope)
     {
-        //
         foreach (array_keys(config('auth.guards')) as $guard) {
 
             if (auth()->guard($guard)->check()) {
-                return auth()->user()->hasPermissionTo('update-street') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+                return auth()->user()->hasPermissionTo('update-envelope') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
             }
 
         }
@@ -89,16 +84,15 @@ class StreetPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Street  $street
+     * @param  \App\Models\Envelope  $envelope
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete()
+    public function delete(User $user, Envelope $envelope)
     {
-        //
         foreach (array_keys(config('auth.guards')) as $guard) {
 
             if (auth()->guard($guard)->check()) {
-                return auth()->user()->hasPermissionTo('delete-street') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
+                return auth()->user()->hasPermissionTo('delete-envelope') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
             }
 
         }
@@ -108,37 +102,23 @@ class StreetPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Street  $street
+     * @param  \App\Models\Envelope  $envelope
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore()
+    public function restore(User $user, Envelope $envelope)
     {
-        //
-        foreach (array_keys(config('auth.guards')) as $guard) {
 
-            if (auth()->guard($guard)->check()) {
-                return auth()->user()->hasPermissionTo('restore-street') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
-            }
-
-        }
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Street  $street
+     * @param  \App\Models\Envelope  $envelope
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete()
+    public function forceDelete(User $user, Envelope $envelope)
     {
-        //
-        foreach (array_keys(config('auth.guards')) as $guard) {
 
-            if (auth()->guard($guard)->check()) {
-                return auth()->user()->hasPermissionTo('forceDelete-street') ? $this->allow() : $this->deny('لا تملك صلاحية هذا الاجراء');
-            }
-
-        }
     }
 }

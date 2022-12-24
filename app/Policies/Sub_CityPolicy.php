@@ -18,7 +18,6 @@ class Sub_CityPolicy
      */
     public function viewAny()
     {
-        //
         foreach (array_keys(config('auth.guards')) as $guard) {
 
             if (auth()->guard($guard)->check()) {
@@ -38,7 +37,6 @@ class Sub_CityPolicy
      */
     public function view()
     {
-        //
         foreach (array_keys(config('auth.guards')) as $guard) {
 
             if (auth()->guard($guard)->check()) {
@@ -56,7 +54,6 @@ class Sub_CityPolicy
      */
     public function create()
     {
-        //
         foreach (array_keys(config('auth.guards')) as $guard) {
 
             if (auth()->guard($guard)->check()) {
@@ -75,7 +72,6 @@ class Sub_CityPolicy
      */
     public function update()
     {
-        //
         foreach (array_keys(config('auth.guards')) as $guard) {
 
             if (auth()->guard($guard)->check()) {
@@ -94,7 +90,6 @@ class Sub_CityPolicy
      */
     public function delete()
     {
-        //
         foreach (array_keys(config('auth.guards')) as $guard) {
 
             if (auth()->guard($guard)->check()) {
@@ -113,7 +108,6 @@ class Sub_CityPolicy
      */
     public function restore()
     {
-        //
         foreach (array_keys(config('auth.guards')) as $guard) {
 
             if (auth()->guard($guard)->check()) {
@@ -132,7 +126,6 @@ class Sub_CityPolicy
      */
     public function forceDelete()
     {
-        //
         foreach (array_keys(config('auth.guards')) as $guard) {
 
             if (auth()->guard($guard)->check()) {

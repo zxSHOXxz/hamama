@@ -80,7 +80,7 @@ class OrderController extends Controller
     {
         $this->authorize('viewAny', Order::class);
         //
-        $orders = Order::with(['captain', 'client', 'city', 'sub_city'])->orderBy('id', 'asc')
+        $orders = Order::with(['captain', 'client', 'city', 'sub_city'])->orderBy('id', 'desc')
             ->when($request->get('sub_city'), function ($orders, $value) {
                 $sub_city = sub_city::where('name', 'like', "%{$value}%")->first();
                 $orders->where('sub_city_id', $sub_city->id);

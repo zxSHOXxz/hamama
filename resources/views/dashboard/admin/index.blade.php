@@ -39,7 +39,9 @@
                                         <th>الادوار </th>
                                         <th> رقم الجوال</th>
                                         <th> الجنس </th>
-                                        <th>الاعدادات</th>
+                                        @canany(['edit-admin', 'delete-admin'])
+                                            <th>الاعدادات</th>
+                                        @endcanany
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -61,19 +63,24 @@
                                             </td>
                                             <td>{{ $admin->user ? $admin->user->mobile : '' }}</td>
                                             <td>{{ $admin->user->gender == 'male' ? 'ذكر' : 'انثى' }}</td>
-                                            <td>
-                                                <div class="btn group">
-                                                    <a href="{{ route('admins.edit', $admin->id) }}" class="btn btn-primary"
-                                                        title="Edit">
-                                                        تعديل
-                                                    </a>
-
-                                                    <a href="#" onclick="performDestroy({{ $admin->id }} , this)"
-                                                        class="btn btn-danger" title="Delete">
-                                                        حذف
-                                                    </a>
-                                                </div>
-                                            </td>
+                                            @canany(['edit-admin', 'delete-admin'])
+                                                <td>
+                                                    <div class="btn group">
+                                                        @can('edit-admin')
+                                                            <a href="{{ route('admins.edit', $admin->id) }}" class="btn btn-primary"
+                                                                title="Edit">
+                                                                تعديل
+                                                            </a>
+                                                        @endcan
+                                                        @can('delete-admin')
+                                                            <a href="#" onclick="performDestroy({{ $admin->id }} , this)"
+                                                                class="btn btn-danger" title="Delete">
+                                                                حذف
+                                                            </a>
+                                                        @endcan
+                                                    </div>
+                                                </td>
+                                            @endcanany
                                         </tr>
                                     @endforeach
                                 </tbody>

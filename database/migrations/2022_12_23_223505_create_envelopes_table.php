@@ -15,7 +15,7 @@ class CreateEnvelopesTable extends Migration
     {
         Schema::create('envelopes', function (Blueprint $table) {
             $table->id();
-            $table->integer('details');
+            $table->string('details');
             $table->foreignId('client_id');
             $table->foreign('client_id')->on('clients')->references('id')->cascadeOnDelete();
             $table->timestamps();

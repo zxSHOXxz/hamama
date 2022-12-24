@@ -5,6 +5,7 @@ use App\Http\Controllers\BonusController;
 use App\Http\Controllers\CaptainController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\EnvelopesController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
@@ -51,6 +52,9 @@ Route::prefix('cms/admin')->middleware('auth:admin,client')->group(function () {
 
     Route::resource('bonuses', BonusController::class);
     Route::post('bonuses_update/{id}', [BonusController::class, 'update'])->name('bonuses_update');
+
+    Route::resource('envelopes', EnvelopesController::class);
+    Route::post('envelopes_update/{id}', [EnvelopesController::class, 'update'])->name('envelopes_update');
 
     Route::resource('sub_cities', SubCityController::class);
     Route::post('sub_cities_update/{id}', [SubCityController::class, 'update'])->name('sub_cities_update');

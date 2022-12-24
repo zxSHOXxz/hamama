@@ -15,11 +15,9 @@ class BonusController extends Controller
      */
     public function index()
     {
-        //
+        $this->authorize('viewAny', bonus::class);
         $bonuses = bonus::with('city')->orderBy('id', 'desc')->paginate(5);
         return view('dashboard.bonus.indexAll', compact('bonuses'));
-        $this->authorize('viewAny', bonus::class);
-
     }
 
     /**
@@ -29,10 +27,9 @@ class BonusController extends Controller
      */
     public function create()
     {
-        //
+        $this->authorize('create', bonus::class);
         $cities = city::all();
         return view('dashboard.bonus.create', compact('cities'));
-        $this->authorize('create', bonus::class);
 
     }
 
@@ -45,8 +42,6 @@ class BonusController extends Controller
     public function store(Request $request)
     {
         $this->authorize('create', bonus::class);
-
-        //
         $validator = validator($request->all(),
             [
                 'price' => 'required|string',

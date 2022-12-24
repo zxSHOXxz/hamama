@@ -377,7 +377,35 @@
                                 </ul>
                             </li>
                         @endcanany
-
+                        @canany(['index-envelope', 'create-envelope'])
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="fa-solid fa-envelope-open-dollar"></i>
+                                    <p>
+                                        قائمة المظاريف
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @can('index-envelope')
+                                        <li class="nav-item">
+                                            <a href="{{ route('envelopes.index') }}" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p> عرض قائمة المظاريف </p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('create-envelope')
+                                        <li class="nav-item">
+                                            <a href="{{ route('envelopes.create') }}" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p> إضافة مظروف جديد </p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                </ul>
+                            </li>
+                        @endcanany
                         @canany(['index-order', 'create-order'])
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
