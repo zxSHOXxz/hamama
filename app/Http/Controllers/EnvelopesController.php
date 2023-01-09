@@ -106,11 +106,12 @@ class EnvelopesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Envelop  $envelop
+     * @param  \App\Models\Envelope  $envelope
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Envelope $envelop)
+    public function destroy($id)
     {
-        $this->authorize('delete', Envelope::class);
+        $envelope = Envelope::destroy($id);
+        return response()->json(['icon' => 'success', 'title' => 'Deleted is Successfully'], $envelope ? 200 : 400);
     }
 }
