@@ -16,7 +16,7 @@ class EnvelopePolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny()
     {
         foreach (array_keys(config('auth.guards')) as $guard) {
 
@@ -34,7 +34,7 @@ class EnvelopePolicy
      * @param  \App\Models\Envelope  $envelope
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Envelope $envelope)
+    public function view(Envelope $envelope)
     {
         foreach (array_keys(config('auth.guards')) as $guard) {
 
@@ -51,7 +51,7 @@ class EnvelopePolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
+    public function create()
     {
         foreach (array_keys(config('auth.guards')) as $guard) {
 
@@ -69,7 +69,7 @@ class EnvelopePolicy
      * @param  \App\Models\Envelope  $envelope
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Envelope $envelope)
+    public function update(Envelope $envelope)
     {
         foreach (array_keys(config('auth.guards')) as $guard) {
 
@@ -87,7 +87,7 @@ class EnvelopePolicy
      * @param  \App\Models\Envelope  $envelope
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Envelope $envelope)
+    public function delete(Envelope $envelope)
     {
         foreach (array_keys(config('auth.guards')) as $guard) {
 
@@ -105,7 +105,7 @@ class EnvelopePolicy
      * @param  \App\Models\Envelope  $envelope
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Envelope $envelope)
+    public function restore(Envelope $envelope)
     {
 
     }
@@ -117,7 +117,7 @@ class EnvelopePolicy
      * @param  \App\Models\Envelope  $envelope
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Envelope $envelope)
+    public function forceDelete(Envelope $envelope)
     {
 
     }

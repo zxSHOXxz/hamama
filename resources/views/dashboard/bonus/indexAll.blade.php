@@ -34,7 +34,6 @@
                             <table class="table table-hover table-bordered table-striped text-nowrap text-center">
                                 <thead>
                                     <tr class="bg-info">
-                                        <th>رقم البونص</th>
                                         <th>قيمة البونص </th>
                                         <th>اسم المحافظة</th>
                                         <th>الاعدادات</th>
@@ -43,9 +42,9 @@
                                 <tbody>
                                     @foreach ($bonuses as $bonus)
                                         <tr>
-                                            <td>{{ $bonus->id }}</td>
-                                            <td>{{ $bonus->price }}</td>
-                                            <td>{{ $bonus->city->name }}</td>
+
+                                            <td>{{ $bonus->price }} شيكل </td>
+                                            <td>{{ $bonus->city->name ?? null }}</td>
                                             <td>
                                                 <div class="btn group">
                                                     <a href="{{ route('bonuses.edit', $bonus->id) }}"

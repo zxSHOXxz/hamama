@@ -27,19 +27,15 @@
 
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <label for="customer"> رقم هاتف صاحب الطلب</label>
+                                        <label for="customer"> رقم هاتف الزبون</label>
                                         <input type="text" name="customer" class="form-control" id="customer"
-                                            placeholder=" رقم هاتف صاحب الطلب ">
+                                            placeholder=" مثل : 0597000000 ">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="city_id"> العنوان </label>
                                         <select class="form-control" name="city_id" style="width: 100%;" id="city_id"
                                             aria-label=".form-select-sm example">
-                                            {{-- <option selected> {{ $streets->city->name }} </option> --}}
                                             @foreach ($cities as $city)
-                                                {{-- @if ($city->id == $streets->city->id)
-                                                    @continue
-                                                @endif --}}
                                                 <option value="{{ $city->id }}"
                                                     {{ $city->sub_cities ? 'disabled' : 'null' }}> {{ $city->name }}
                                                 </option>
@@ -58,16 +54,16 @@
                                             placeholder=" السعر">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="client_id"> العملاء </label>
+                                        <label for="client_id"> العميل </label>
                                         <input type="text" name="client_id" id="client_id"
                                             class="form-control form-control-solid" placeholder="أدخل اسم العميل بدقة" />
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <label for="details"> التفاصيل </label>
+                                        <label for="details"> التفاصيل كاملة </label>
                                         <input type="text" name="details" class="form-control" id="details"
-                                            placeholder=" التفاصيل">
+                                            placeholder=" مثل : كيس ملابس بإسم محمد احمد في غزة شارع الصناعة شارع الريس ">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="captain_id"> الكابتن </label>

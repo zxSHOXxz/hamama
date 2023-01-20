@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\City;
-use App\Models\sub_city;
+use App\Models\Sub_City;
 use Illuminate\Http\Request;
 
 class SubCityController extends Controller
@@ -15,14 +15,14 @@ class SubCityController extends Controller
      */
     public function indexSubCities($id)
     {
-        $this->authorize('viewAny', sub_city::class);
+        $this->authorize('viewAny', Sub_City::class);
 
-        $sub_cities = sub_city::where('city_id', $id)->orderBy('created_at', 'desc')->paginate(5);
+        $sub_cities = Sub_City::where('city_id', $id)->orderBy('created_at', 'desc')->paginate(5);
         return response()->view('dashboard.sub_city.index', compact('sub_cities', 'id'));
     }
     public function createSub_city($id)
     {
-        $this->authorize('create', sub_city::class);
+        $this->authorize('create', Sub_City::class);
 
         $cities = City::all();
         return response()->view('dashboard.sub_city.createInCity', compact('id', 'cities'));
@@ -42,7 +42,7 @@ class SubCityController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', sub_city::class);
+        $this->authorize('create', Sub_City::class);
         $cities = City::all();
         return view('dashboard.sub_city.create', compact('cities'));
     }
@@ -90,7 +90,7 @@ class SubCityController extends Controller
      */
     public function show(sub_city $sub_city)
     {
-        $this->authorize('view', sub_city::class);
+        $this->authorize('view', Sub_City::class);
     }
 
     /**
@@ -101,7 +101,7 @@ class SubCityController extends Controller
      */
     public function edit($id)
     {
-        $this->authorize('update', sub_city::class);
+        $this->authorize('update', Sub_City::class);
 
         $sub_city = Sub_City::findOrFail($id);
         $cities = City::all();
@@ -117,7 +117,7 @@ class SubCityController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->authorize('update', sub_city::class);
+        $this->authorize('update', Sub_City::class);
 
         $validator = validator($request->all(), [
             'name' => 'required',

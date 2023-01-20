@@ -46,7 +46,7 @@
                                         <tr>
                                             <td>{{ $street->id }}</td>
                                             <td>{{ $street->name }}</td>
-                                            <td>{{ $street->city->name }}</td>
+                                            <td>{{ $street->city->name ?? 'null' }}</td>
                                             <td>
                                                 <div class="btn group">
                                                     <a href="{{ route('streets.edit', $street->id) }}"

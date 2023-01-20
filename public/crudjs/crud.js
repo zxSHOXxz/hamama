@@ -18,16 +18,16 @@ function store(url, data) {
 
 }
 function storepart(url, data) {
-    
+
     axios.post(url, data)
-        
+
         .then(function (response) {
             showMessage(response.data);
             clearForm();
             clearAndHideErrors();
 
         })
-        
+
         .catch(function (error) {
 
             if (error.response.data.errors !== undefined) {
@@ -76,10 +76,10 @@ function storeRedirect (url, data, redirectUrl) {
 
 function update (url, data, redirectUrl) {
     axios.put( url, data)
-        
+
         .then(function (response) {
             console.log(response);
-            
+
             if (redirectUrl != null)
                 window.location.href = redirectUrl;
         })
@@ -89,10 +89,10 @@ function update (url, data, redirectUrl) {
 }
 function updateRoute (url, data) {
     axios.put( url, data)
-        
+
         .then(function (response) {
             console.log(response);
-            
+
         window.location = response.data.redirect;
 
         })

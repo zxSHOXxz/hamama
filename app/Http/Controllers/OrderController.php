@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Exports\OrderSearchedExport;
 use App\Models\Captain;
-use App\Models\city;
+use App\Models\City;
 use App\Models\Client;
 use App\Models\Order;
-use App\Models\sub_city;
+use App\Models\Sub_City;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -43,18 +43,18 @@ class OrderController extends Controller
         $export = new OrderSearchedExport();
         $export->setQuery($query);
         return Excel::download($export, 'orders.xlsx');
-
     }
 
     public function index()
     {
 
         $this->authorize('viewAny', Order::class);
-        $orders = Order::with(['captain', 'client', 'city', 'sub_city'])->
-            whereBetween('created_at', [
-            (new Carbon())->yesterday()->hour(14)
-            ,
-            (new Carbon())->today()->hour(12)->minute(10)]
+        $orders = Order::with(['captain', 'client', 'city', 'sub_city'])->whereBetween(
+            'created_at',
+            [
+                (new Carbon())->yesterday()->hour(14),
+                (new Carbon())->today()->hour(12)->minute(10)
+            ]
         )
             ->where('status', 'waiting')
             ->orderBy('id', 'asc')->paginate(50);
@@ -65,11 +65,12 @@ class OrderController extends Controller
     {
 
         $this->authorize('viewAny', Order::class);
-        $orders = Order::with(['captain', 'client', 'city', 'sub_city'])->
-            whereBetween('created_at', [
-            (new Carbon())->today()->hour(2)
-            ,
-            (new Carbon())->now()]
+        $orders = Order::with(['captain', 'client', 'city', 'sub_city'])->whereBetween(
+            'created_at',
+            [
+                (new Carbon())->today()->hour(2),
+                (new Carbon())->now()
+            ]
         )
             ->where('status', 'waiting')
             ->orderBy('id', 'asc')->paginate(50);
@@ -79,7 +80,7 @@ class OrderController extends Controller
     public function archive(Request $request)
     {
         $this->authorize('viewAny', Order::class);
-        //
+
         $orders = Order::with(['captain', 'client', 'city', 'sub_city'])->orderBy('id', 'desc')
             ->when($request->get('sub_city'), function ($orders, $value) {
                 $sub_city = sub_city::where('name', 'like', "%{$value}%")->first();
@@ -108,11 +109,12 @@ class OrderController extends Controller
     public function indexOrdersClientToday($id)
     {
         $this->authorize('viewAny', Order::class);
-        $orders = Order::with(['captain', 'client', 'city', 'sub_city'])->
-            whereBetween('created_at', [
-            (new Carbon())->yesterday()->hour(12)
-            ,
-            (new Carbon())->today()->hour(12)]
+        $orders = Order::with(['captain', 'client', 'city', 'sub_city'])->whereBetween(
+            'created_at',
+            [
+                (new Carbon())->yesterday()->hour(12),
+                (new Carbon())->today()->hour(12)
+            ]
         )
 
             ->where('status', 'waiting')
@@ -138,10 +140,10 @@ class OrderController extends Controller
     public function create()
     {
         $this->authorize('create', Order::class);
-        //
+
         $captains = Captain::all();
-        $clients = client::all();
-        $cities = city::all();
+        $clients = Client::all();
+        $cities = City::all();
         return view('dashboard.orders.create', compact('captains', 'clients', 'cities'));
     }
 
@@ -157,10 +159,10 @@ class OrderController extends Controller
         $this->authorize('create', Order::class);
 
         $validator = validator($request->all(), [
-
-        ], [
-
-        ]);
+            'customer' => 'max:14|min:10|required',
+            'details' => 'max:130|min:10|required',
+            'price' => 'required',
+        ], []);
 
         if (!$validator->fails()) {
             $orders = new Order();
@@ -197,14 +199,12 @@ class OrderController extends Controller
                 } else {
                     return response()->json(['icon' => 'success', 'title' => "تمت العملية بنجاح"], 200);
                 }
-
             } else {
                 return response()->json(['icon' => 'error', 'title' => "فشلت عملية التخزين"], 400);
             }
         } else {
             return response()->json(['icon' => 'error', 'title' => $validator->getMessageBag()->first()], 400);
         }
-
     }
 
     /**
@@ -213,7 +213,8 @@ class OrderController extends Controller
      * @param  \App\Models\orders  $orders
      * @return \Illuminate\Http\Response
      */
-    function print($id) {
+    function print($id)
+    {
         $order = Order::findOrFail($id);
 
         return view('dashboard.orders.print', compact('order'));
@@ -232,7 +233,6 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        //
         $order = Order::findOrFail($id);
         $cities = city::all();
         $captains = Captain::all();
@@ -252,11 +252,7 @@ class OrderController extends Controller
         //
         $this->authorize('update', Order::class);
 
-        $validator = validator($request->all(), [
-
-        ], [
-
-        ]);
+        $validator = validator($request->all(), [], []);
 
         if (!$validator->fails()) {
             $orders = Order::findOrFail($id);
@@ -294,8 +290,8 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
-        $this->authorize('delete', Order::class);
-
+        dd($id);
+        $order = Order::destroy($id);
+        return response()->json(['icon' => 'success', 'title' => 'Deleted is Successfully'], $order ? 200 : 400);
     }
 }

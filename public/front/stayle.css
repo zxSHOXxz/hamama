@@ -1,88 +1,85 @@
 @import url("https://fonts.googleapis.com/css2?family=Changa:wght@800&family=Lalezar&display=swap");
 .hero {
-  background-image: url("6501029.png");
-  background-position: center center;
-  background-size: cover;
-  background-repeat: no-repeat;
+    height: 100vh;
+    background-image: url("dl.beatsnoop.com-high-0f388dfe536d182313.jpg");
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
-.hero nav {
-  height: 10vh;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+nav {
+    font-family: "neckar-bold" !important;
 }
-.hero nav .logos {
-  font-family: "Changa", sans-serif;
-  font-size: 32px;
+.nav-link {
+    padding: 0.5rem !important;
+    font-size: 18px !important;
 }
-.one{
-    font-family: "Changa", sans-serif;
-    font-size: 57px;
-    margin-left: 53px;
-    color: #fcaf26;
-    text-align: right;
+/* .nav-item {
+    padding: 0.6rem !important;
+} */
+.navbar-brand img {
+    width: 95px;
+    height: 95px;
 }
-.one:nth-child(even){
-    color: #fff;
+.navbar-brand {
+    font-family: "neckar-bold" !important;
+    font-size: 38px !important;
+    color: #da0037 !important;
 }
-.image{
-  width: 50px;
-  height: 50px;
-  background: #000000;
+.hero-main {
+    transform: translate(-30px, -60px);
 }
-.image img{
-    object-fit :cover;
-    width: 100%;
-    height: 100%;
-    background-color: #fcaf26;
+.hero-main h1 {
+    font-family: "neckar-bold" !important;
+    font-size: 72px !important;
+    color: #c69749 !important;
 }
-.right .image{
-    width: 150px;
-    height: 150px;
+.hero-main h3 {
+    font-family: "neckar-bold" !important;
+    font-size: 30px !important;
+    color: #d5cea3 !important;
 }
-.hero nav .buttons a {
-  background-color: #cd0029 !important;
-  border: 2px solid transparent;
-  outline: none;
-  padding: 5px 25px;
-  border-radius: 30px;
-  margin: 0 10px;
-  font-weight: 600;
-  font-size: 16px;
-  color: #ffffff;
-  transition: all 0.3s linear;
-  text-decoration: none;
-  cursor: pointer;
+.hero-main h5 {
+    font-family: "neckar-bold" !important;
+    font-size: 44px !important;
+    color: #e5e5cb !important;
 }
-.hero nav a:hover {
-  background-color: #fcaf26 !important;
+.hero-main a {
+    font-family: "neckar-bold" !important;
 }
-.hero .text-hero {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-5%, -50%);
-  color: #ffffff;
+.phone_one {
+    position: relative;
 }
-.hero .text-hero h1 {
-  font-family: "Changa", sans-serif;
-  font-size: 93px !important;
-  text-align: center;
+
+.phone_one::before {
+    content: "1";
+    width: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    top: 4px;
+    height: 5px;
+    border-radius: 50%;
+    position: absolute;
 }
-.hero .text-hero .img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: #ffffff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+
+.phone_two {
+    position: relative;
 }
-.hero .text-hero .one {
-  font-family: "Changa", sans-serif;
-  font-size: 35px;
+
+.phone_two::before {
+    content: "2";
+    width: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    top: 4px;
+    height: 5px;
+    border-radius: 50%;
+    position: absolute;
 }
-.hero .text-hero .one span {
-  margin-inline: 10px;
-}/*# sourceMappingURL=stayle.css.map */
+@media (max-width: 576px) {
+    .hero {
+        background-image: url("dl.beatsnoop.com-high-fb5458368f7e45e2fe.jpg") !important;
+        background-position: right right;
+        background-size: cover !important;
+        background-repeat: no-repeat;
+    }
+}

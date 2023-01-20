@@ -48,9 +48,15 @@
                                         <tr>
                                             <td>{{ $client->id }}</td>
                                             <td>
-                                                <img class="img-circle img-bordered-sm"
-                                                    src="{{ asset('storage/images/admin/' . $client->user->image) }}"
-                                                    width="50" height="50" alt="User Image">
+                                                @if ($client->user->image)
+                                                    <img class="img-circle img-bordered-sm"
+                                                        src="{{ asset('storage/images/admin/' . $client->user->image) }}"
+                                                        width="50" height="50" alt="User Image">
+                                                @else
+                                                    <img class="img-circle img-bordered-sm"
+                                                        src="{{ asset('storage/images/admin/1671747271image.jpg') }}"
+                                                        width="50" height="50" alt="User Image">
+                                                @endif
                                             </td>
                                             <td>{{ $client->user ? $client->user->name : '' }}</td>
                                             <td>{{ $client->email }}</td>

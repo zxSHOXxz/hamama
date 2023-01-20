@@ -11,6 +11,7 @@
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('cms/plugins/fontawesome-free/css/all.min.css') }}">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.1/css/all.css">
     <!-- icheck bootstrap -->
     <link rel="stylesheet" href="{{ asset('cms/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <!-- Theme style -->
@@ -21,19 +22,18 @@
 
 </head>
 
-<body class="hold-transition login-page">
+<body class="hold-transition login-page d-md-flex justify-content-center align-items-center">
     <div class="login-box">
-        <div class="login-logo">
-            <a href="cms/index2.html"><b>ممتلكاتي</b></a>
-        </div>
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
-                <p class="login-box-msg">سجل دخول</p>
+                <p class="login-box-msg">تسجيل حساب</p>
 
-                <form>
+                <form action="{{ route('sign_up') }}" method="POST">
+                    @csrf
                     <div class="input-group mb-3">
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                        <input type="text" class="form-control" id="name" name="name"
+                            placeholder="يرجى ادخال الاسم" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -41,7 +41,80 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="mobile" name="mobile"
+                            placeholder="يرجى ادخال رقم الهاتف">
+                        <div class="input-group-append" required>
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="address" name="address"
+                            placeholder="ادخل العنوان">
+                        <div class="input-group-append" required>
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control" id="email" name="email"
+                            placeholder="ادخل الايميل">
+                        <div class="input-group-append" required>
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
                         <input type="password" class="form-control" id="password" name="password"
+                            placeholder="ادخل كلمة مرور" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <select class="form-control" name="gender" style="width: 100%;" id="gender"
+                            aria-label=".form-select-sm example">
+                            <option value="male">ذكر</option>
+                            <option value="female">انثى</option>
+                        </select>
+                    </div>
+                    <div class="row d-flex justify-content-between">
+                        <!-- /.col -->
+                        <div class="col-12">
+                            <input type="submit" class="btn btn-primary btn-block" value="تسجيل">
+                        </div>
+
+                        <!-- /.col -->
+                        <!-- /.col -->
+                    </div>
+                </form>
+            </div>
+            <!-- /.login-card-body -->
+        </div>
+    </div>
+    <div class="login-box">
+        <!-- /.login-logo -->
+        <div class="card">
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">سجل دخول</p>
+
+                <form>
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control" id="email_sign_in" name="email"
+                            placeholder="Email">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control" id="password_sign_in" name="password"
                             placeholder="Password">
                         <div class="input-group-append">
                             <div class="input-group-text">
@@ -54,20 +127,26 @@
                         </div>
                         <!-- /.col -->
                         <div class="col-4">
-                            <button type="button" onclick="login()" class="btn btn-primary btn-block">Sign In</button>
+                            <button type="button" onclick="login()" class="btn btn-primary btn-block">تسجيل
+                                دخول</button>
                         </div>
                         <!-- /.col -->
                     </div>
                 </form>
 
                 <div class="social-auth-links text-center mb-3">
-                    {{-- <p>- OR -</p> --}}
-                    {{-- <a href="#" class="btn btn-block btn-primary">
-          <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-        </a>
-        <a href="#" class="btn btn-block btn-danger">
-          <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-        </a> --}}
+                    <a href="#" class="btn btn-block btn-secondary">
+                        <i class="fa-solid fa-phone mr-2"></i> لا تردد في الاتصال علينا
+                    </a>
+                    <a href="#" class="btn btn-block btn-primary">
+                        <i class="fab fa-facebook mr-2"></i> تابعنا عبر الفيسبوك
+                    </a>
+                    <a href="#" class="btn btn-block btn-success">
+                        <i class="fab fa-whatsapp mr-2"></i> تواصل معنا عبر الواتساب
+                    </a>
+                    <a href="#" class="btn btn-block btn-dark">
+                        <i class="fab fa-instagram mr-2"></i> تابعنا على الانستجرام
+                    </a>
                 </div>
                 <!-- /.social-auth-links -->
                 @can('index-admin')
@@ -78,9 +157,6 @@
                 {{-- <p class="mb-1">
                     <a href="forgot-password.html">نسيت كلمة المرور</a>
                 </p> --}}
-                <p class="mb-0">
-                    <a href="{{ route('create_account') }}" class="text-center">إنشاء حساب جديد</a>
-                </p>
             </div>
             <!-- /.login-card-body -->
         </div>
@@ -105,8 +181,8 @@
 
             var guard = '{{ request('guard') }}';
             axios.post('/cms/' + guard + '/login', {
-                    email: document.getElementById('email').value,
-                    password: document.getElementById('password').value,
+                    email: document.getElementById('email_sign_in').value,
+                    password: document.getElementById('password_sign_in').value,
                     guard: guard,
                 })
                 .then(function(response) {

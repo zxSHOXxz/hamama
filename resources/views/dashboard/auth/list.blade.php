@@ -22,14 +22,14 @@
 </head>
 
 <body class="hold-transition login-page">
-    <div class="login-box">
+    <div class="login-box m-auto pt-5">
         <div class="login-logo">
             <a href="cms/index2.html"><b>حمامة ديلفري</b></a>
         </div>
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
-                
+
                 <p class="login-box-msg">كيف تريد تسجيل دخول ؟</p>
                 <div class="button-group text-center">
                     <a href="{{ route('view.login', ['guard' => 'client']) }}" class="btn btn-danger"> عميل </a>

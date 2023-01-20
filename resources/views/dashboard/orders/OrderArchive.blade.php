@@ -97,11 +97,11 @@
                                             <td>{{ $order->client->user->name }}</td>
                                             <td>{{ $order->price }}</td>
                                             @php
-                                                $total = $order->city->bonuses->price + $order->price;
+                                                $total = $order->city->bonuses->price ?? 0 + $order->price;
                                             @endphp
-                                            <td>{{ $order->city->bonuses->price . '+' . $order->price . '=' . $total }}
+                                            <td>{{ $order->city->bonuses->price ?? 'null' . '+' . $order->price . '=' . $total }}
                                             </td>
-                                            <td>{{ $order->city->name . '(' . $order->sub_city->name . ')' }}</td>
+                                            <td>{{ $order->city->name ?? null . '(' . $order->sub_city->name ?? null . ')' }}</td>
                                             <td>{{ $order->customer }}</td>
                                             <td>
                                                 @if ($order->status == 'waiting')

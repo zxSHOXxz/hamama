@@ -18,7 +18,7 @@ class Order extends Model
     }
     public function client()
     {
-        return $this->belongsTo(client::class, 'client_id', 'id');
+        return $this->belongsTo(Client::class, 'client_id', 'id');
     }
     public function sub_city()
     {

@@ -44,7 +44,7 @@
                                         <tr>
                                             <td>{{ $envelop->id }}</td>
                                             <td class="text-wrap" width="25%">{{ $envelop->details }}</td>
-                                            <td>{{ $envelop->client->user->name }}</td>
+                                            <td>{{ $envelop->client->user->name ?? 'null' }}</td>
                                             <td>{{ $envelop->created_at }}</td>
                                             </td>
                                             <td>

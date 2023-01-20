@@ -22,7 +22,7 @@ class City extends Model
     }
     public function bonuses()
     {
-        return $this->hasOne(bonus::class);
+        return $this->hasOne(Bonus::class);
     }
     public function captain()
     {

@@ -36,7 +36,37 @@
 
     <link rel="stylesheet" href="{{ asset('cms/plugins/toastr/toastr.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <style>
+        .phone_one {
+            position: relative;
+        }
 
+        .phone_one::before {
+            content: "1";
+            width: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            top: 4px;
+            height: 5px;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .phone_two {
+            position: relative;
+        }
+
+        .phone_two::before {
+            content: "2";
+            width: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            top: 4px;
+            height: 5px;
+            border-radius: 50%;
+            position: absolute;
+        }
+    </style>
     @yield('styles')
 </head>
 
@@ -54,22 +84,26 @@
                     <a href="{{ route('parent') }}" class="nav-link">الرئيسية</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="https://www.facebook.com/hamama.delivery" class="nav-link">تواصل</a>
+                    <a href="https://www.facebook.com/hamama.delivery" class="nav-link"><i
+                            class="fa-brands fa-facebook-f"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="https://www.facebook.com/hamama.delivery" class="nav-link"><i
+                            class="fa-brands fa-instagram"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="https://wa.link/d4mwjk" class="nav-link"><i class="fa-brands fa-whatsapp"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block ">
+                    <a href="tel:0592881213" class="nav-link phone_one"><i class="fa-solid fa-phone"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block ">
+                    <a href="tel:0599690190" class="nav-link phone_two"><i class="fa-solid fa-phone"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="tel:082881213" class="nav-link"><i class="fa-solid fa-phone-rotary"></i></a>
                 </li>
             </ul>
-
-            <!-- SEARCH FORM -->
-            {{-- <form class="form-inline ml-3">
-                <div class="input-group input-group-sm">
-                    <input class="form-control form-control-navbar" type="search" placeholder="Search"
-                        aria-label="Search">
-                    <div class="input-group-append">
-                        <button class="btn btn-navbar" type="submit">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </form> --}}
 
             <!-- Right navbar links -->
 

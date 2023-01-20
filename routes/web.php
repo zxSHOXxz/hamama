@@ -34,14 +34,16 @@ Route::prefix('cms/')->middleware('guest:admin,client')->group(function () {
     Route::post('{guard}/login', [UserAuthController::class, 'login']);
     Route::get('create_account', [UserAuthController::class, 'create_account'])->name('create_account');
     Route::post('signup', [ClientController::class, 'sign_up'])->name('sign_up');
-
 });
+Route::get('dashboard', [UserAuthController::class, 'dashboard'])->middleware(['auth', 'is_verify_email']);
+Route::get('account/verify/{token}', [UserAuthController::class, 'verifyAccount'])->name('user.verify');
 
 Route::prefix('cms/admin')->middleware('auth:admin,client')->group(function () {
     Route::get('logout', [UserAuthController::class, 'logout'])->name('view.logout');
 });
+Route::view('/verify_email', 'dashboard.auth.verification')->name('verify_email');
 
-Route::prefix('cms/admin')->middleware('auth:admin,client')->group(function () {
+Route::prefix('cms/admin')->middleware('auth:admin,client', 'is_verify_email')->group(function () {
 
     Route::view('/', 'dashboard.master')->name('parent');
     Route::resource('streets', StreetsController::class);
@@ -92,5 +94,4 @@ Route::prefix('cms/admin')->middleware('auth:admin,client')->group(function () {
     Route::post('permissions_update/{id}', [PermissionController::class, 'update'])->name('permissions_update');
 
     Route::resource('roles.permissions', RolePermissionController::class);
-
 });

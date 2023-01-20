@@ -26,9 +26,9 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <label for="customer"> رقم هاتف صاحب الطلب</label>
+                                        <label for="customer"> رقم هاتف الزبون</label>
                                         <input type="text" name="customer" class="form-control" id="customer"
-                                            placeholder=" رقم هاتف صاحب الطلب ">
+                                            placeholder=" مثل : 0597000000 ">
                                     </div>
                                     <input type="text" name="status" id="status" value="waiting"
                                         class="form-control form-control-solid" hidden />
@@ -55,9 +55,9 @@
                                             placeholder=" السعر">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="details"> التفاصيل </label>
+                                        <label for="details"> التفاصيل كاملة </label>
                                         <input type="text" name="details" class="form-control" id="details"
-                                            placeholder="  ادخل تفاصيل المكان ورقم هاتف الزبون">
+                                            placeholder=" مثل : كيس ملابس بإسم محمد احمد في غزة شارع الصناعة شارع الريس ">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="customer"> العميل </label>

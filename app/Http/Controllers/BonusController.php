@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\bonus;
-use App\Models\city;
+use App\Models\Bonus;
+use App\Models\City;
 use Illuminate\Http\Request;
 
 class BonusController extends Controller
@@ -15,8 +15,8 @@ class BonusController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny', bonus::class);
-        $bonuses = bonus::with('city')->orderBy('id', 'desc')->paginate(5);
+        $this->authorize('viewAny', Bonus::class);
+        $bonuses = Bonus::with('city')->orderBy('id', 'desc')->paginate(5);
         return view('dashboard.bonus.indexAll', compact('bonuses'));
     }
 
@@ -27,7 +27,7 @@ class BonusController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', bonus::class);
+        $this->authorize('create', Bonus::class);
         $cities = city::all();
         return view('dashboard.bonus.create', compact('cities'));
 
@@ -41,7 +41,7 @@ class BonusController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', bonus::class);
+        $this->authorize('create', Bonus::class);
         $validator = validator($request->all(),
             [
                 'price' => 'required|string',
@@ -71,7 +71,7 @@ class BonusController extends Controller
      */
     public function show(bonus $bonus)
     {
-        $this->authorize('view', bonus::class);
+        $this->authorize('view', Bonus::class);
 
         //
     }
@@ -85,7 +85,7 @@ class BonusController extends Controller
     public function edit($id)
     {
         //
-        $this->authorize('update', bonus::class);
+        $this->authorize('update', Bonus::class);
 
         $bonuses = bonus::findOrFail($id);
         $cities = city::all();
@@ -102,7 +102,7 @@ class BonusController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $this->authorize('update', bonus::class);
+        $this->authorize('update', Bonus::class);
 
         $validator = validator($request->all(),
             [
@@ -135,7 +135,7 @@ class BonusController extends Controller
     public function destroy($id)
     {
         //
-        $this->authorize('delete', bonus::class);
+        $this->authorize('delete', Bonus::class);
 
         $bonus = bonus::destroy($id);
     }
