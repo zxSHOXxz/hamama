@@ -163,7 +163,6 @@ class UserAuthController extends Controller
             $user = auth($guard)->user();
             $user->password = Hash::make($request->get('new_password'));
             $isSaved = $user->save();
-            return ['redirect' => route('admins.index')];
             if ($isSaved) {
                 return response()->json(['icon' => 'success', 'title' => 'تم تغيير كلمة المرور بنجاح'], 200);
             } else {
