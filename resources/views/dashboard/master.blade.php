@@ -144,11 +144,13 @@
                         @endif
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">
+                        <a href="{{ route('editProfile') }}" class="d-block">
                             @if (Auth::guard('admin')->id())
-                                <a href="#" class="d-block"> {{ auth('admin')->user()->user->name }}</a>
+                                <a href="{{ route('editProfile') }}" class="d-block">
+                                    {{ auth('admin')->user()->user->name }}</a>
                             @elseif (Auth::guard('client')->id())
-                                <a href="#" class="d-block"> {{ auth('client')->user()->user->name }}</a>
+                                <a href="{{ route('editProfile') }}" class="d-block">
+                                    {{ auth('client')->user()->user->name }}</a>
                             @endif
                         </a>
                     </div>
@@ -512,8 +514,14 @@
                         <li class="nav-header">الاعدادات</li>
                         <li class="nav-item">
                             <a href="{{ route('editProfile') }}" class="nav-link">
-                                <i class="fa-solid fa-right-from-bracket"></i>
+                                <i class="fa-solid fa-user-pen"></i>
                                 <p>تعديل الملف الشخصي</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('editPassword') }}" class="nav-link">
+                                <i class="fa-solid fa-key"></i>
+                                <p>تعديل كلمة المرور</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -583,7 +591,7 @@
     <!-- Bootstrap 4 rtl -->
     <script src="https://cdn.rtlcss.com/bootstrap/v4.2.1/js/bootstrap.min.js"></script>
     <!-- Bootstrap 4 -->
-    <script src={{ asset('cms/"plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('cms/"plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- ChartJS -->
     <script src="{{ asset('cms/plugins/chart.js/Chart.min.js') }}"></script>
     <!-- Sparkline -->

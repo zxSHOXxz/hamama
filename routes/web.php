@@ -26,28 +26,28 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-    Route::view('/', 'front')->name('frontView');
+Route::view('/', 'front')->name('frontView');
 
-    Route::prefix('cms/')->middleware('guest:admin,client')->group(function () {
+Route::prefix('cms/')->middleware('guest:admin,client')->group(function () {
     Route::get('{guard}/login', [UserAuthController::class, 'showLogin'])->name('view.login');
     Route::get('list', [UserAuthController::class, 'list'])->name('list');
     Route::post('{guard}/login', [UserAuthController::class, 'login']);
     Route::get('create_account', [UserAuthController::class, 'create_account'])->name('create_account');
     Route::post('signup', [ClientController::class, 'sign_up'])->name('sign_up');
-    });
+});
 
-    Route::get('dashboard', [UserAuthController::class, 'dashboard'])->middleware(['auth', 'is_verify_email']);
-    Route::get('account/verify/{token}', [UserAuthController::class, 'verifyAccount'])->name('user.verify');
+Route::get('dashboard', [UserAuthController::class, 'dashboard'])->middleware(['auth', 'is_verify_email']);
+Route::get('account/verify/{token}', [UserAuthController::class, 'verifyAccount'])->name('user.verify');
 
-    Route::prefix('cms/admin')->middleware('auth:admin,client')->group(function () {
+Route::prefix('cms/admin')->middleware('auth:admin,client')->group(function () {
     Route::get('logout', [UserAuthController::class, 'logout'])->name('view.logout');
-    });
+});
 
-    Route::view('/verify_email', 'dashboard.auth.verification')->middleware('auth')->name('verify_email');
-    Route::get('resendEmail', [UserAuthController::class , 'resendEmail'])->middleware('auth')->name('re_verify_email');
+Route::view('/verify_email', 'dashboard.auth.verification')->middleware('auth')->name('verify_email');
+Route::get('resendEmail', [UserAuthController::class, 'resendEmail'])->middleware('auth')->name('re_verify_email');
 
 
-    Route::prefix('cms/admin')->middleware('auth:admin,client', 'is_verify_email')->group(function () {
+Route::prefix('cms/admin')->middleware('auth:admin,client', 'is_verify_email')->group(function () {
 
     Route::view('/', 'dashboard.master')->name('parent');
     Route::resource('streets', StreetsController::class);
@@ -88,6 +88,10 @@ use Illuminate\Support\Facades\Route;
     Route::post('captains_update/{id}', [CaptainController::class, 'update'])->name('captains_update');
 
     Route::get('editProfile', [UserAuthController::class, 'editProfile'])->name('editProfile');
+    Route::post('updateProfile', [UserAuthController::class, 'updateProfile'])->name('updateProfile');
+
+    Route::get('editPassword', [UserAuthController::class, 'editPassword'])->name('editPassword');
+    Route::post('updatePassword', [UserAuthController::class, 'updatePassword'])->name('updatePassword');
 
     Route::resource('clients', ClientController::class);
     Route::get('clients_orderes', [ClientController::class, 'indexClientHasOrders'])->name('indexClientHasOrders');
@@ -100,4 +104,4 @@ use Illuminate\Support\Facades\Route;
     Route::post('permissions_update/{id}', [PermissionController::class, 'update'])->name('permissions_update');
 
     Route::resource('roles.permissions', RolePermissionController::class);
-    });
+});

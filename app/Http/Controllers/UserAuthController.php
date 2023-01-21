@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Client;
 use App\Models\User;
 use App\Models\UserVerify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
 class UserAuthController extends Controller
@@ -87,7 +89,8 @@ class UserAuthController extends Controller
 
         return redirect("view.login")->withSuccess('Opps! You do not have access');
     }
-    public function resendEmail(){
+    public function resendEmail()
+    {
         $user = UserVerify::where('user_id', Auth::user()->id)->first();
         $users = User::findOrFail(Auth::user()->id);
         $client = Client::findOrFail($users->actor_id);
@@ -98,8 +101,76 @@ class UserAuthController extends Controller
         });
         return response()->view('dashboard.auth.verification');
     }
-    public function editProfile(){
+    public function editProfile()
+    {
+        $clients = Auth::guard('admin')->check() ? Admin::findOrFail(Auth::user()->id) : Client::findOrFail(Auth::user()->id);
+        return response()->view('dashboard.clients.editProfile', compact('clients'));
+    }
+    public function editPassword()
+    {
+        return response()->view('dashboard.clients.editPassword');
+    }
+    public function updateProfile(Request $request)
+    {
+        $validator = validator($request->all(), [
+            'email' => 'required|email',
+            'image' => "image|max:2048|mimes:png,jpg,jpeg,pdf",
+        ]);
+        if (!$validator->fails()) {
+            $clients = Auth::guard('admin')->check() ? Admin::findOrFail(Auth::user()->id) : Client::findOrFail(Auth::user()->id);
+            $clients->email = $request->get('email');
+            $isSaved = $clients->save();
+            if ($isSaved) {
+                $users = $clients->user;
 
-        return response()->view('dashboard.clients.editProfile');
+                if (request()->hasFile('image')) {
+
+                    $image = $request->file('image');
+
+                    $imageName = time() . 'image.' . $image->getClientOriginalExtension();
+
+                    $image->move('storage/images/admin', $imageName);
+
+                    $users->image = $imageName;
+                }
+
+                $users->name = $request->get('name');
+                $users->mobile = $request->get('mobile');
+                $users->mobile = $request->get('mobile');
+                $users->gender = $request->get('gender');
+                $users->address = $request->get('address');
+                $isUpdated = $users->save();
+                if ($isUpdated) {
+                    return ['redirect' => route('editProfile')];
+                }
+                return response()->json(['icon' => 'success', 'title' => 'تمت الإضافة بنجاح'], 200);
+            } else {
+                return response()->json(['icon' => 'error', 'title' => 'فشلت عملية الاضافة '], 400);
+            }
+        } else {
+            return response()->json(['icon' => 'error', 'title' => $validator->getMessageBag()->first()], 400);
+        }
+    }
+    public function updatePassword(Request $request)
+    {
+        $guard = auth('admin')->check() ? 'admin' : 'client';
+        $validator = Validator($request->all(), [
+            'current_password' => 'required|string',
+            'new_password' => 'required|string|confirmed',
+            'new_password_confirmation' => 'required|string'
+        ]);
+        if (!$validator->fails()) {
+            $user = auth($guard)->user();
+            $user->password = Hash::make($request->get('new_password'));
+            $isSaved = $user->save();
+            return ['redirect' => route('admins.index')];
+            if ($isSaved) {
+                return response()->json(['icon' => 'success', 'title' => 'تم تغيير كلمة المرور بنجاح'], 200);
+            } else {
+                return response()->json(['icon' => 'error', 'title' => 'فشلت عملية تغيير كلمة المرور'], 400);
+            }
+        } else {
+            return response()->json(['icon' => 'error', 'title' => $validator->getMessageBag()->first()], 400);
+        }
     }
 }
