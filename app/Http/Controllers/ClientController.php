@@ -163,7 +163,8 @@ class ClientController extends Controller
                         $message->to($request->email);
                         $message->subject('Email Verification Mail');
                     });
-                    return response()->redirectTo('cms/admin/');
+                    Auth::login($users);
+                    return response()->redirectTo('verify_email');
                 }
             } else {
                 return response()->json(['icon' => 'error', 'title' => 'فشلت عملية الاضافة '], 400);
@@ -181,7 +182,6 @@ class ClientController extends Controller
      */
     public function show(client $client)
     {
-        //
         $this->authorize('view', Client::class);
     }
 
@@ -194,7 +194,6 @@ class ClientController extends Controller
     public function edit($id)
     {
         $this->authorize('update', Client::class);
-        //
         $roles = Role::where('guard_name', 'client')->get();
         $clients = Client::findOrFail($id);
         return response()->view('dashboard.clients.edit', compact('clients', 'roles'));

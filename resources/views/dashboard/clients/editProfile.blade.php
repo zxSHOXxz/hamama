@@ -3,6 +3,7 @@
 @section('title', 'الزبون')
 
 @section('styles')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 @endsection
 
@@ -91,7 +92,8 @@
                 </div>
                 <!--/.col (left) -->
             </div>
-            <!-- /.row -->
+
+                <!-- /.row -->
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
@@ -102,6 +104,7 @@
 @endsection
 
 @section('scripts')
+
     <script>
         function performUpdate(id) {
             let formData = new FormData();

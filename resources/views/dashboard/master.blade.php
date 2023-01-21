@@ -511,6 +511,12 @@
                         @endcanany
                         <li class="nav-header">الاعدادات</li>
                         <li class="nav-item">
+                            <a href="{{ route('editProfile') }}" class="nav-link">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                                <p>تعديل الملف الشخصي</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('view.logout') }}" class="nav-link">
                                 <i class="fa-solid fa-right-from-bracket"></i>
                                 <p>تسجيل الخروج</p>

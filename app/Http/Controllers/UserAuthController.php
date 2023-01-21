@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
+use App\Models\User;
 use App\Models\UserVerify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class UserAuthController extends Controller
 {
@@ -12,6 +15,7 @@ class UserAuthController extends Controller
     {
         return response()->view('dashboard.auth.login', compact('guard'));
     }
+
     function list()
     {
         return response()->view('dashboard.auth.list');
@@ -61,6 +65,7 @@ class UserAuthController extends Controller
 
         return redirect()->route('view.login', 'client')->with('message', $message);
     }
+
     public function logout(Request $request)
     {
         $guard = auth('admin')->check() ? 'admin' : 'client';
@@ -73,6 +78,7 @@ class UserAuthController extends Controller
     {
         return view('dashboard.auth.login');
     }
+
     public function dashboard()
     {
         if (Auth::check()) {
@@ -80,5 +86,20 @@ class UserAuthController extends Controller
         }
 
         return redirect("view.login")->withSuccess('Opps! You do not have access');
+    }
+    public function resendEmail(){
+        $user = UserVerify::where('user_id', Auth::user()->id)->first();
+        $users = User::findOrFail(Auth::user()->id);
+        $client = Client::findOrFail($users->actor_id);
+        $token = $user->token;
+        Mail::send('emails\emailVerificationEmail', ['token' => $token], function ($message) use ($client) {
+            $message->to($client->email);
+            $message->subject('Email Verification Mail');
+        });
+        return response()->view('dashboard.auth.verification');
+    }
+    public function editProfile(){
+
+        return response()->view('dashboard.clients.editProfile');
     }
 }
