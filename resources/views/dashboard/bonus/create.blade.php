@@ -35,8 +35,8 @@
                                         <label for="city_id"> المدينة </label>
                                         {{-- <input type="text" name="city_id" id="city_id" value="{{ $id }}"
                                             class="form-control form-control-solid" hidden /> --}}
-                                        <select class="form-control" name="city_id" style="width: 100%;" id="city_id"
-                                            aria-label=".form-select-sm example">
+                                        <select class="form-control select22" name="city_id" style="width: 100%;"
+                                            id="city_id" aria-label=".form-select-sm example">
                                             {{-- <option selected> {{ $streets->city->name }} </option> --}}
                                             @foreach ($cities as $city)
                                                 {{-- @if ($city->id == $streets->city->id)

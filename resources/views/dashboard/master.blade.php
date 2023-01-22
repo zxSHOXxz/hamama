@@ -35,7 +35,21 @@
     <link rel="stylesheet" href="{{ asset('cms/dist/css/custom.css') }}">
 
     <link rel="stylesheet" href="{{ asset('cms/plugins/toastr/toastr.min.css') }}">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <style>
+        .select2-container .select2-selection--single {
+            height: 38px;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 36px;
+        }
+    </style>
+
     <style>
         .phone_one {
             position: relative;
@@ -617,12 +631,26 @@
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('cms/dist/js/demo.js') }}"></script>
 
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script src="{{ asset('crudjs/crud.js') }}"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"
+        integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.select22').select2({
+                dir: "rtl",
+            });
+        });
+    </script>
 
     @yield('scripts')
 </body>

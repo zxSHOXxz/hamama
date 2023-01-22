@@ -32,8 +32,8 @@
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label for="client_id"> اسم العميل </label>
-                                        <select class="form-control" name="client_id" style="width: 100%;" id="client_id"
-                                            aria-label=".form-select-sm example">
+                                        <select class="form-control select22" name="client_id" style="width: 100%;"
+                                            id="client_id" aria-label=".form-select-sm example">
                                             @foreach ($clients as $client)
                                                 @if ($client->orders_count == null)
                                                     @continue

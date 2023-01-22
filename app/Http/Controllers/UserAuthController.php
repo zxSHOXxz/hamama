@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\Client;
+use App\Models\Order;
 use App\Models\User;
 use App\Models\UserVerify;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -81,14 +84,59 @@ class UserAuthController extends Controller
         return view('dashboard.auth.login');
     }
 
+
+
+
     public function dashboard()
     {
-        if (Auth::check()) {
-            return view('dashboard.master');
-        }
-
-        return redirect("view.login")->withSuccess('Opps! You do not have access');
+        $orders = Order::with(['captain', 'client', 'city', 'sub_city'])->whereBetween(
+            'created_at',
+            [
+                (new Carbon())->yesterday()->hour(14),
+                (new Carbon())->today()->hour(12)->minute(10)
+            ]
+        )
+            ->withCount('client')
+            ->where('status', 'waiting')
+            ->orderBy('id', 'asc')->paginate(5);
+        $clients = Client::withCount(['orders' => function (Builder $query) {
+            $query->whereBetween('created_at', [
+                (new Carbon())->yesterday()->hour(14),
+                (new Carbon())->today()->hour(12)->minute(10)
+            ]);
+        }])
+            ->orderBy('id', 'asc')->paginate(5);
+        $newClients = Client::whereBetween('created_at', [
+            (new Carbon())->today()->startOfDay(14),
+            (new Carbon())->today()->now()
+        ])->orderBy('id', 'asc')->paginate(5);
+        return view('dashboard.dashboard', compact('orders', 'clients', 'newClients'));
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function resendEmail()
     {
         $user = UserVerify::where('user_id', Auth::user()->id)->first();

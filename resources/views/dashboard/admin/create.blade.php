@@ -91,7 +91,7 @@
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label for="role_id"> المسمى الوظيفي </label>
-                                        <select class="form-control" name="role_id" style="width: 100%;" id="role_id"
+                                        <select class="form-control select22" name="role_id" style="width: 100%;" id="role_id"
                                             aria-label=".form-select-sm example">
                                             @foreach ($roles as $role)
                                                 <option value="{{ $role->id }}"> {{ $role->name }} </option>

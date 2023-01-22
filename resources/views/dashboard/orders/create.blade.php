@@ -33,8 +33,8 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="city_id"> العنوان </label>
-                                        <select class="form-control" name="city_id" style="width: 100%;" id="city_id"
-                                            aria-label=".form-select-sm example">
+                                        <select class="form-control select22" name="city_id" style="width: 100%;"
+                                            id="city_id" aria-label=".form-select-sm example">
                                             @foreach ($cities as $city)
                                                 <option value="{{ $city->id }}"
                                                     {{ $city->sub_cities ? 'disabled' : 'null' }}> {{ $city->name }}

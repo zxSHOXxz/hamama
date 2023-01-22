@@ -30,8 +30,8 @@
 
                                     <div class="form-group col-md-6">
                                         <label for="guard_name"> الأدوار</label>
-                                        <select class="form-control" name="guard_name" style="width: 100%;" id="guard_name"
-                                            aria-label=".form-select-sm example">
+                                        <select class="form-control select22" name="guard_name" style="width: 100%;"
+                                            id="guard_name" aria-label=".form-select-sm example">
                                             {{-- <option selected> {{ $admins->user->job_title }} </option> --}}
                                             <option value="admin"> مشرف </option>
                                             <option value="client">عميل</option>

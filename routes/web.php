@@ -49,7 +49,7 @@ Route::get('resendEmail', [UserAuthController::class, 'resendEmail'])->middlewar
 
 Route::prefix('cms/admin')->middleware('auth:admin,client', 'is_verify_email')->group(function () {
 
-    Route::view('/', 'dashboard.master')->name('parent');
+    Route::get('/', [UserAuthController::class, 'dashboard'])->name('parent');
     Route::resource('streets', StreetsController::class);
     Route::post('streets_update/{id}', [StreetsController::class, 'update'])->name('streets_update');
 

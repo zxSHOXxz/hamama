@@ -58,7 +58,6 @@ class OrderController extends Controller
         )
             ->where('status', 'waiting')
             ->orderBy('id', 'asc')->paginate(50);
-
         return view('dashboard.orders.indexAll', compact('orders'));
     }
     public function indexTomorrow()
@@ -116,7 +115,6 @@ class OrderController extends Controller
                 (new Carbon())->today()->hour(12)
             ]
         )
-
             ->where('status', 'waiting')
             ->where('client_id', $id)
             ->orderBy('id', 'asc')->paginate(50);
@@ -290,7 +288,6 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        dd($id);
         $order = Order::destroy($id);
         return response()->json(['icon' => 'success', 'title' => 'Deleted is Successfully'], $order ? 200 : 400);
     }

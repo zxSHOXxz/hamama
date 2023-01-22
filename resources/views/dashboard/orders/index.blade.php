@@ -74,8 +74,9 @@
                                             <td class="text-wrap" widt='10%'>{{ $order->details }}</td>
                                             <td>
                                                 <div class="badge badge-danger">
-                                                    @if ($order->created_at >=
-                                                        \Carbon\Carbon::today()->hour(12)->minute(10) && $order->created_at <= \Carbon\Carbon::today()->hour(14))
+                                                    @if (
+                                                        $order->created_at >=
+                                                            \Carbon\Carbon::today()->hour(12)->minute(10) && $order->created_at <= \Carbon\Carbon::today()->hour(14))
                                                         سيتم الترحيل للغد
                                                     @else
                                                         طبيعي
