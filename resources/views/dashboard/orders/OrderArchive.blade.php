@@ -47,10 +47,16 @@
                                         </div>
 
                                         <div class="input-icon col-md-3 col-12">
-                                            <label for="captain_name">اسم الكابتن</label>
-                                            <input type="text" class="form-control" placeholder="ادخل اسم الكابتن"
-                                                name='captain_name' id="captain_name"
-                                                @if (request()->captain_name) value={{ request()->captain_name }} @endif />
+                                            <label for="captain_name"> الكابتن </label>
+                                            <select class="form-control select22" name="captain_name" style="width: 100%;"
+                                                id="captain_name" aria-label=".form-select-sm example">
+                                                @foreach ($captains as $captains)
+                                                    <option value="{{ $captains->id }}"
+                                                        @if (request()->captain_name) @if (request()->captain_name == $captains->id)
+                                                        selected @endif
+                                                        @endif> {{ $captains->user->name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
 
                                         <div class="input-icon col-md-3 col-12">
@@ -84,7 +90,7 @@
                                         <th> رقم الزبون</th>
                                         <th> الحالة </th>
                                         <th> اسم الكابتن </th>
-                                        <th> تفاصيل الطلب </th>
+                                        {{-- <th> تفاصيل الطلب </th> --}}
                                         <th> Qr Code </th>
                                         @canany(['update-order', 'delete-order'])
                                             <th>الاعدادات</th>
@@ -95,13 +101,15 @@
                                     @foreach ($orders as $order)
                                         <tr>
                                             <td>{{ $order->client->user->name }}</td>
-                                            <td>{{ $order->price }}</td>
+                                            <td>{{ $order->price }}
+                                            </td>
                                             @php
                                                 $total = $order->city->bonuses->price ?? 0 + $order->price;
                                             @endphp
                                             <td>{{ $order->city->bonuses->price ?? 'null' . '+' . $order->price . '=' . $total }}
                                             </td>
-                                            <td>{{ $order->city->name ?? null . '(' . $order->sub_city->name ?? null . ')' }}</td>
+                                            <td>{{ $order->city->name ?? (null . '(' . $order->sub_city->name ?? null . ')') }}
+                                            </td>
                                             <td>{{ $order->customer }}</td>
                                             <td>
                                                 @if ($order->status == 'waiting')
@@ -113,7 +121,6 @@
                                                 @endif
                                             </td>
                                             <td>{{ $order->captain->user->name }}</td>
-                                            <td>{{ $order->details }}</td>
                                             <td>{{ QrCode::size('75')->encoding('UTF-8')->generate(
                                                     ' : اسم العميل ' .
                                                         $order->client->user->name .

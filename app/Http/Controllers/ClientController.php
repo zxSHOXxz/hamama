@@ -29,7 +29,7 @@ class ClientController extends Controller
     public function index()
     {
         //
-        $clients = Client::withCount('orders')->orderBy('id', 'desc')->paginate(15);
+        $clients = Client::withCount('orders')->orderBy('id', 'desc')->paginate(30);
         $this->authorize('viewAny', Client::class);
         return response()->view('dashboard.clients.index', compact('clients'));
     }
@@ -54,7 +54,6 @@ class ClientController extends Controller
      */
     public function create()
     {
-        //
         $cities = City::all();
         $this->authorize('create', Client::class);
         $roles = Role::where('guard_name', 'client')->get();
@@ -70,7 +69,6 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $this->authorize('create', Client::class);
 
         $validator = validator($request->all(), [
@@ -160,7 +158,7 @@ class ClientController extends Controller
                     $userVrify->user_id = $users->id;
                     $userVrify->token = $token;
                     $userVrify->save();
-                    Mail::send('emails/emailVerificationEmail', ['token' => $token], function ($message) use ($request) {
+                    Mail::send('emails.emailVerificationEmail', ['token' => $token], function ($message) use ($request) {
                         $message->to($request->email);
                         $message->subject('Email Verification Mail');
                     });

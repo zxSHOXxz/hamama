@@ -23,13 +23,6 @@
                                 class="btn btn-md btn-outline-success">إضافة
                                 طلب
                                 جديد</a>
-                            <a href="{{ route('exportSearched', request()->query()) }}" class="btn btn-md btn-outline-dark">
-                                <i class="fa-solid fa-file-excel"></i>
-                                تصدير اكسل
-                            </a>
-                            <div class="card-tools">
-
-                            </div>
                             <br>
                         </div>
 
@@ -58,10 +51,12 @@
                                             @php
                                                 $total = $order->city->bonuses->price + $order->price;
                                             @endphp
-                                            <td>{{ $order->city->bonuses->price . '+' . $order->price . '=' . $total }}</td>
-                                            <td>{{ $order->city->name . '(' . $order->sub_city->name . ')' }}</td>
-                                            <td>{{ $order->customer }}</td>
-                                            <td>
+                                            <td class="text-wrap" widt='10%'>
+                                                {{ $order->city->bonuses->price . '+' . $order->price . '=' . $total }}</td>
+                                            <td class="text-wrap" widt='10%'>
+                                                {{ $order->city->name . '(' . $order->sub_city->name . ')' }}</td>
+                                            <td class="text-wrap" widt='10%'>{{ $order->customer }}</td>
+                                            <td class="text-wrap" widt='10%'>
                                                 @if ($order->status == 'waiting')
                                                     جار الارسال
                                                 @elseif ($order->status == 'done')
@@ -70,9 +65,9 @@
                                                     فشلت عملية الارسال
                                                 @endif
                                             </td>
-                                            <td>{{ $order->captain->user->name }}</td>
-                                            <td class="text-wrap" widt='10%'>{{ $order->details }}</td>
-                                            <td>
+                                            <td class="text-wrap" widt='10%'>{{ $order->captain->user->name }}</td>
+                                            <td class="text-wrap" widt='15%'>{{ $order->details }}</td>
+                                            <td class="text-wrap" widt='10%'>
                                                 <div class="badge badge-danger">
                                                     @if (
                                                         $order->created_at >=
@@ -83,45 +78,46 @@
                                                     @endif
                                                 </div>
                                             </td>
-                                            <td>{{ QrCode::size('75')->encoding('UTF-8')->generate(
-                                                    ' : اسم العميل ' .
-                                                        $order->client->user->name .
-                                                        ' : السعر ' .
-                                                        $order->price .
-                                                        ' : رقم الزبون ' .
-                                                        $order->customer .
-                                                        ' : المحافظة ' .
-                                                        $order->city->name .
-                                                        '(' .
-                                                        $order->sub_city->name .
-                                                        ')' .
-                                                        ' : التفاصيل ' .
-                                                        $order->details,
-                                                ) }}
+                                            <td class="text-wrap" widt='15%'>
+                                                {{ QrCode::size('75')->encoding('UTF-8')->generate(
+                                                        ' : اسم العميل ' .
+                                                            $order->client->user->name .
+                                                            ' : السعر ' .
+                                                            $order->price .
+                                                            ' : رقم الزبون ' .
+                                                            $order->customer .
+                                                            ' : المحافظة ' .
+                                                            $order->city->name .
+                                                            '(' .
+                                                            $order->sub_city->name .
+                                                            ')' .
+                                                            ' : التفاصيل ' .
+                                                            $order->details,
+                                                    ) }}
                                             </td>
                                             @canany(['update-order', 'delete-order'])
-                                                <td>
+                                                <td widt='15%'>
                                                     <div class="btn group">
                                                         @can('update-order')
                                                             <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-primary"
-                                                                title="Edit">
-                                                                تعديل
+                                                                title="تعديل">
+                                                                <i class="fa-solid fa-pen-to-square"></i>
                                                             </a>
                                                         @endcan
                                                         @can('show-order')
                                                             <a href="{{ route('orders.show', $order->id) }}" class="btn btn-success"
-                                                                title="show">
-                                                                عرض
+                                                                title="عرض">
+                                                                <i class="fa-solid fa-eye"></i>
                                                             </a>
                                                             <a href="{{ route('order_print', $order->id) }}" class="btn btn-dark"
-                                                                title="print">
+                                                                title="طباعة">
                                                                 <i class="fa-solid fa-print"></i>
                                                             </a>
                                                         @endcan
                                                         @can('delete-order')
                                                             <a href="#" onclick="performDestroy({{ $order->id }} , this)"
-                                                                class="btn btn-danger" title="Delete">
-                                                                حذف
+                                                                class="btn btn-danger" title="حذف">
+                                                                <i class="fa-solid fa-trash"></i>
                                                             </a>
                                                         @endcan
                                                     </div>

@@ -33,8 +33,7 @@ class OrderController extends Controller
                 $query->where('client_id', '=', $userClient->actor_id);
             })
             ->when($request->get('captain_name'), function ($query, $value) {
-                $userCaptain = User::where('name', 'like', "%{$value}%")->first();
-                $query->where('captain_id', '=', $userCaptain->actor_id);
+                $query->where('captain_id', '=', $value);
             })
             ->when($request->get('created_at'), function ($query, $value) {
                 $query->where('created_at', '>=', $value);
@@ -47,7 +46,6 @@ class OrderController extends Controller
 
     public function index()
     {
-
         $this->authorize('viewAny', Order::class);
         $orders = Order::with(['captain', 'client', 'city', 'sub_city'])->whereBetween(
             'created_at',
@@ -67,7 +65,7 @@ class OrderController extends Controller
         $orders = Order::with(['captain', 'client', 'city', 'sub_city'])->whereBetween(
             'created_at',
             [
-                (new Carbon())->today()->hour(14),
+                (new Carbon())->today()->hour(12)->minute(10),
                 (new Carbon())->now()
             ]
         )
@@ -79,7 +77,7 @@ class OrderController extends Controller
     public function archive(Request $request)
     {
         $this->authorize('viewAny', Order::class);
-
+        $captains = Captain::all();
         $orders = Order::with(['captain', 'client', 'city', 'sub_city'])->orderBy('id', 'desc')
             ->when($request->get('sub_city'), function ($orders, $value) {
                 $sub_city = sub_city::where('name', 'like', "%{$value}%")->first();
@@ -90,14 +88,13 @@ class OrderController extends Controller
                 $orders->where('client_id', '=', $userClient->actor_id);
             })
             ->when($request->get('captain_name'), function ($orders, $value) {
-                $userCaptain = User::where('name', 'like', "%{$value}%")->first();
-                $orders->where('captain_id', '=', $userCaptain->actor_id);
+                $orders->where('captain_id', '=', $value);
             })
             ->when($request->get('created_at'), function ($orders, $value) {
                 $orders->whereDate('created_at', $value);
             });
         $orders = $orders->paginate(50);
-        return view('dashboard.orders.OrderArchive', compact('orders'));
+        return view('dashboard.orders.OrderArchive', compact('orders', 'captains'));
     }
     public function indexOrders($id)
     {
@@ -162,7 +159,7 @@ class OrderController extends Controller
             'price' => 'required',
         ], [
             'details.max' => 'لا يمكن ان تزيد التفاصيل عن 500 حرف'
-            ]);
+        ]);
 
         if (!$validator->fails()) {
             $orders = new Order();
@@ -180,9 +177,15 @@ class OrderController extends Controller
                 $orders->captain_id = $sub_city->captain->id;
             }
             $orders->statusDetails = 'قيد الارسال';
-            
+
             $client = User::where('name', $request->get('client_id'))->first();
             $orders->client_id = $client->actor_id;
+            if (Carbon::today()->isoFormat('dddd') == 'Thursday' && Carbon::now() >= Carbon::today()->hour(12)->minute(10)) {
+                $orders->created_at = Carbon::tomorrow()->hour(13);
+            }
+            if (Carbon::today()->isoFormat('dddd') == 'Friday') {
+                $orders->created_at = Carbon::today()->hour(13);
+            }
             $isSaved = $orders->save();
 
             if ($isSaved) {
