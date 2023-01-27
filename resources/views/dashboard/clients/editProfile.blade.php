@@ -106,7 +106,7 @@
             formData.append('gender', document.getElementById('gender').value);
             formData.append('address', document.getElementById('address').value);
             formData.append('image', document.getElementById('exampleInputFile').files[0]);
-            storeRoute('/cms/admin/updateProfile/', formData);
+            storeRoute('/cms/admin/update_profile', formData);
         }
     </script>
 @endsection

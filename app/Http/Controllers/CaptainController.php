@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Captain;
-use App\Models\city;
-use App\Models\sub_city;
+use App\Models\City;
+use App\Models\Sub_City;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;

@@ -109,41 +109,16 @@ class UserAuthController extends Controller
         $newClients = Client::whereBetween('created_at', [
             (new Carbon())->today()->startOfDay(14),
             (new Carbon())->today()->now()
-        ])->orderBy('id', 'asc')->paginate(5);
+        ])->orderBy('id', 'asc')->get();
         return view('dashboard.dashboard', compact('orders', 'clients', 'newClients'));
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public function resendEmail()
-    {
+    public function resendEmail(){
         $user = UserVerify::where('user_id', Auth::user()->id)->first();
         $users = User::findOrFail(Auth::user()->id);
         $client = Client::findOrFail($users->actor_id);
         $token = $user->token;
-        Mail::send('emails\emailVerificationEmail', ['token' => $token], function ($message) use ($client) {
+        Mail::send('emails.emailVerificationEmail', ['token' => $token], function ($message) use ($client) {
             $message->to($client->email);
             $message->subject('Email Verification Mail');
         });
@@ -162,7 +137,7 @@ class UserAuthController extends Controller
     {
         $validator = validator($request->all(), [
             'email' => 'required|email',
-            'image' => "image|max:2048|mimes:png,jpg,jpeg,pdf",
+            'image' => "nullable|max:2048",
         ]);
         if (!$validator->fails()) {
             $clients = Auth::guard('admin')->check() ? Admin::findOrFail(Auth::user()->id) : Client::findOrFail(Auth::user()->id);

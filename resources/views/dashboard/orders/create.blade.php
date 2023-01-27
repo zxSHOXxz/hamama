@@ -53,11 +53,17 @@
                                         <input type="number" name="price" class="form-control" id="price"
                                             placeholder=" السعر">
                                     </div>
+                                    
                                     <div class="form-group col-md-6">
                                         <label for="client_id"> العميل </label>
-                                        <input type="text" name="client_id" id="client_id"
-                                            class="form-control form-control-solid" placeholder="أدخل اسم العميل بدقة" />
+                                        <select class="form-control select22" name="client_id" style="width: 100%;"
+                                            id="client_id" aria-label=".form-select-sm example">
+                                            @foreach ($clients as $client)
+                                                <option value="{{ $client->user->name }}"> {{ $client->user->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
+                                    
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-6">
@@ -67,8 +73,12 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="captain_id"> الكابتن </label>
-                                        <input type="text" name="captain_id" id="captain_id"
-                                            class="form-control form-control-solid" placeholder="أدخل اسم الكابتن بدقة" />
+                                        <select class="form-control select22" name="captain_id" style="width: 100%;"
+                                            id="captain_id" aria-label=".form-select-sm example">
+                                            @foreach ($captains as $captains)
+                                                <option value="{{ $captains->id }}"> {{ $captains->user->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
 

@@ -29,7 +29,7 @@ class ClientController extends Controller
     public function index()
     {
         //
-        $clients = Client::withCount('orders')->orderBy('id', 'desc')->paginate(5);
+        $clients = Client::withCount('orders')->orderBy('id', 'desc')->paginate(15);
         $this->authorize('viewAny', Client::class);
         return response()->view('dashboard.clients.index', compact('clients'));
     }
@@ -42,7 +42,7 @@ class ClientController extends Controller
             ])
                 ->where('status', 'waiting');
         }])
-            ->orderBy('id', 'asc')->paginate(5);
+            ->orderBy('id', 'asc')->paginate(50);
         $this->authorize('viewAny', Client::class);
         return response()->view('dashboard.clients.indexClientHasOrder', compact('clients'));
     }
@@ -74,11 +74,12 @@ class ClientController extends Controller
         $this->authorize('create', Client::class);
 
         $validator = validator($request->all(), [
-            // 'first_name' => 'required',
-            // 'last_name' => 'required',
-            // 'mobile' => 'required',
+            'name' => 'unique:users',
+            'mobile' => 'required',
             'email' => 'required|email',
             // 'image'=>"required|image|max:2048|mimes:png,jpg,jpeg,pdf",
+        ], [
+            'name.unique' => 'الاسم محجوز من قبل',
         ]);
         if (!$validator->fails()) {
             $clients = new Client();
@@ -105,12 +106,12 @@ class ClientController extends Controller
                 $clients->assignRole($roles);
                 $users->gender = $request->get('gender');
                 $users->address = $request->get('address');
-
+                $users->is_email_verified = 1;
                 $users->actor()->associate($clients);
                 $isSaved = $users->save();
-
-                // return response()->redirectTo('parent');
-                return ['redirect' => route('clients.index')];
+                if ($isSaved) {
+                    return response()->json(['icon' => 'success', 'title' => ' تمت الاضافة بنجاح'], 200);
+                }
             } else {
                 return response()->json(['icon' => 'error', 'title' => 'فشلت عملية الاضافة '], 400);
             }
@@ -159,7 +160,7 @@ class ClientController extends Controller
                     $userVrify->user_id = $users->id;
                     $userVrify->token = $token;
                     $userVrify->save();
-                    Mail::send('emails\emailVerificationEmail', ['token' => $token], function ($message) use ($request) {
+                    Mail::send('emails/emailVerificationEmail', ['token' => $token], function ($message) use ($request) {
                         $message->to($request->email);
                         $message->subject('Email Verification Mail');
                     });
@@ -227,6 +228,7 @@ class ClientController extends Controller
                 $users->name = $request->get('name');
                 $users->mobile = $request->get('mobile');
                 $roles = Role::findOrFail($request->get('role_id'));
+                $clients->assignRole($roles);
                 $users->mobile = $request->get('mobile');
                 $users->gender = $request->get('gender');
                 $users->address = $request->get('address');

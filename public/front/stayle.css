@@ -83,3 +83,9 @@ nav {
         background-repeat: no-repeat;
     }
 }
+@media (max-width: 395px) {
+    .navbar-brand img {
+        width: 50px !important;
+        height: 95px;
+    }
+}

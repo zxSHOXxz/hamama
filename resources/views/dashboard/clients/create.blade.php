@@ -30,15 +30,18 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <label for="first_name">الاسم الأول </label>
-                                        <input type="text" name="first_name" class="form-control" id="first_name"
-                                            placeholder=" أدخل اسم الزبون الأول ">
+                                        <label for="name">الاسم </label>
+                                        <input type="text" name="name" class="form-control" id="name"
+                                            placeholder=" أدخل اسم الزبون  ">
                                     </div>
-
                                     <div class="form-group col-md-6">
-                                        <label for="last_name">الاسم الأخير </label>
-                                        <input type="text" name="last_name" class="form-control" id="last_name"
-                                            placeholder="أدخل اسم الزبون الأخير ">
+                                        <label for="role_id"> المسمى الوظيفي </label>
+                                        <select class="form-control select22" name="role_id" style="width: 100%;"
+                                            id="role_id" aria-label=".form-select-sm example">
+                                            @foreach ($roles as $role)
+                                                <option value="{{ $role->id }}"> {{ $role->name }} </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
 
@@ -88,18 +91,6 @@
                                             placeholder="أدخل عنوان الزبون  ">
                                     </div>
                                 </div>
-
-                                <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <label for="role_id"> المسمى الوظيفي </label>
-                                        <select class="form-control select22" name="role_id" style="width: 100%;"
-                                            id="role_id" aria-label=".form-select-sm example">
-                                            @foreach ($roles as $role)
-                                                <option value="{{ $role->id }}"> {{ $role->name }} </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer">
                                     <button type="button" onclick="performStore()"
@@ -129,8 +120,7 @@
     <script>
         function performStore() {
             let formData = new FormData();
-            formData.append('first_name', document.getElementById('first_name').value);
-            formData.append('last_name', document.getElementById('last_name').value);
+            formData.append('name', document.getElementById('name').value);
             formData.append('role_id', document.getElementById('role_id').value);
             formData.append('mobile', document.getElementById('mobile').value);
             formData.append('email', document.getElementById('email').value);

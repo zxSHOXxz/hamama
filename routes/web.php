@@ -88,13 +88,27 @@ Route::prefix('cms/admin')->middleware('auth:admin,client', 'is_verify_email')->
     Route::post('captains_update/{id}', [CaptainController::class, 'update'])->name('captains_update');
 
     Route::get('editProfile', [UserAuthController::class, 'editProfile'])->name('editProfile');
-    Route::post('updateProfile', [UserAuthController::class, 'updateProfile'])->name('updateProfile');
+    
+    Route::post('update_profile', [UserAuthController::class, 'updateProfile'])->name('update_profile');
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     Route::get('editPassword', [UserAuthController::class, 'editPassword'])->name('editPassword');
     Route::post('updatePassword', [UserAuthController::class, 'updatePassword'])->name('updatePassword');
 
     Route::resource('clients', ClientController::class);
+    
     Route::get('clients_orderes', [ClientController::class, 'indexClientHasOrders'])->name('indexClientHasOrders');
+    
     Route::post('clients_update/{id}', [ClientController::class, 'update'])->name('clients_update');
 
     Route::resource('roles', RoleController::class);

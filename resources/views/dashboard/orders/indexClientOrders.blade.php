@@ -23,10 +23,7 @@
                                 class="btn btn-md btn-outline-success">إضافة
                                 طلب
                                 جديد</a>
-                            <a href="{{ route('exportSearched', request()->query()) }}" class="btn btn-md btn-outline-dark">
-                                <i class="fa-solid fa-file-excel"></i>
-                                تصدير اكسل
-                            </a>
+                            
                             <div class="card-tools">
 
                             </div>
@@ -40,7 +37,7 @@
                                     <tr class="bg-info">
                                         <th> تاريخ الطلب </th>
                                         <th> سعر الطلب </th>
-                                        <th> السعر شامل التوصيل </th>
+                                        <th> التوصيل </th>
                                         <th> اسم المحافظة </th>
                                         <th> رقم الزبون</th>
                                         <th> الحالة </th>

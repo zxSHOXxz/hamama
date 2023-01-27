@@ -80,6 +80,20 @@
             border-radius: 50%;
             position: absolute;
         }
+        .phone_three {
+            position: relative;
+        }
+
+        .phone_three::before {
+            content: "3";
+            width: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            top: 4px;
+            height: 5px;
+            border-radius: 50%;
+            position: absolute;
+        }
     </style>
     @yield('styles')
 </head>
@@ -106,13 +120,16 @@
                             class="fa-brands fa-instagram"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="https://wa.link/d4mwjk" class="nav-link"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="https://wa.link/3z0dmj" class="nav-link"><i class="fa-brands fa-whatsapp"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block ">
                     <a href="tel:0592881213" class="nav-link phone_one"><i class="fa-solid fa-phone"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block ">
                     <a href="tel:0599690190" class="nav-link phone_two"><i class="fa-solid fa-phone"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block ">
+                    <a href="tel:0593558721" class="nav-link phone_three"><i class="fa-solid fa-phone"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="tel:082881213" class="nav-link"><i class="fa-solid fa-phone-rotary"></i></a>
@@ -526,18 +543,18 @@
                             </li>
                         @endcanany
                         <li class="nav-header">الاعدادات</li>
-                        <li class="nav-item">
-                            <a href="{{ route('editProfile') }}" class="nav-link">
-                                <i class="fa-solid fa-user-pen"></i>
-                                <p>تعديل الملف الشخصي</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('editPassword') }}" class="nav-link">
-                                <i class="fa-solid fa-key"></i>
-                                <p>تعديل كلمة المرور</p>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a href="{{ route('editProfile') }}" class="nav-link">
+                                    <i class="fa-solid fa-user-pen"></i>
+                                    <p>تعديل الملف الشخصي</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('editPassword') }}" class="nav-link">
+                                    <i class="fa-solid fa-key"></i>
+                                    <p>تعديل كلمة المرور</p>
+                                </a>
+                            </li>
                         <li class="nav-item">
                             <a href="{{ route('view.logout') }}" class="nav-link">
                                 <i class="fa-solid fa-right-from-bracket"></i>

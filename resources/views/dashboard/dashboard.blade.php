@@ -32,7 +32,7 @@
                             <div class="icon">
                                 <i class="fas fa-shopping-cart"></i>
                             </div>
-                            <a href="{{ route('orders.index') }}" class="small-box-footer">
+                            <a href="#" class="small-box-footer">
                                 عرض المزيد <i class="fas fa-arrow-circle-right"></i>
                             </a>
                         </div>
@@ -282,7 +282,7 @@
                             <div class="icon">
                                 <i class="fas fa-shopping-cart"></i>
                             </div>
-                            <a href="{{ route('orders.index') }}" class="small-box-footer">
+                            <a href="{{ route('indexOrders', ['id' => Auth::id()]) }}" class="small-box-footer">
                                 عرض المزيد <i class="fas fa-arrow-circle-right"></i>
                             </a>
                         </div>
@@ -350,7 +350,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6 col-6 ">
+                    <div class="col-lg-6 col-12 ">
                         <div class="alert alert-warning alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true"
                                 style="text-align: left">×</button>
@@ -360,7 +360,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6 col-6 ">
+                    <div class="col-lg-6 col-12 ">
                         <div class="alert alert-info alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true"
                                 style="text-align: left">×</button>
@@ -370,7 +370,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6 col-6 ">
+                    <div class="col-lg-6 col-12 ">
                         <div class="alert alert-danger alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true"
                                 style="text-align: left">×</button>
@@ -380,7 +380,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6 col-6 ">
+                    <div class="col-lg-6 col-12 ">
                         <div class="alert alert-dark alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true"
                                 style="text-align: left">×</button>
@@ -390,7 +390,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6 col-6 ">
+                    <div class="col-lg-6 col-12 ">
                         <div class="alert alert-success alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true"
                                 style="text-align: left">×</button>

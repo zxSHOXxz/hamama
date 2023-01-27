@@ -34,7 +34,7 @@
                                         class="form-control form-control-solid" hidden />
                                     <div class="form-group col-md-6">
                                         <label for="city_id"> العنوان </label>
-                                        <select class="form-control" name="city_id" style="width: 100%;" id="city_id"
+                                        <select class="form-control select22" name="city_id" style="width: 100%;" id="city_id"
                                             aria-label=".form-select-sm example">
                                             @foreach ($cities as $city)
                                                 <option value="{{ $city->id }}"
@@ -55,7 +55,7 @@
                                             placeholder=" السعر">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="details"> التفاصيل كاملة </label>
+                                        <label for="details"> التفاصيل كاملة (العنوان كامل لو سمحت) </label>
                                         <input type="text" name="details" class="form-control" id="details"
                                             placeholder=" مثل : كيس ملابس بإسم محمد احمد في غزة شارع الصناعة شارع الريس ">
                                     </div>
@@ -73,7 +73,7 @@
                                         <button type="button" onclick="performStore()"
                                             class="btn btn-lg btn-success">حفظ</button>
 
-                                        <a href="{{ route('indexOrders', ['id' => Auth::id()]) }}" type="submit"
+                                        <a href="{{ route('indexOrders', ['id' => $client->id]) }}" type="submit"
                                             class="btn btn-lg btn-secondary">إلغاء</a>
                                     </div>
                                 </div>

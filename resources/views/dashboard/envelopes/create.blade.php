@@ -35,9 +35,6 @@
                                         <select class="form-control select22" name="client_id" style="width: 100%;"
                                             id="client_id" aria-label=".form-select-sm example">
                                             @foreach ($clients as $client)
-                                                @if ($client->orders_count == null)
-                                                    @continue
-                                                @endif
                                                 <option value="{{ $client->id }}">{{ $client->user->name }}</option>
                                             @endforeach
                                         </select>

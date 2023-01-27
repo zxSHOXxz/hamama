@@ -30,12 +30,7 @@ class EnvelopesController extends Controller
     public function create()
     {
         $this->authorize('create', Envelope::class);
-        $clients = Client::withCount(['orders' => function (Builder $query) {
-            $query->whereBetween('created_at', [(new Carbon())->yesterday()->hour(14)
-                ,
-                (new Carbon())->today()->hour(12)->minute(10)])
-                ->where('status', 'waiting');}])
-            ->orderBy('id', 'asc')->paginate(5);
+        $clients = Client::paginate(50);
         return view('dashboard.envelopes.create', compact('clients'));
     }
 

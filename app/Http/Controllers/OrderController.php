@@ -67,7 +67,7 @@ class OrderController extends Controller
         $orders = Order::with(['captain', 'client', 'city', 'sub_city'])->whereBetween(
             'created_at',
             [
-                (new Carbon())->today()->hour(2),
+                (new Carbon())->today()->hour(14),
                 (new Carbon())->now()
             ]
         )
@@ -158,9 +158,11 @@ class OrderController extends Controller
 
         $validator = validator($request->all(), [
             'customer' => 'max:14|min:10|required',
-            'details' => 'max:130|min:10|required',
+            'details' => 'max:500|min:10|required',
             'price' => 'required',
-        ], []);
+        ], [
+            'details.max' => 'لا يمكن ان تزيد التفاصيل عن 500 حرف'
+            ]);
 
         if (!$validator->fails()) {
             $orders = new Order();
@@ -173,22 +175,14 @@ class OrderController extends Controller
             $orders->city_id = $sub_city->parent;
             $city = city::with('captain')->findOrFail($sub_city->parent);
             if ($request->get('captain_id') != null) {
-                $captains = Captain::all();
-                foreach ($captains as $captain) {
-                    if ($captain->user->name == $request->get('captain_id')) {
-                        $orders->captain_id = $captain->id;
-                    }
-                }
+                $orders->captain_id = $request->get('captain_id');
             } else {
                 $orders->captain_id = $sub_city->captain->id;
             }
             $orders->statusDetails = 'قيد الارسال';
-            $clients = Client::all();
-            foreach ($clients as $client) {
-                if ($client->user->name == $request->get('client_id')) {
-                    $orders->client_id = $client->id;
-                }
-            }
+            
+            $client = User::where('name', $request->get('client_id'))->first();
+            $orders->client_id = $client->actor_id;
             $isSaved = $orders->save();
 
             if ($isSaved) {
