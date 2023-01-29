@@ -52,18 +52,7 @@
                             <a href="tel:082881213" class="nav-link m-1 m-md-0"><i
                                     class="fa-solid fa-phone-rotary"></i></a>
                         </li>
-                        {{-- <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                <i class="fa-solid fa-user"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{ route('view.login', 'client') }}">تسجيل/تسجيل
-                                        دخول</a>
-                                </li>
-                                <li><a class="dropdown-item" href="#">ابلاغ عن مشكلة</a></li>
-                            </ul>
-                        </li> --}}
+
                     </ul>
                 </div>
             </div>
@@ -81,7 +70,7 @@
                         ليست مجرد خدمة
                     </h5>
                     <div class="buttons">
-                        <a class="btn btn-warning px-4" href="{{ route('view.login', 'client') }}">تسجيل دخول /
+                        <a class="btn btn-warning px-4" href="{{ route('login') }}">تسجيل دخول /
                             تسجيل</a>
                     </div>
                 </div>

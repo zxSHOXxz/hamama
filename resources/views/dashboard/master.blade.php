@@ -80,6 +80,7 @@
             border-radius: 50%;
             position: absolute;
         }
+
         .phone_three {
             position: relative;
         }
@@ -543,20 +544,24 @@
                             </li>
                         @endcanany
                         <li class="nav-header">الاعدادات</li>
-                            <li class="nav-item">
-                                <a href="{{ route('editProfile') }}" class="nav-link">
-                                    <i class="fa-solid fa-user-pen"></i>
-                                    <p>تعديل الملف الشخصي</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('editPassword') }}" class="nav-link">
-                                    <i class="fa-solid fa-key"></i>
-                                    <p>تعديل كلمة المرور</p>
-                                </a>
-                            </li>
                         <li class="nav-item">
-                            <a href="{{ route('view.logout') }}" class="nav-link">
+                            <a href="{{ route('editProfile') }}" class="nav-link">
+                                <i class="fa-solid fa-user-pen"></i>
+                                <p>تعديل الملف الشخصي</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('editPassword') }}" class="nav-link">
+                                <i class="fa-solid fa-key"></i>
+                                <p>تعديل كلمة المرور</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('logout') }}" class="nav-link"
+                                onclick="event.preventDefault(); document.getElementById('logout').submit()">
+                                <form action="{{ route('logout') }}" id="logout" method="post">
+                                    @csrf
+                                </form>
                                 <i class="fa-solid fa-right-from-bracket"></i>
                                 <p>تسجيل الخروج</p>
                             </a>

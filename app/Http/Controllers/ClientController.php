@@ -8,15 +8,14 @@ use App\Models\Order;
 use App\Models\User;
 use App\Models\UserVerify;
 use Carbon\Carbon;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 // use Mail;
 
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
 
 class ClientController extends Controller
@@ -38,7 +37,7 @@ class ClientController extends Controller
         $clients = Client::withCount(['orders' => function (Builder $query) {
             $query->whereBetween('created_at', [
                 (new Carbon())->yesterday()->hour(14),
-                (new Carbon())->today()->hour(12)->minute(10)
+                (new Carbon())->today()->hour(12)->minute(10),
             ])
                 ->where('status', 'waiting');
         }])
