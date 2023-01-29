@@ -108,7 +108,7 @@ class OrderController extends Controller
         $orders = Order::with(['captain', 'client', 'city', 'sub_city'])->whereBetween(
             'created_at',
             [
-                (new Carbon())->yesterday()->hour(12),
+                (new Carbon())->yesterday()->hour(12)->minute(10),
                 (new Carbon())->today()->hour(12)
             ]
         )
@@ -266,7 +266,7 @@ class OrderController extends Controller
             }
             $orders->statusDetails = $request->get('statusDetails');
             $isSaved = $orders->save();
-            return ['redirect' => route('orders.index')];
+            return ['redirect' => back()];
             if ($isSaved) {
                 return response()->json(['icon' => 'success', 'title' => "تمت الإضافة بنجاح"], 200);
             } else {

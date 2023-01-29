@@ -50,6 +50,7 @@
                                             <label for="captain_name"> الكابتن </label>
                                             <select class="form-control select22" name="captain_name" style="width: 100%;"
                                                 id="captain_name" aria-label=".form-select-sm example">
+                                                <option></option>
                                                 @foreach ($captains as $captains)
                                                     <option value="{{ $captains->id }}"
                                                         @if (request()->captain_name) @if (request()->captain_name == $captains->id)
