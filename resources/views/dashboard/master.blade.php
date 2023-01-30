@@ -95,6 +95,10 @@
             border-radius: 50%;
             position: absolute;
         }
+
+        .dropdown-menu {
+            min-width: 26rem !important;
+        }
     </style>
     @yield('styles')
 </head>
@@ -139,6 +143,34 @@
 
             <!-- Right navbar links -->
 
+            @if (auth('admin')->check())
+
+                <ul class="navbar-nav mr-auto-navbav">
+                    <!-- Notifications Dropdown Menu -->
+                    @php
+                        $user = Auth::guard('admin')->user();
+                    @endphp
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" data-toggle="dropdown" href="#">
+                            <i class="far fa-bell "></i>
+                            <span style="margin-top: -10px !important; transform: translateX(7px);"
+                                class="badge badge-warning navbar-badge ">{{ $user->unreadNotifications()->count() }}</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                            @foreach ($user->notifications()->take(5)->get() as $notification)
+                                <a href="{{ $notification->data['url'] }}?notification_id={{ $notification->id }}"
+                                    class="dropdown-item @if ($notification->read()) text-sm bg-dark @endif">
+                                    <i class="fas fa-envelope mr-2"></i>
+                                    {{ $notification->data['body'] }}
+                                    <span class="float-right text-muted text-sm">
+                                        {{ $notification->created_at->shortAbsoluteDiffForHumans() }}
+                                    </span>
+                                </a>
+                            @endforeach
+                        </div>
+                    </li>
+                </ul>
+            @endif
         </nav>
         <!-- /.navbar -->
 
@@ -673,7 +705,10 @@
             });
         });
     </script>
-
+    <script>
+        const userID = {{ Auth::id() }}
+    </script>
+    <script src="{{ asset('js/app.js') }}"></script>
     @yield('scripts')
 </body>
 

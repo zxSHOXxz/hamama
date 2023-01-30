@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\OrderCreated;
 use App\Exports\OrderSearchedExport;
 use App\Models\Captain;
 use App\Models\City;
@@ -51,7 +52,7 @@ class OrderController extends Controller
             'created_at',
             [
                 (new Carbon())->yesterday()->hour(14),
-                (new Carbon())->today()->hour(12)->minute(10)
+                (new Carbon())->today()->hour(12)->minute(10),
             ]
         )
             ->where('status', 'waiting')
@@ -66,7 +67,7 @@ class OrderController extends Controller
             'created_at',
             [
                 (new Carbon())->today()->hour(12)->minute(10),
-                (new Carbon())->now()
+                (new Carbon())->now(),
             ]
         )
             ->where('status', 'waiting')
@@ -109,7 +110,7 @@ class OrderController extends Controller
             'created_at',
             [
                 (new Carbon())->yesterday()->hour(12)->minute(10),
-                (new Carbon())->today()->hour(12)
+                (new Carbon())->today()->hour(12),
             ]
         )
             ->where('status', 'waiting')
@@ -158,7 +159,7 @@ class OrderController extends Controller
             'details' => 'max:500|min:10|required',
             'price' => 'required',
         ], [
-            'details.max' => 'لا يمكن ان تزيد التفاصيل عن 500 حرف'
+            'details.max' => 'لا يمكن ان تزيد التفاصيل عن 500 حرف',
         ]);
 
         if (!$validator->fails()) {
@@ -189,6 +190,7 @@ class OrderController extends Controller
             $isSaved = $orders->save();
 
             if ($isSaved) {
+                event(new OrderCreated($orders));
                 if (Carbon::now() >= Carbon::today()->hour(12)->minute(10) && Carbon::now() <= Carbon::today()->hour(14)) {
                     return response()->json(['icon' => 'warning', 'title' => "سيتم ترحيل طلبك للغد"], 200);
                 } else {
@@ -208,8 +210,7 @@ class OrderController extends Controller
      * @param  \App\Models\orders  $orders
      * @return \Illuminate\Http\Response
      */
-    function print($id)
-    {
+    function print($id) {
         $order = Order::findOrFail($id);
 
         return view('dashboard.orders.print', compact('order'));

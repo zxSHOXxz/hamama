@@ -13,6 +13,7 @@ use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\StreetsController;
 use App\Http\Controllers\SubCityController;
 use App\Http\Controllers\UserAuthController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -90,4 +91,8 @@ Route::prefix('cms/admin')->middleware(['auth:admin,client', 'verified'])->group
     Route::post('permissions_update/{id}', [PermissionController::class, 'update'])->name('permissions_update');
 
     Route::resource('roles.permissions', RolePermissionController::class);
+
+    Route::post('/broadcasting/auth', function () {
+        return Auth::user();
+    });
 });
