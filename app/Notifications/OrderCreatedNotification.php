@@ -60,7 +60,8 @@ class OrderCreatedNotification extends Notification
     public function toBroadcast($notifiable)
     {
         return new BroadcastMessage([
-            'body' => "تم انشاء طلب (#{$this->orders->id}) بواسطة ({$this->orders->client->user->name})",
+            'title' => "طلب جديد",
+            'body' => "تم انشاء طلب بواسطة ({$this->orders->client->user->name})",
             'url' => url("/cms/admin/orders"),
             'order_id' => $this->orders->id,
         ]);

@@ -661,7 +661,7 @@
     <!-- Bootstrap 4 rtl -->
     <script src="https://cdn.rtlcss.com/bootstrap/v4.2.1/js/bootstrap.min.js"></script>
     <!-- Bootstrap 4 -->
-    <script src="{{ asset('cms/"plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('cms/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- ChartJS -->
     <script src="{{ asset('cms/plugins/chart.js/Chart.min.js') }}"></script>
     <!-- Sparkline -->
@@ -672,21 +672,22 @@
     <!-- jQuery Knob Chart -->
     <script src="{{ asset('cms/plugins/jquery-knob/jquery.knob.min.js') }}"></script>
     <!-- daterangepicker -->
-    <script src="{{ asset('cms/plugins/moment/moment.min.j') }}"></script>
-    <script src="{{ asset('cms/plugins/daterangepicker/daterangepicker.js') }}"></script>
+    {{-- <script src="{{ asset('cms/plugins/moment/moment.min.j') }}"></script> --}}
+    {{-- <script src="{{ asset('cms/plugins/daterangepicker/daterangepicker.js') }}"></script> --}}
     <!-- Tempusdominus Bootstrap 4 -->
-    <script src="{{ asset('cms/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+    {{-- <script src="{{ asset('cms/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script> --}}
     <!-- Summernote -->
-    <script src="{{ asset('cms/plugins/summernote/summernote-bs4.min.js') }}"></script>
+    {{-- <script src="{{ asset('cms/plugins/summernote/summernote-bs4.min.js') }}"></script> --}}
     <!-- overlayScrollbars -->
     <script src="{{ asset('cms/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('cms/dist/js/adminlte.js') }}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="{{ asset('cms/dist/js/pages/dashboard.js') }}"></script>
+    {{-- <script src="{{ asset('cms/dist/js/pages/dashboard.js') }}"></script> --}}
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('cms/dist/js/demo.js') }}"></script>
 
+    <script src="{{ asset('cms/plugins/toastr/toastr.min.js') }}"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
@@ -709,6 +710,25 @@
     </script>
     <script>
         const userID = {{ Auth::id() }}
+
+        function Toastar(message, title) {
+            toastr["success"](`${message}`, `${title}`, {
+                "closeButton": true,
+                "debug": true,
+                "newestOnTop": true,
+                "progressBar": true,
+                "positionClass": "toast-bottom-left",
+                "preventDuplicates": true,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "20000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            })
+        }
     </script>
     <script src="{{ asset('js/app.js') }}"></script>
     @yield('scripts')
