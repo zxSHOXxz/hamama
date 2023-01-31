@@ -28,7 +28,10 @@
                 <br>
                 اذا لم تصلك رسالة بإمكانك طلب رسالة اخرى
 
-                <a href="{{ route('verification.send') }}" class="btn btn-warning"> من هنا </a>
+                <a href="{{ route('verification.send') }}" onclick="event.preventDefault(); document.getElementById('form').submit()" class="btn btn-warning"> من هنا </a>
+                <form action="{{ route('verification.send') }}" id="form" method="post">
+                @csrf
+            </form>
             </p>
         </div>
     </div>
