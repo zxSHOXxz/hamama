@@ -69,13 +69,13 @@
                                             @endif
                                         </td>
                                         <td>{{ $order->statusDetails }}</td>
-                                        <td>{{ $order->captain->user->name }}</td>
+                                        <td>{{ $order->captain->user->name ?? null }}</td>
                                         <td>{{ $order->details }}</td>
                                         <td>{{ $order->updated_at }}</td>
                                         <td>{{ $order->created_at }}</td>
                                         <td>{{ QrCode::size('55')->encoding('UTF-8')->generate(
                                                 ' : اسم العميل ' .
-                                                    $order->client->user->name .
+                                                    $order->client->user->name  .
                                                     ' : السعر ' .
                                                     $order->price .
                                                     ' : رقم الزبون ' .

@@ -121,7 +121,7 @@
                                                     فشلت عملية الارسال
                                                 @endif
                                             </td>
-                                            <td>{{ $order->captain->user->name }}</td>
+                                            <td>{{ $order->captain->user->name ?? null }}</td>
                                             <td>{{ QrCode::size('75')->encoding('UTF-8')->generate(
                                                     ' : اسم العميل ' .
                                                         $order->client->user->name .

@@ -12,6 +12,7 @@ use App\Models\Sub_City;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
 class OrderController extends Controller
@@ -44,7 +45,40 @@ class OrderController extends Controller
         $export->setQuery($query);
         return Excel::download($export, 'orders.xlsx');
     }
-
+    public function clientArchive(Request $request){
+        $id = Auth::guard('client')->user()->id;
+        $orders = Order::with(['captain', 'client', 'city', 'sub_city'])->where('client_id',$id)->orderBy('id', 'desc')
+            ->when($request->get('sub_city'), function ($orders, $value) {
+                $sub_city = sub_city::where('name', 'like', "%{$value}%")->first();
+                $orders->where('sub_city_id', $sub_city->id);
+            })
+            ->when($request->get('client_name'), function ($orders, $value) {
+                $userClient = User::where('name', 'like', "%{$value}%")->first();
+                $orders->where('client_id', '=', $userClient->actor_id);
+            })
+            ->when($request->get('captain_name'), function ($orders, $value) {
+                $orders->where('captain_id', '=', $value);
+            })
+            ->when($request->get('created_at'), function ($orders, $value) {
+                $orders->whereDate('created_at', $value);
+            });
+        $orders = $orders->paginate(50);
+        $captains = Captain::all();
+        return view('dashboard.orders.indexClientArchive',compact('orders','captains'));
+    }
+    public function yesterdayOrdersReport(){
+        $id = Auth::guard('client')->user()->id;
+        $orders = Order::with(['captain', 'client', 'city', 'sub_city'])->whereBetween(
+            'created_at',
+            [
+                (new Carbon())->yesterday()->subDay()->hour(12)->minute(10),
+                (new Carbon())->yesterday()->hour(12)->minute(10),
+            ]
+        )
+            ->where('client_id', $id)
+            ->orderBy('id', 'asc')->paginate(50);
+        return view('dashboard.orders.indexClientReport',compact('orders','id'));
+    }
     public function index()
     {
         $this->authorize('viewAny', Order::class);
@@ -267,7 +301,7 @@ class OrderController extends Controller
             }
             $orders->statusDetails = $request->get('statusDetails');
             $isSaved = $orders->save();
-            return ['redirect' => back()];
+            return ['redirect' => route('orders.edit', $orders->id) ];
             if ($isSaved) {
                 return response()->json(['icon' => 'success', 'title' => "تمت الإضافة بنجاح"], 200);
             } else {

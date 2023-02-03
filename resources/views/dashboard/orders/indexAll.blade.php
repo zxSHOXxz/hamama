@@ -70,7 +70,7 @@
                                                         $order->details,
                                                 ) }}
                                             </td>
-                                            <td>{{ $order->client->user->name }}</td>
+                                            <td>{{ $order->client->user->name ?? null }}</td>
                                             <td>{{ $order->price }}</td>
                                             @php
                                                 $total = $order->city->bonuses->price + $order->price;
@@ -86,8 +86,8 @@
                                                     فشلت عملية الارسال
                                                 @endif
                                             </td>
-                                            <td>{{ $order->captain->user->name }}</td>
-                                            <td>{{ $order->details }}</td>
+                                            <td>{{ $order->captain->user->name ?? null }}</td>
+                                            <td class="text-wrap" widt='15%'>{{ $order->details }}</td>
                                             <td>{{ $order->city->bonuses->price . '+' . $order->price . '=' . $total }}</td>
                                             @canany(['update-order', 'delete-order'])
                                                 <td>

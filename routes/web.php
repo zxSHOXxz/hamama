@@ -60,6 +60,9 @@ Route::prefix('cms/admin')->middleware(['auth:admin,client', 'verified'])->group
     Route::get('/index/orders/{id}', [OrderController::class, 'indexOrders'])->name('indexOrders');
     Route::get('/index/orders_today/{id}', [OrderController::class, 'indexOrdersClientToday'])->name('indexOrdersClientToday');
     Route::get('/create/orders/{id}', [OrderController::class, 'createOrder'])->name('createOrder');
+    Route::get('/clientArchive', [OrderController::class ,'clientArchive'])->name('clientArchive');
+    Route::get('/yesterdayOrdersReport', [OrderController::class ,'yesterdayOrdersReport'])->name('yesterdayOrdersReport');
+
     Route::resource('orders', OrderController::class);
 
     Route::resource('cities', CityController::class);
@@ -79,6 +82,7 @@ Route::prefix('cms/admin')->middleware(['auth:admin,client', 'verified'])->group
     Route::post('updatePassword', [UserAuthController::class, 'updatePassword'])->name('updatePassword');
 
     Route::resource('clients', ClientController::class);
+
 
     Route::get('clients_orderes', [ClientController::class, 'indexClientHasOrders'])->name('indexClientHasOrders');
 

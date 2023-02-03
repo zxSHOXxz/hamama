@@ -118,8 +118,8 @@
                                             @endphp
                                             <tr>
                                                 <td>{{ $order->id }}.</td>
-                                                <td>{{ $order->client->user->name }}</td>
-                                                <td>{{ $order->sub_city->name }}</td>
+                                                <td>{{ $order->client->user->name ?? null }}</td>
+                                                <td>{{ $order->sub_city->name ?? null }}</td>
                                                 <td><span
                                                         class="badge @if ($i == 1) {{ 'bg-danger' }}
                                                     @elseif($i == 2)
@@ -241,9 +241,9 @@
                                     @endphp
                                     <tr>
                                         <td>{{ $order->id }}.</td>
-                                        <td>{{ $order->client->user->name }}</td>
+                                        <td>{{ $order->client->user->name ?? null }}</td>
                                         <td>
-                                            {{ $order->sub_city->name }}
+                                            {{ $order->sub_city->name ?? null }}
                                         </td>
                                         <td><span
                                                 class="badge @if ($i == 1) {{ 'bg-danger' }}

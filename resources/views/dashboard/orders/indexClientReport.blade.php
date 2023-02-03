@@ -1,8 +1,8 @@
 @extends('dashboard.master')
-@section('title', 'طلبات العميل')
+@section('title', 'تقرير طلبات امس')
 
-@section('main-title', 'عرض طلبات العميل')
-@section('sub-title', 'عرض طلبات العميل')
+@section('main-title', 'تقرير امس')
+@section('sub-title', 'تقرير امس')
 
 @section('styles')
     <style>
@@ -23,7 +23,7 @@
                                 class="btn btn-md btn-outline-success">إضافة
                                 طلب
                                 جديد</a>
-                            
+
                             <div class="card-tools">
 
                             </div>
@@ -44,10 +44,6 @@
                                         <th> اسم الكابتن </th>
                                         <th> تفاصيل الطلب </th>
                                         <th> Qr Code </th>
-
-                                        @canany(['update-order', 'delete-order'])
-                                            <th>الاعدادات</th>
-                                        @endcanany
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -59,7 +55,7 @@
                                                 $total = $order->city->bonuses->price + $order->price;
                                             @endphp
                                             <td>{{ $order->city->bonuses->price . '+' . $order->price . '=' . $total }}</td>
-                                            <td>{{ $order->city->name . '(' . $order->sub_city->name . ')' }}</td>
+                                            <td>{{ '(' . $order->sub_city->name . ')' }}</td>
                                             <td>{{ $order->customer }}</td>
                                             <td>
                                                 @if ($order->status == 'waiting')
@@ -70,7 +66,7 @@
                                                     فشلت عملية الارسال
                                                 @endif
                                             </td>
-                                            <td>{{ $order->captain->user->name ?? null }}</td>
+                                            <td>{{ $order->captain->user->name }}</td>
                                             <td>{{ $order->details }}</td>
                                             <td>{{ QrCode::size('75')->encoding('UTF-8')->generate(
                                                     ' : اسم العميل ' .
@@ -88,34 +84,6 @@
                                                         $order->details,
                                                 ) }}
                                             </td>
-                                            @canany(['update-order', 'delete-order'])
-                                                <td>
-                                                    <div class="btn group">
-                                                        @can('update-order')
-                                                            <a href="{{ route('orders.edit', $order->id) }}"
-                                                                class="btn btn-primary" title="Edit">
-                                                                تعديل
-                                                            </a>
-                                                        @endcan
-                                                        @can('show-order')
-                                                            <a href="{{ route('orders.show', $order->id) }}"
-                                                                class="btn btn-success" title="show">
-                                                                عرض
-                                                            </a>
-                                                            <a href="{{ route('order_print', $order->id) }}" class="btn btn-dark"
-                                                                title="print">
-                                                                <i class="fa-solid fa-print"></i>
-                                                            </a>
-                                                        @endcan
-                                                        @can('delete-order')
-                                                            <a href="#" onclick="performDestroy({{ $order->id }} , this)"
-                                                                class="btn btn-danger" title="Delete">
-                                                                حذف
-                                                            </a>
-                                                        @endcan
-                                                    </div>
-                                                </td>
-                                            @endcanany
 
                                         </tr>
                                     @endforeach
@@ -144,12 +112,5 @@
 @endsection
 
 @section('scripts')
-
-    <script>
-        function performDestroy(id, referance) {
-            let url = '/cms/admin/orders/' + id;
-            confirmDestroy(url, referance);
-        }
-    </script>
 
 @endsection

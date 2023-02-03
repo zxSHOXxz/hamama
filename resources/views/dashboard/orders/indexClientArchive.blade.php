@@ -1,8 +1,8 @@
 @extends('dashboard.master')
-@section('title', 'طلبات العميل')
+@section('title', 'ارشيف طلبات العميل')
 
-@section('main-title', 'عرض طلبات العميل')
-@section('sub-title', 'عرض طلبات العميل')
+@section('main-title', 'عرض ارشيف طلبات العميل')
+@section('sub-title', 'عرض ارشيف طلبات العميل')
 
 @section('styles')
     <style>
@@ -18,14 +18,41 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">الطلبات</h3>
-                            <a href="{{ route('createOrder', $id) }}" type="submit"
+                            <h3 class="card-title"> ارشيف الطلبات</h3>
+                            <a href="{{ route('createOrder', Auth::guard('client')->user()->id ) }}" type="submit"
                                 class="btn btn-md btn-outline-success">إضافة
                                 طلب
                                 جديد</a>
                             <br>
                         </div>
+                        <div class="card-tools">
+                            <form action="" method="get" class="m-3">
 
+                                <div class="row">
+                                    <div class="input-icon col-md-3 col-12">
+                                        <label for="start_date"> اسم المحافظة </label>
+                                        <input type="text" class="form-control"
+                                            placeholder="ابحث من خلال اسم المحافظة الفرعية" name='sub_city' id="sub_city"
+                                            @if (request()->sub_city) value={{ request()->sub_city }} @endif />
+                                    </div>
+                                    <div class="input-icon col-md-3 col-12">
+                                        <label for="start_date">تاريخ </label>
+                                        <input type="date" class="form-control"
+                                            placeholder="ابحث من خلال تاريخ الانشاء " name='created_at' id="created_at"
+                                            @if (request()->created_at) value={{ request()->created_at }} @endif />
+                                    </div>
+                                </div>
+                                    <div class="row">
+
+                                        <div class="col mt-4">
+                                            <button class="btn btn-danger btn-md submit" type="submit">Filter</button>
+                                            <a href="{{ route('clientArchive') }}" type="button"
+                                                class="btn btn-info">إنهاء
+                                                البحث </a>
+                                        </div>
+                                    </div>
+                            </form>
+                        </div>
                         <!-- /.card-header -->
                         <div class="card-body table-responsive p-0">
                             <table class="table table-hover table-bordered table-striped text-nowrap text-center">
@@ -39,8 +66,7 @@
                                         <th> تفاصيل الطلب </th>
                                         <th>موعد ارسال الطلب</th>
                                         <th> Qr Code </th>
-
-                                        @canany(['update-order', 'delete-order'])
+                                        @canany(['show-order'])
                                             <th>الاعدادات</th>
                                         @endcanany
                                     </tr>
@@ -55,7 +81,7 @@
                                                 {{ $order->city->bonuses->price . '+' . $order->price . '=' . $total }}</td>
                                             <td class="text-wrap" widt='10%'>
                                                 {{ $order->city->name . '(' . $order->sub_city->name . ')' }}</td>
-                                            <td class="text-wrap" widt='10%'>{{ $order->customer ?? null}}</td>
+                                            <td class="text-wrap" widt='10%'>{{ $order->customer }}</td>
                                             <td class="text-wrap" widt='10%'>
                                                 @if ($order->status == 'waiting')
                                                     جار الارسال
@@ -65,8 +91,8 @@
                                                     فشلت عملية الارسال
                                                 @endif
                                             </td>
-                                            <td class="text-wrap" widt='10%'>{{ $order->captain->user->name ?? null }}</td>
-                                            <td class="text-wrap" widt='15%'>{{ $order->details ?? null }}</td>
+                                            <td class="text-wrap" widt='10%'>{{ $order->captain->user->name ?? null}}</td>
+                                            <td class="text-wrap" widt='15%'>{{ $order->details }}</td>
                                             <td class="text-wrap" widt='10%'>
                                                 <div class="badge badge-danger">
                                                     @if (
@@ -95,35 +121,16 @@
                                                             $order->details,
                                                     ) }}
                                             </td>
-                                            @canany(['update-order', 'delete-order'])
-                                                <td widt='15%'>
-                                                    <div class="btn group">
-                                                        @can('update-order')
-                                                            <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-primary"
-                                                                title="تعديل">
-                                                                <i class="fa-solid fa-pen-to-square"></i>
-                                                            </a>
-                                                        @endcan
-                                                        @can('show-order')
-                                                            <a href="{{ route('orders.show', $order->id) }}" class="btn btn-success"
-                                                                title="عرض">
-                                                                <i class="fa-solid fa-eye"></i>
-                                                            </a>
-                                                            <a href="{{ route('order_print', $order->id) }}" class="btn btn-dark"
-                                                                title="طباعة">
-                                                                <i class="fa-solid fa-print"></i>
-                                                            </a>
-                                                        @endcan
-                                                        @can('delete-order')
-                                                            <a href="#" onclick="performDestroy({{ $order->id }} , this)"
-                                                                class="btn btn-danger" title="حذف">
-                                                                <i class="fa-solid fa-trash"></i>
-                                                            </a>
-                                                        @endcan
+                                            @can('show-order')
+                                            <td widt='15%'>
+                                                <div class="btn group">
+                                                        <a href="{{ route('orders.show', $order->id) }}" class="btn btn-success"
+                                                            title="عرض">
+                                                            <i class="fa-solid fa-eye"></i>
+                                                        </a>
                                                     </div>
                                                 </td>
-                                            @endcanany
-
+                                                @endcan
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -148,10 +155,7 @@
 @section('scripts')
 
     <script>
-        function performDestroy(id, referance) {
-            let url = '/cms/admin/orders/' + id;
-            confirmDestroy(url, referance);
-        }
+
     </script>
 
 @endsection
