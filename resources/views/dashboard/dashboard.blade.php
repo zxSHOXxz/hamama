@@ -1,6 +1,6 @@
 @extends('dashboard.master')
 
-@section('title', 'المحافظات الفرعية')
+@section('title', 'الرئيسية')
 
 @section('styles')
     <style>

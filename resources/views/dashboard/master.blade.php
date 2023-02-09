@@ -99,7 +99,7 @@
         }
 
         .dropdown-menu {
-            min-width: 41rem !important;
+            min-width: 21rem !important;
         }
     </style>
     @yield('styles')
@@ -107,7 +107,6 @@
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <!-- Left navbar links -->
@@ -159,9 +158,9 @@
                                 class="badge badge-warning navbar-badge ">{{ $user->unreadNotifications()->count() }}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                            @foreach ($user->notifications()->take(5)->get() as $notification)
+                            @foreach ($user->notifications()->unread()->take(5)->get() as $notification)
                                 <a href="{{ $notification->data['url'] }}?notification_id={{ $notification->id }}"
-                                    class="dropdown-item @if ($notification->read()) text-sm bg-dark @endif">
+                                    class="dropdown-item text-wrap @if ($notification->read()) text-sm bg-dark @endif">
                                     <i class="fas fa-envelope mr-2"></i>
                                     {{ $notification->data['body'] }}
                                     <span class="float-right text-muted text-sm">
@@ -169,6 +168,11 @@
                                     </span>
                                 </a>
                             @endforeach
+                            <a href="{{ route('show_notifictaion') }}"
+                                class="text-center d-flex justify-content-center"> عرض
+                                كل
+                                الاشعارات
+                            </a>
                         </div>
                     </li>
                 </ul>
@@ -191,22 +195,12 @@
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
                         @if (Auth::guard('admin')->id())
-                            {{-- @if (auth('admin')->user()->user->images != '') --}}
                             <img class="brand-image img-circle elevation-3"
                                 src="{{ asset('storage/images/admin/' . auth('admin')->user()->user->image) }}"alt="User Image">
-                            {{-- @else --}}
-                            {{-- <img src="{{ asset('cms/dist/img/user2-160x160.jpg') }}"
-                                    class="img-circle elevation-2" alt="User Image">
-                            @endif --}}
                         @endif
                         @if (Auth::guard('client')->id())
-                            {{-- @if (auth('client')->user()->user->images != '') --}}
                             <img class="brand-image img-circle elevation-3"
                                 src="{{ asset('storage/images/admin/' . auth('client')->user()->user->image) }}"alt="User Image">
-                            {{-- @else
-                                <img src="{{ asset('cms/dist/img/user2-160x160.jpg') }}"
-                                    class="img-circle elevation-2" alt="User Image">
-                            @endif --}}
                         @endif
                     </div>
                     <div class="info">
@@ -570,50 +564,49 @@
                                                     <p> عرض ارشيف الطلبات </p>
                                                 </a>
                                             </li>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="{{ route('yesterdayOrdersReport') }}" class="nav-link">
-                                                    <i class="far fa-circle nav-icon"></i>
-                                                    <p> عرض تقرير طلباتك امس </p>
-                                                </a>
-                                            </li>
-
-                                        @endcan
-                                        @can('create-order')
-                                            <li class="nav-item">
-                                                <a href="{{ route('createOrder', ['id' => Auth::id()]) }}" class="nav-link">
-                                                    <i class="far fa-circle nav-icon"></i>
-                                                    <p> إضافة طلب جديد </p>
-                                                </a>
-                                            </li>
-                                        @endcan
-                                    @endif
-                                </ul>
-                            </li>
-                        @endcanany
-                        <li class="nav-header">الاعدادات</li>
-                        <li class="nav-item">
-                            <a href="{{ route('editProfile') }}" class="nav-link">
-                                <i class="fa-solid fa-user-pen"></i>
-                                <p>تعديل الملف الشخصي</p>
-                            </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('yesterdayOrdersReport') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p> عرض تقرير طلباتك امس </p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('create-order')
+                                <li class="nav-item">
+                                    <a href="{{ route('createOrder', ['id' => Auth::id()]) }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p> إضافة طلب جديد </p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @endif
+                        </ul>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ route('editPassword') }}" class="nav-link">
-                                <i class="fa-solid fa-key"></i>
-                                <p>تعديل كلمة المرور</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('logout') }}" class="nav-link"
-                                onclick="event.preventDefault(); document.getElementById('logout').submit()">
-                                <form action="{{ route('logout') }}" id="logout" method="post">
-                                    @csrf
-                                </form>
-                                <i class="fa-solid fa-right-from-bracket"></i>
-                                <p>تسجيل الخروج</p>
-                            </a>
-                        </li>
+                    @endcanany
+                    <li class="nav-header">الاعدادات</li>
+                    <li class="nav-item">
+                        <a href="{{ route('editProfile') }}" class="nav-link">
+                            <i class="fa-solid fa-user-pen"></i>
+                            <p>تعديل الملف الشخصي</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('editPassword') }}" class="nav-link">
+                            <i class="fa-solid fa-key"></i>
+                            <p>تعديل كلمة المرور</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('logout') }}" class="nav-link"
+                            onclick="event.preventDefault(); document.getElementById('logout').submit()">
+                            <form action="{{ route('logout') }}" id="logout" method="post">
+                                @csrf
+                            </form>
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            <p>تسجيل الخروج</p>
+                        </a>
+                    </li>
 
                     </ul>
                 </nav>
@@ -685,23 +678,15 @@
     <script src="{{ asset('cms/plugins/jqvmap/maps/jquery.vmap.world.js') }}"></script>
     <!-- jQuery Knob Chart -->
     <script src="{{ asset('cms/plugins/jquery-knob/jquery.knob.min.js') }}"></script>
-    <!-- daterangepicker -->
-    {{-- <script src="{{ asset('cms/plugins/moment/moment.min.j') }}"></script> --}}
-    {{-- <script src="{{ asset('cms/plugins/daterangepicker/daterangepicker.js') }}"></script> --}}
-    <!-- Tempusdominus Bootstrap 4 -->
-    {{-- <script src="{{ asset('cms/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script> --}}
-    <!-- Summernote -->
-    {{-- <script src="{{ asset('cms/plugins/summernote/summernote-bs4.min.js') }}"></script> --}}
-    <!-- overlayScrollbars -->
+
     <script src="{{ asset('cms/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-    <!-- AdminLTE App -->
+
     <script src="{{ asset('cms/dist/js/adminlte.js') }}"></script>
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    {{-- <script src="{{ asset('cms/dist/js/pages/dashboard.js') }}"></script> --}}
-    <!-- AdminLTE for demo purposes -->
+
     <script src="{{ asset('cms/dist/js/demo.js') }}"></script>
 
     <script src="{{ asset('cms/plugins/toastr/toastr.min.js') }}"></script>
+
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 

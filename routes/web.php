@@ -6,6 +6,7 @@ use App\Http\Controllers\CaptainController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\EnvelopesController;
+use App\Http\Controllers\NotifictaionController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
@@ -60,8 +61,8 @@ Route::prefix('cms/admin')->middleware(['auth:admin,client', 'verified'])->group
     Route::get('/index/orders/{id}', [OrderController::class, 'indexOrders'])->name('indexOrders');
     Route::get('/index/orders_today/{id}', [OrderController::class, 'indexOrdersClientToday'])->name('indexOrdersClientToday');
     Route::get('/create/orders/{id}', [OrderController::class, 'createOrder'])->name('createOrder');
-    Route::get('/clientArchive', [OrderController::class ,'clientArchive'])->name('clientArchive');
-    Route::get('/yesterdayOrdersReport', [OrderController::class ,'yesterdayOrdersReport'])->name('yesterdayOrdersReport');
+    Route::get('/clientArchive', [OrderController::class, 'clientArchive'])->name('clientArchive');
+    Route::get('/yesterdayOrdersReport', [OrderController::class, 'yesterdayOrdersReport'])->name('yesterdayOrdersReport');
 
     Route::resource('orders', OrderController::class);
 
@@ -76,13 +77,14 @@ Route::prefix('cms/admin')->middleware(['auth:admin,client', 'verified'])->group
 
     Route::get('editProfile', [UserAuthController::class, 'editProfile'])->name('editProfile');
 
+    Route::get('show_notifictaion', [NotifictaionController::class, 'index'])->name('show_notifictaion');
+
     Route::post('update_profile', [UserAuthController::class, 'updateProfile'])->name('update_profile');
 
     Route::get('editPassword', [UserAuthController::class, 'editPassword'])->name('editPassword');
     Route::post('updatePassword', [UserAuthController::class, 'updatePassword'])->name('updatePassword');
 
     Route::resource('clients', ClientController::class);
-
 
     Route::get('clients_orderes', [ClientController::class, 'indexClientHasOrders'])->name('indexClientHasOrders');
 
